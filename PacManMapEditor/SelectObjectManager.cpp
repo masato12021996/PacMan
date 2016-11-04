@@ -11,7 +11,6 @@ const int MARGIN_BUTTON = 64;
 
 const int BUTTON_POS_X[ Stage::OBJECT_NAME_MAX ] = {
 	MARGIN_BUTTON * 0,
-	MARGIN_BUTTON * 1,
 	MARGIN_BUTTON * 0,
 	MARGIN_BUTTON * 1,
 	MARGIN_BUTTON * 0,
@@ -23,7 +22,6 @@ const int BUTTON_POS_X[ Stage::OBJECT_NAME_MAX ] = {
 
 const int BUTTON_POS_Y[ Stage::OBJECT_NAME_MAX ] = {
 	MARGIN_BUTTON * 0,
-	MARGIN_BUTTON * 0,
 	MARGIN_BUTTON * 1,
 	MARGIN_BUTTON * 1,
 	MARGIN_BUTTON * 2,
@@ -34,7 +32,7 @@ const int BUTTON_POS_Y[ Stage::OBJECT_NAME_MAX ] = {
 };
 
 SelectObjectManager::SelectObjectManager( ) {
-	_select_object = Stage::OBJECT_NAME_NONE;
+	_select_object = Stage::OBJECT_NAME_PLAYER;
 	for ( int i = 0; i < BUTTON_NUM; i++ ) {
 		int x = INDEX_POS_X + BUTTON_POS_X[ i ];
 		int y = INDEX_POS_Y + BUTTON_POS_Y[ i ];
@@ -54,11 +52,11 @@ SelectObjectManager::~SelectObjectManager( ) {
 }
 
 void SelectObjectManager::update( ) {
-	for ( int i = 0; i < BUTTON_NUM; i++ ) {
-		if ( _button[ i ]->onClick( ) ) {
-			_button[ _select_object ]->setFillFlag( false );
+	for ( int i = 1; i < BUTTON_NUM + 1; i++ ) {
+		if ( _button[ i - 1 ]->onClick( ) ) {
+			_button[ _select_object - 1 ]->setFillFlag( false );
 			_select_object = ( Stage::OBJECT_NAME )i;
-			_button[ _select_object ]->setFillFlag( true );
+			_button[ _select_object - 1 ]->setFillFlag( true );
 		}
 	}
 }
@@ -69,4 +67,8 @@ int SelectObjectManager::getButtonNum( ) {
 
 ButtonPtr SelectObjectManager::getButton( int id ) {
 	return _button[ id ];
+}
+
+Stage::OBJECT_NAME SelectObjectManager::getSelectObject( ) const {
+	return _select_object;
 }

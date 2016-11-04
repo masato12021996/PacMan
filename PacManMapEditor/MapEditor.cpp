@@ -16,12 +16,18 @@ MapEditor::MapEditor( ) {
 	for ( int i = 0 ; i < MAP_SIZE_Y; i++ ) {
 		for ( int j = 0; j < MAP_SIZE_X; j++ ) {
 			_mesh_map[ i ][ j ] = 0;
+			_object_map[ i ][ j ] = 0;
 		}
 	}
-	_object_list[ Stage::OBJECT_NAME_NONE ]		= { "NONE", 1, 1 };
-	_object_list[ Stage::OBJECT_NAME_WALL ]		= { "WALL", 2, 2 };
-	_object_list[ Stage::OBJECT_NAME_PLAYER ]	= { "PLAYER", 1, 1 };
-	_object_list[ Stage::OBJECT_NAME_WALL ]		= { "ENEMY", 1, 1 };
+	_object_list[ Stage::OBJECT_NAME_NONE ]		= { Stage::OBJECT_NAME_NONE, 1, 1 };
+	_object_list[ Stage::OBJECT_NAME_WALL ]		= { Stage::OBJECT_NAME_WALL, 2, 2 };
+	_object_list[ Stage::OBJECT_NAME_PLAYER ]	= { Stage::OBJECT_NAME_PLAYER, 1, 1 };
+	_object_list[ Stage::OBJECT_NAME_ENEMY_BLUE ]		= { Stage::OBJECT_NAME_ENEMY_BLUE, 1, 1 };
+	_object_list[ Stage::OBJECT_NAME_ENEMY_RED ]		= { Stage::OBJECT_NAME_ENEMY_RED, 1, 1 };
+	_object_list[ Stage::OBJECT_NAME_ENEMY_ORANGE ]		= { Stage::OBJECT_NAME_ENEMY_ORANGE, 1, 1 };
+	_object_list[ Stage::OBJECT_NAME_ENEMY_PINC ]		= { Stage::OBJECT_NAME_ENEMY_PINC, 1, 1 };
+	_object_list[ Stage::OBJECT_NAME_BATE ]		= { Stage::OBJECT_NAME_BATE, 1, 1 };
+	_object_list[ Stage::OBJECT_NAME_POWER_BATE ]		= { Stage::OBJECT_NAME_POWER_BATE, 1, 1 };
 	_select_object = _object_list[ Stage::OBJECT_NAME_NONE ];
 }
 
@@ -32,6 +38,7 @@ void MapEditor::update( ) {
 	_trems_manager->update( );
 	_select_manager->update( );
 	meshMapUpdate( );
+	putObjectUpdate( );
 }
 
 void MapEditor::meshMapUpdate( ) {
@@ -53,8 +60,30 @@ void MapEditor::meshMapUpdate( ) {
 	}
 }
 
+void MapEditor::putObjectUpdate( ) {
+	int id =  _select_manager->getSelectObject( );
+	_select_object = _object_list[ id ];
+	Mouse mouse;
+	if ( mouse.isInputButton( Mouse::INPUT_LEFT ) ) {
+		Vector mpos = mouse.getPoint( );
+		if ( 0 < mpos.x && mpos.x < MAP_SIZE_X * CHIP_SIZE && 0 < mpos.y && mpos.y < MAP_SIZE_Y * CHIP_SIZE ) {
+			for ( int i = 0; i < _select_object.size_y; i++ ) {
+				for ( int j = 0; j < _select_object.size_x; j++ ) {
+					int x = ( int )mpos.x / CHIP_SIZE + j;
+					int y = ( int )mpos.y / CHIP_SIZE + i;
+					_object_map[ y ][ x ] = _select_object.name;
+				}
+			}
+		}
+	}
+}
+
 int MapEditor::getMeshMap( int x, int y ) const {
 	return _mesh_map[ y ][ x ];
+}
+
+int MapEditor::getObjectMap( int x, int y ) const {
+	return _object_map[ y ][ x ];
 }
 
 Stage::CLEAR_TREMS MapEditor::getClearTrems( ) const{

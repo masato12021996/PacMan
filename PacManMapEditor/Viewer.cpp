@@ -13,9 +13,8 @@ enum GRAPH_ID {
 	GRAPH_ID_BACK_GROUND,
 };
 
-const int OBJECT_BUTTON_LIST[ 9 ] {
+const int OBJECT_BUTTON_LIST[ 8 ] {
 	GRAPH_ID_PACMAN,
-	-1,
 	GRAPH_ID_ENEMY,
 	GRAPH_ID_ENEMY,
 	GRAPH_ID_ENEMY,
@@ -25,28 +24,26 @@ const int OBJECT_BUTTON_LIST[ 9 ] {
 	GRAPH_ID_BACK_GROUND
 };
 
-const int OBJECT_BUTTON_SIZE = 32;
+const int OBJECT_SIZE = 32;
 const int OBJECT_GRAPH_OFFSET = 4;
 
-const int OBJECT_GRAPH_X[ 9 ] = {
+const int OBJECT_GRAPH_X[ 8 ] = {
 	OBJECT_GRAPH_OFFSET,//PACMAN
-	OBJECT_GRAPH_OFFSET,
 	OBJECT_GRAPH_OFFSET,//ENEMY
 	OBJECT_GRAPH_OFFSET,//ENEMY
 	OBJECT_GRAPH_OFFSET,//ENEMY
 	OBJECT_GRAPH_OFFSET,//ENEMY
-	( OBJECT_BUTTON_SIZE + OBJECT_GRAPH_OFFSET ) * 8,//エサ
-	( OBJECT_BUTTON_SIZE + OBJECT_GRAPH_OFFSET ) * 9,//パワーエサ
+	( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 8,//エサ
+	( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 9,//パワーエサ
 	0
 };
 
-const int OBJECT_GRAPH_Y[ 9 ] = {
+const int OBJECT_GRAPH_Y[ 8 ] = {
 	OBJECT_GRAPH_OFFSET,//PACMAN
-	0,
-	OBJECT_BUTTON_SIZE * 0,//ENEMY
-	( OBJECT_BUTTON_SIZE + OBJECT_GRAPH_OFFSET ) * 1,//ENEMY
-	( OBJECT_BUTTON_SIZE + OBJECT_GRAPH_OFFSET ) * 2,//ENEMY
-	( OBJECT_BUTTON_SIZE + OBJECT_GRAPH_OFFSET ) * 3,//ENEMY
+	OBJECT_SIZE * 0,//ENEMY
+	( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 1,//ENEMY
+	( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 2,//ENEMY
+	( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 3,//ENEMY
 	OBJECT_GRAPH_OFFSET,
 	OBJECT_GRAPH_OFFSET,
 	0
@@ -73,15 +70,80 @@ void Viewer::update( ) {
 	drawTremsButton( );
 	drawObjectButton( );
 	drawMatrix( );
+	drawObject( );
 }
 
 void Viewer::drawMatrix( ) {
 	DrawerPtr drawer = Drawer::getTask( );
 	MapEditorPtr map_editor = MapEditor::getTask( );
+	bool first = true;
 	for ( int i = 0; i < 24; i++ ) {
 		for ( int j = 0; j < 30; j++ ) {
 			bool flag = map_editor->getMeshMap( j, i ) == 1;
-			drawer->drawBox( j * 32, i * 32, 32, flag );
+			if ( flag && first ) {
+
+			}
+			drawer->drawBox( j * OBJECT_SIZE, i * OBJECT_SIZE, OBJECT_SIZE, flag );
+		}
+	}
+}
+
+void Viewer::drawObject( ) {
+	DrawerPtr drawer = Drawer::getTask( );
+	MapEditorPtr map_editor = MapEditor::getTask( );
+	for ( int i = 0; i < 24; i++ ) {
+		for ( int j = 0; j < 30; j++ ) {
+			int id = map_editor->getObjectMap( j, i );
+			Drawer::Sprite sprite;
+			sprite.x = j * OBJECT_SIZE;
+			sprite.y = i * OBJECT_SIZE;
+			sprite.width = OBJECT_SIZE;
+			sprite.height = OBJECT_SIZE;
+			sprite.trans_flag = true;
+			bool can_draw = true;
+			switch ( id ) {
+			case Stage::OBJECT_NAME_PLAYER:
+				sprite.image = GRAPH_ID_PACMAN;
+				sprite.tx = 0;
+				sprite.ty = 0;
+				break;
+			case Stage::OBJECT_NAME_ENEMY_RED:
+				sprite.image = GRAPH_ID_ENEMY;
+				sprite.tx = 0;
+				sprite.ty = 0;
+				break;
+			case Stage::OBJECT_NAME_ENEMY_PINC:
+				sprite.image = GRAPH_ID_ENEMY;
+				sprite.tx = 0;
+				sprite.ty = ( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 1;
+				break;
+			case Stage::OBJECT_NAME_ENEMY_BLUE:
+				sprite.image = GRAPH_ID_ENEMY;
+				sprite.tx = 0;
+				sprite.ty = ( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 2;
+				break;
+			case Stage::OBJECT_NAME_ENEMY_ORANGE:
+				sprite.image = GRAPH_ID_ENEMY;
+				sprite.tx = 0;
+				sprite.ty = ( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 3;
+				break;
+			case Stage::OBJECT_NAME_BATE:
+				sprite.image = GRAPH_ID_TARGET;
+				sprite.tx = ( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 8;
+				sprite.ty = OBJECT_GRAPH_OFFSET;
+				break;
+			case Stage::OBJECT_NAME_POWER_BATE:
+				sprite.image = GRAPH_ID_TARGET;
+				sprite.tx = ( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 9;
+				sprite.ty = OBJECT_GRAPH_OFFSET;
+				break;
+			default:
+				can_draw = false;
+				break;
+			}
+			if ( can_draw ) {
+				drawer->setSprite( sprite );
+			}
 		}
 	}
 }
@@ -114,31 +176,30 @@ void Viewer::drawObjectButton( ) {
 		int height = button->getButtonHeight( );
 		bool fill_flag = button->getFillFlag( );
 		int image = OBJECT_BUTTON_LIST[ i ];
-		if ( image != -1 ) {
-			Drawer::Sprite sprite;
-			if ( image == GRAPH_ID_BACK_GROUND ) {
-				for ( int i = 0; i < 4; i++ ) {
-					sprite.x = px + OBJECT_BUTTON_SIZE * ( i % 2 );
-					sprite.y = py + OBJECT_BUTTON_SIZE * ( i / 2 );
-					sprite.tx = OBJECT_BUTTON_SIZE * ( 4 - 1 - i );
-					sprite.ty = 0;
-					sprite.width = OBJECT_BUTTON_SIZE;
-					sprite.height = OBJECT_BUTTON_SIZE;
-					sprite.image = image;
-					sprite.trans_flag = true;
-					drawer->setSprite( sprite );
-				}
-			} else {
-				sprite.x = px;
-				sprite.y = py;
-				sprite.tx = OBJECT_GRAPH_X[ i ];
-				sprite.ty = OBJECT_GRAPH_Y[ i ];
-				sprite.width = width;
-				sprite.height = height;
+		
+		Drawer::Sprite sprite;
+		if ( image == GRAPH_ID_BACK_GROUND ) {
+			for ( int i = 0; i < 4; i++ ) {
+				sprite.x = px + OBJECT_SIZE * ( i % 2 );
+				sprite.y = py + OBJECT_SIZE * ( i / 2 );
+				sprite.tx = OBJECT_SIZE * ( 4 - 1 - i );
+				sprite.ty = 0;
+				sprite.width = OBJECT_SIZE;
+				sprite.height = OBJECT_SIZE;
 				sprite.image = image;
 				sprite.trans_flag = true;
 				drawer->setSprite( sprite );
 			}
+		} else {
+			sprite.x = px;
+			sprite.y = py;
+			sprite.tx = OBJECT_GRAPH_X[ i ];
+			sprite.ty = OBJECT_GRAPH_Y[ i ];
+			sprite.width = width;
+			sprite.height = height;
+			sprite.image = image;
+			sprite.trans_flag = true;
+			drawer->setSprite( sprite );
 		}
 		drawer->drawBox( px, py, width, height, fill_flag );
 	}

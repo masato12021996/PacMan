@@ -15,6 +15,7 @@ public:
 	void update( );
 private:
 	void drawMatrix( );
+	void drawObject( );
 	void drawTremsButton( );
 	void drawObjectButton( );
 };
