@@ -8,7 +8,50 @@
 
 enum GRAPH_ID {
 	GRAPH_ID_PACMAN,
+	GRAPH_ID_ENEMY,
+	GRAPH_ID_TARGET,
+	GRAPH_ID_BACK_GROUND,
 };
+
+const int OBJECT_BUTTON_LIST[ 9 ] {
+	GRAPH_ID_PACMAN,
+	-1,
+	GRAPH_ID_ENEMY,
+	GRAPH_ID_ENEMY,
+	GRAPH_ID_ENEMY,
+	GRAPH_ID_ENEMY,
+	GRAPH_ID_TARGET,
+	GRAPH_ID_TARGET,
+	GRAPH_ID_BACK_GROUND
+};
+
+const int OBJECT_BUTTON_SIZE = 32;
+const int OBJECT_GRAPH_OFFSET = 4;
+
+const int OBJECT_GRAPH_X[ 9 ] = {
+	OBJECT_GRAPH_OFFSET,//PACMAN
+	OBJECT_GRAPH_OFFSET,
+	OBJECT_GRAPH_OFFSET,//ENEMY
+	OBJECT_GRAPH_OFFSET,//ENEMY
+	OBJECT_GRAPH_OFFSET,//ENEMY
+	OBJECT_GRAPH_OFFSET,//ENEMY
+	( OBJECT_BUTTON_SIZE + OBJECT_GRAPH_OFFSET ) * 8,//エサ
+	( OBJECT_BUTTON_SIZE + OBJECT_GRAPH_OFFSET ) * 9,//パワーエサ
+	0
+};
+
+const int OBJECT_GRAPH_Y[ 9 ] = {
+	OBJECT_GRAPH_OFFSET,//PACMAN
+	0,
+	OBJECT_BUTTON_SIZE * 0,//ENEMY
+	( OBJECT_BUTTON_SIZE + OBJECT_GRAPH_OFFSET ) * 1,//ENEMY
+	( OBJECT_BUTTON_SIZE + OBJECT_GRAPH_OFFSET ) * 2,//ENEMY
+	( OBJECT_BUTTON_SIZE + OBJECT_GRAPH_OFFSET ) * 3,//ENEMY
+	OBJECT_GRAPH_OFFSET,
+	OBJECT_GRAPH_OFFSET,
+	0
+};
+
 
 ViewerPtr Viewer::getTask( ) {
 	ApplicationPtr application = Application::getInstance( );
@@ -18,6 +61,9 @@ ViewerPtr Viewer::getTask( ) {
 Viewer::Viewer( ) {
 	DrawerPtr drawer = Drawer::getTask( );
 	drawer->loadGraph( GRAPH_ID_PACMAN, "../Resource/Graph/Player.png" );
+	drawer->loadGraph( GRAPH_ID_ENEMY, "../Resource/Graph/Enemy.png" );
+	drawer->loadGraph( GRAPH_ID_TARGET, "../Resource/Graph/Target.png" );
+	drawer->loadGraph( GRAPH_ID_BACK_GROUND, "../Resource/Graph/BackGround.png" );
 }
 
 Viewer::~Viewer( ) {
@@ -67,16 +113,33 @@ void Viewer::drawObjectButton( ) {
 		int width = button->getButtonWidth( );
 		int height = button->getButtonHeight( );
 		bool fill_flag = button->getFillFlag( );
-		Drawer::Sprite sprite;
-		sprite.x = px;
-		sprite.y = py;
-		sprite.tx = 4;
-		sprite.ty = 0;
-		sprite.width = width;
-		sprite.height = height;
-		sprite.image = GRAPH_ID_PACMAN;
-		sprite.trans_flag = true;
-		drawer->setSprite( sprite );
+		int image = OBJECT_BUTTON_LIST[ i ];
+		if ( image != -1 ) {
+			Drawer::Sprite sprite;
+			if ( image == GRAPH_ID_BACK_GROUND ) {
+				for ( int i = 0; i < 4; i++ ) {
+					sprite.x = px + OBJECT_BUTTON_SIZE * ( i % 2 );
+					sprite.y = py + OBJECT_BUTTON_SIZE * ( i / 2 );
+					sprite.tx = OBJECT_BUTTON_SIZE * ( 4 - 1 - i );
+					sprite.ty = 0;
+					sprite.width = OBJECT_BUTTON_SIZE;
+					sprite.height = OBJECT_BUTTON_SIZE;
+					sprite.image = image;
+					sprite.trans_flag = true;
+					drawer->setSprite( sprite );
+				}
+			} else {
+				sprite.x = px;
+				sprite.y = py;
+				sprite.tx = OBJECT_GRAPH_X[ i ];
+				sprite.ty = OBJECT_GRAPH_Y[ i ];
+				sprite.width = width;
+				sprite.height = height;
+				sprite.image = image;
+				sprite.trans_flag = true;
+				drawer->setSprite( sprite );
+			}
+		}
 		drawer->drawBox( px, py, width, height, fill_flag );
 	}
 }
