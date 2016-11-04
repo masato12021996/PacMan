@@ -3,6 +3,7 @@
 #include "Stage.h"
 #include "Mouse.h"
 #include "TremsManager.h"
+#include "SelectObjectManager.h"
 
 MapEditorPtr MapEditor::getTask( ) {
 	ApplicationPtr application = Application::getInstance( );
@@ -11,6 +12,7 @@ MapEditorPtr MapEditor::getTask( ) {
 
 MapEditor::MapEditor( ) {
 	_trems_manager = TremsManagerPtr( new TremsManager );
+	_select_manager = SelectObjectManagerPtr( new SelectObjectManager );
 	for ( int i = 0 ; i < MAP_SIZE_Y; i++ ) {
 		for ( int j = 0; j < MAP_SIZE_X; j++ ) {
 			_mesh_map[ i ][ j ] = 0;
@@ -28,6 +30,7 @@ MapEditor::~MapEditor( ) {
 
 void MapEditor::update( ) {
 	_trems_manager->update( );
+	_select_manager->update( );
 	meshMapUpdate( );
 }
 
@@ -60,4 +63,8 @@ Stage::CLEAR_TREMS MapEditor::getClearTrems( ) const{
 
 TremsManagerPtr MapEditor::getTremsManager( ) const {
 	return _trems_manager;
+}
+
+SelectObjectManagerPtr MapEditor::getSelectObjectManager( ) const {
+	return _select_manager;
 }

@@ -14,18 +14,30 @@ public:
 	struct Sprite {
 		int x;
 		int y;
+		int tx;
+		int ty;
+		int width;
+		int height;
 		int image;
 		bool trans_flag;
 		Sprite( ) {
 			x = 0;
 			y = 0;
+			tx = 0;
+			ty = 0;
+			width = 0;
+			height = 0;
 			image = 0;
 			trans_flag = true;
 		};
 		//‰æ‘œ‚Ì•`‰æİ’è
-		Sprite( int _x, int _y, int _image, bool _trans_flag = true ) {
+		Sprite( int _x, int _y, int _tx, int _ty, int _width, int _height, int _image, bool _trans_flag = true ) {
 			x = _x;
 			y = _y;
+			tx = _tx;
+			ty = _ty;
+			width = _width;
+			height = _height;
 			image = _image;
 			trans_flag = _trans_flag;
 		};

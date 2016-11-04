@@ -53,8 +53,11 @@ void Drawer::drawSprite( ) {
 		if ( image < 0 ) {
 			assert( "NOT_LOADED_GRAPH" );
 		}
-
-		DrawGraph( sprite.x, sprite.y, image, sprite.trans_flag );
+		if ( sprite.height == 0 && sprite.width == 0 ) {
+			DrawGraph( sprite.x, sprite.y, image, sprite.trans_flag );
+		} else {
+			DrawRectGraph( sprite.x, sprite.y, sprite.tx, sprite.ty, sprite.width, sprite.height, image, sprite.trans_flag, false );
+		}
 		it++;
 	}
 	if ( !_sprite.empty( ) ) {

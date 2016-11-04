@@ -7,6 +7,7 @@
 PTR( MapEditor );
 PTR( Stage );
 PTR( TremsManager );
+PTR( SelectObjectManager );
 
 class MapEditor : public Task {
 public:
@@ -25,6 +26,7 @@ public:
 	void update( );
 	int getMeshMap( int x, int y ) const;
 	TremsManagerPtr getTremsManager( ) const;
+	SelectObjectManagerPtr getSelectObjectManager( ) const;
 private:
 	void meshMapUpdate( );
 	Stage::CLEAR_TREMS getClearTrems( ) const;
@@ -38,5 +40,6 @@ private:
 	int _mesh_map[ MAP_SIZE_Y ][ MAP_SIZE_X ];
 
 	TremsManagerPtr _trems_manager;
+	SelectObjectManagerPtr _select_manager;
 };
 

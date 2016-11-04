@@ -16,5 +16,6 @@ public:
 private:
 	void drawMatrix( );
 	void drawTremsButton( );
+	void drawObjectButton( );
 };
 
