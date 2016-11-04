@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pac-ManLib", "Pac-ManLib\Pac-ManLib.vcxproj", "{CCF65C0F-167E-4E9C-AF51-24CDD789A94D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Framework", "Framework\Framework.vcxproj", "{090086CB-7BC2-4E0E-9633-85CC8BB55A87}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PacManMapEditor", "PacManMapEditor\PacManMapEditor.vcxproj", "{C8897B3A-5345-4EE7-A486-F3580A669276}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PacManGame", "PacManGame\PacManGame.vcxproj", "{DAF13AA4-B961-4C0F-837D-632F09F5C7DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCF65C0F-167E-4E9C-AF51-24CDD789A94D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CCF65C0F-167E-4E9C-AF51-24CDD789A94D}.Debug|Win32.Build.0 = Debug|Win32
+		{CCF65C0F-167E-4E9C-AF51-24CDD789A94D}.Release|Win32.ActiveCfg = Release|Win32
+		{CCF65C0F-167E-4E9C-AF51-24CDD789A94D}.Release|Win32.Build.0 = Release|Win32
+		{090086CB-7BC2-4E0E-9633-85CC8BB55A87}.Debug|Win32.ActiveCfg = Debug|Win32
+		{090086CB-7BC2-4E0E-9633-85CC8BB55A87}.Debug|Win32.Build.0 = Debug|Win32
+		{090086CB-7BC2-4E0E-9633-85CC8BB55A87}.Release|Win32.ActiveCfg = Release|Win32
+		{090086CB-7BC2-4E0E-9633-85CC8BB55A87}.Release|Win32.Build.0 = Release|Win32
+		{C8897B3A-5345-4EE7-A486-F3580A669276}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C8897B3A-5345-4EE7-A486-F3580A669276}.Debug|Win32.Build.0 = Debug|Win32
+		{C8897B3A-5345-4EE7-A486-F3580A669276}.Release|Win32.ActiveCfg = Release|Win32
+		{C8897B3A-5345-4EE7-A486-F3580A669276}.Release|Win32.Build.0 = Release|Win32
+		{DAF13AA4-B961-4C0F-837D-632F09F5C7DD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DAF13AA4-B961-4C0F-837D-632F09F5C7DD}.Debug|Win32.Build.0 = Debug|Win32
+		{DAF13AA4-B961-4C0F-837D-632F09F5C7DD}.Release|Win32.ActiveCfg = Release|Win32
+		{DAF13AA4-B961-4C0F-837D-632F09F5C7DD}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
