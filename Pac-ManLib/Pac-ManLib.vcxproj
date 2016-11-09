@@ -17,12 +17,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Field.h" />
+    <ClInclude Include="GraphManager.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PlayGame.h" />
     <ClInclude Include="Stage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Field.cpp" />
+    <ClCompile Include="GraphManager.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PlayGame.cpp" />
     <ClCompile Include="Stage.cpp" />
