@@ -11,10 +11,10 @@ const int CHIP_SIZE = 32;
 
 const GraphManager::CHIP_ID OBJECT_LIST[ 7 ] = {
 	GraphManager::CHIP_ID_PACMAN_1,
-	GraphManager::CHIP_ID_ENEMY_RED_DOWN_0,
-	GraphManager::CHIP_ID_ENEMY_PINC_DOWN_0,
-	GraphManager::CHIP_ID_ENEMY_BLUE_DOWN_0,
-	GraphManager::CHIP_ID_ENEMY_ORANGE_DOWN_0,
+	GraphManager::CHIP_ID_ENEMY_RED_LEFT_0,
+	GraphManager::CHIP_ID_ENEMY_PINC_LEFT_0,
+	GraphManager::CHIP_ID_ENEMY_BLUE_LEFT_0,
+	GraphManager::CHIP_ID_ENEMY_ORANGE_LEFT_0,
 	GraphManager::CHIP_ID_TARGET_BATE,
 	GraphManager::CHIP_ID_TARGET_POWER_BATE,
 };
@@ -62,16 +62,16 @@ void Viewer::drawObject( ) {
 				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_PACMAN_1 );
 				break;
 			case Stage::OBJECT_NAME_ENEMY_RED:
-				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_RED_DOWN_0 );
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_RED_LEFT_0 );
 				break;
 			case Stage::OBJECT_NAME_ENEMY_PINC:
-				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_PINC_DOWN_0 );
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_PINC_LEFT_0 );
 				break;
 			case Stage::OBJECT_NAME_ENEMY_BLUE:
-				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_BLUE_DOWN_0 );
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_BLUE_LEFT_0 );
 				break;
 			case Stage::OBJECT_NAME_ENEMY_ORANGE:
-				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_ORANGE_DOWN_0 );
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_ORANGE_LEFT_0 );
 				break;
 			case Stage::OBJECT_NAME_BATE:
 				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_TARGET_BATE );
@@ -113,12 +113,13 @@ void Viewer::drawObjectButton( ) {
 		int width = button->getButtonWidth( );
 		int height = button->getButtonHeight( );
 		bool fill_flag = button->getFillFlag( );
-		_graph_manager->drawChip( px, py, OBJECT_LIST[ i ] );
 		if ( i == select_manager->getButtonNum( ) - 1 ) {
 			_graph_manager->drawChip( px, py, GraphManager::CHIP_ID_BACK_GROUND__D_RS );
 			_graph_manager->drawChip( px + CHIP_SIZE, py, GraphManager::CHIP_ID_BACK_GROUND__DL_S );
 			_graph_manager->drawChip( px, py + CHIP_SIZE, GraphManager::CHIP_ID_BACK_GROUND_U__RS );
 			_graph_manager->drawChip( px + CHIP_SIZE, py + CHIP_SIZE, GraphManager::CHIP_ID_BACK_GROUND_U_L_S );
+		} else {
+			_graph_manager->drawChip( px, py, OBJECT_LIST[ i ] );
 		}
 		drawer->drawBox( px, py, width, height, fill_flag );
 	}

@@ -4,6 +4,7 @@
 
 void main( ) {
 	ApplicationPtr application = Application::getInstance( );
+	application->setWindowSize( 1130, 768 );
 
 	MapEditorPtr mapeditor = MapEditorPtr( new MapEditor );
 	ViewerPtr viewer = ViewerPtr( new Viewer );

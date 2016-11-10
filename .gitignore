@@ -1,7 +1,8 @@
-.sdf
-.suo
+Pac-Man.sdf
+Pac-Man.suo
 PacManGame/Debug
 Pac-ManLib/Debug
 Framework/Debug
-PacManEditor/Debug
+PacManMapEditor/Debug
+PacManMapEditor/Log.txt
 Debug
