@@ -4,51 +4,20 @@
 #include "TremsManager.h"
 #include "SelectObjectManager.h"
 #include "Button.h"
+#include "GraphManager.h"
 #include "Drawer.h"
 
-enum GRAPH_ID {
-	GRAPH_ID_PACMAN,
-	GRAPH_ID_ENEMY,
-	GRAPH_ID_TARGET,
-	GRAPH_ID_BACK_GROUND,
+const int CHIP_SIZE = 32;
+
+const GraphManager::CHIP_ID OBJECT_LIST[ 7 ] = {
+	GraphManager::CHIP_ID_PACMAN_1,
+	GraphManager::CHIP_ID_ENEMY_RED_DOWN_0,
+	GraphManager::CHIP_ID_ENEMY_PINC_DOWN_0,
+	GraphManager::CHIP_ID_ENEMY_BLUE_DOWN_0,
+	GraphManager::CHIP_ID_ENEMY_ORANGE_DOWN_0,
+	GraphManager::CHIP_ID_TARGET_BATE,
+	GraphManager::CHIP_ID_TARGET_POWER_BATE,
 };
-
-const int OBJECT_BUTTON_LIST[ 8 ] {
-	GRAPH_ID_PACMAN,
-	GRAPH_ID_ENEMY,
-	GRAPH_ID_ENEMY,
-	GRAPH_ID_ENEMY,
-	GRAPH_ID_ENEMY,
-	GRAPH_ID_TARGET,
-	GRAPH_ID_TARGET,
-	GRAPH_ID_BACK_GROUND
-};
-
-const int OBJECT_SIZE = 32;
-const int OBJECT_GRAPH_OFFSET = 4;
-
-const int OBJECT_GRAPH_X[ 8 ] = {
-	OBJECT_GRAPH_OFFSET,//PACMAN
-	OBJECT_GRAPH_OFFSET,//ENEMY
-	OBJECT_GRAPH_OFFSET,//ENEMY
-	OBJECT_GRAPH_OFFSET,//ENEMY
-	OBJECT_GRAPH_OFFSET,//ENEMY
-	( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 8,//エサ
-	( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 9,//パワーエサ
-	0
-};
-
-const int OBJECT_GRAPH_Y[ 8 ] = {
-	OBJECT_GRAPH_OFFSET,//PACMAN
-	OBJECT_SIZE * 0,//ENEMY
-	( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 1,//ENEMY
-	( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 2,//ENEMY
-	( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 3,//ENEMY
-	OBJECT_GRAPH_OFFSET,
-	OBJECT_GRAPH_OFFSET,
-	0
-};
-
 
 ViewerPtr Viewer::getTask( ) {
 	ApplicationPtr application = Application::getInstance( );
@@ -56,11 +25,7 @@ ViewerPtr Viewer::getTask( ) {
 }
 
 Viewer::Viewer( ) {
-	DrawerPtr drawer = Drawer::getTask( );
-	drawer->loadGraph( GRAPH_ID_PACMAN, "../Resource/Graph/Player.png" );
-	drawer->loadGraph( GRAPH_ID_ENEMY, "../Resource/Graph/Enemy.png" );
-	drawer->loadGraph( GRAPH_ID_TARGET, "../Resource/Graph/Target.png" );
-	drawer->loadGraph( GRAPH_ID_BACK_GROUND, "../Resource/Graph/BackGround.png" );
+	_graph_manager = GraphManagerPtr( new GraphManager );
 }
 
 Viewer::~Viewer( ) {
@@ -76,14 +41,10 @@ void Viewer::update( ) {
 void Viewer::drawMatrix( ) {
 	DrawerPtr drawer = Drawer::getTask( );
 	MapEditorPtr map_editor = MapEditor::getTask( );
-	bool first = true;
 	for ( int i = 0; i < 24; i++ ) {
 		for ( int j = 0; j < 30; j++ ) {
 			bool flag = map_editor->getMeshMap( j, i ) == 1;
-			if ( flag && first ) {
-
-			}
-			drawer->drawBox( j * OBJECT_SIZE, i * OBJECT_SIZE, OBJECT_SIZE, flag );
+			drawer->drawBox( j * CHIP_SIZE, i * CHIP_SIZE, CHIP_SIZE, flag );
 		}
 	}
 }
@@ -94,55 +55,32 @@ void Viewer::drawObject( ) {
 	for ( int i = 0; i < 24; i++ ) {
 		for ( int j = 0; j < 30; j++ ) {
 			int id = map_editor->getObjectMap( j, i );
-			Drawer::Sprite sprite;
-			sprite.x = j * OBJECT_SIZE;
-			sprite.y = i * OBJECT_SIZE;
-			sprite.width = OBJECT_SIZE;
-			sprite.height = OBJECT_SIZE;
-			sprite.trans_flag = true;
-			bool can_draw = true;
+			int x = CHIP_SIZE * j;
+			int y = CHIP_SIZE * i;
 			switch ( id ) {
 			case Stage::OBJECT_NAME_PLAYER:
-				sprite.image = GRAPH_ID_PACMAN;
-				sprite.tx = 0;
-				sprite.ty = 0;
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_PACMAN_1 );
 				break;
 			case Stage::OBJECT_NAME_ENEMY_RED:
-				sprite.image = GRAPH_ID_ENEMY;
-				sprite.tx = 0;
-				sprite.ty = 0;
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_RED_DOWN_0 );
 				break;
 			case Stage::OBJECT_NAME_ENEMY_PINC:
-				sprite.image = GRAPH_ID_ENEMY;
-				sprite.tx = 0;
-				sprite.ty = ( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 1;
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_PINC_DOWN_0 );
 				break;
 			case Stage::OBJECT_NAME_ENEMY_BLUE:
-				sprite.image = GRAPH_ID_ENEMY;
-				sprite.tx = 0;
-				sprite.ty = ( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 2;
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_BLUE_DOWN_0 );
 				break;
 			case Stage::OBJECT_NAME_ENEMY_ORANGE:
-				sprite.image = GRAPH_ID_ENEMY;
-				sprite.tx = 0;
-				sprite.ty = ( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 3;
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_ORANGE_DOWN_0 );
 				break;
 			case Stage::OBJECT_NAME_BATE:
-				sprite.image = GRAPH_ID_TARGET;
-				sprite.tx = ( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 8;
-				sprite.ty = OBJECT_GRAPH_OFFSET;
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_TARGET_BATE );
 				break;
 			case Stage::OBJECT_NAME_POWER_BATE:
-				sprite.image = GRAPH_ID_TARGET;
-				sprite.tx = ( OBJECT_SIZE + OBJECT_GRAPH_OFFSET ) * 9;
-				sprite.ty = OBJECT_GRAPH_OFFSET;
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_TARGET_POWER_BATE );
 				break;
 			default:
-				can_draw = false;
 				break;
-			}
-			if ( can_draw ) {
-				drawer->setSprite( sprite );
 			}
 		}
 	}
@@ -175,31 +113,12 @@ void Viewer::drawObjectButton( ) {
 		int width = button->getButtonWidth( );
 		int height = button->getButtonHeight( );
 		bool fill_flag = button->getFillFlag( );
-		int image = OBJECT_BUTTON_LIST[ i ];
-		
-		Drawer::Sprite sprite;
-		if ( image == GRAPH_ID_BACK_GROUND ) {
-			for ( int i = 0; i < 4; i++ ) {
-				sprite.x = px + OBJECT_SIZE * ( i % 2 );
-				sprite.y = py + OBJECT_SIZE * ( i / 2 );
-				sprite.tx = OBJECT_SIZE * ( 4 - 1 - i );
-				sprite.ty = 0;
-				sprite.width = OBJECT_SIZE;
-				sprite.height = OBJECT_SIZE;
-				sprite.image = image;
-				sprite.trans_flag = true;
-				drawer->setSprite( sprite );
-			}
-		} else {
-			sprite.x = px;
-			sprite.y = py;
-			sprite.tx = OBJECT_GRAPH_X[ i ];
-			sprite.ty = OBJECT_GRAPH_Y[ i ];
-			sprite.width = width;
-			sprite.height = height;
-			sprite.image = image;
-			sprite.trans_flag = true;
-			drawer->setSprite( sprite );
+		_graph_manager->drawChip( px, py, OBJECT_LIST[ i ] );
+		if ( i == select_manager->getButtonNum( ) - 1 ) {
+			_graph_manager->drawChip( px, py, GraphManager::CHIP_ID_BACK_GROUND__D_RS );
+			_graph_manager->drawChip( px + CHIP_SIZE, py, GraphManager::CHIP_ID_BACK_GROUND__DL_S );
+			_graph_manager->drawChip( px, py + CHIP_SIZE, GraphManager::CHIP_ID_BACK_GROUND_U__RS );
+			_graph_manager->drawChip( px + CHIP_SIZE, py + CHIP_SIZE, GraphManager::CHIP_ID_BACK_GROUND_U_L_S );
 		}
 		drawer->drawBox( px, py, width, height, fill_flag );
 	}

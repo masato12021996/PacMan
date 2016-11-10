@@ -3,6 +3,7 @@
 #include <string>
 
 PTR( Viewer );
+PTR( GraphManager );
 
 class Viewer : public Task {
 public:
@@ -18,5 +19,6 @@ private:
 	void drawObject( );
 	void drawTremsButton( );
 	void drawObjectButton( );
+private:
+	GraphManagerPtr _graph_manager;
 };
-
