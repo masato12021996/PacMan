@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PacManMapEditor", "PacManMa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PacManGame", "PacManGame\PacManGame.vcxproj", "{DAF13AA4-B961-4C0F-837D-632F09F5C7DD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ResourceEncoder", "ResourceEncoder\ResourceEncoder.vcxproj", "{31D544D2-E162-4B97-AAC3-A9DD3908FFC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -33,6 +35,10 @@ Global
 		{DAF13AA4-B961-4C0F-837D-632F09F5C7DD}.Debug|Win32.Build.0 = Debug|Win32
 		{DAF13AA4-B961-4C0F-837D-632F09F5C7DD}.Release|Win32.ActiveCfg = Release|Win32
 		{DAF13AA4-B961-4C0F-837D-632F09F5C7DD}.Release|Win32.Build.0 = Release|Win32
+		{31D544D2-E162-4B97-AAC3-A9DD3908FFC4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{31D544D2-E162-4B97-AAC3-A9DD3908FFC4}.Debug|Win32.Build.0 = Debug|Win32
+		{31D544D2-E162-4B97-AAC3-A9DD3908FFC4}.Release|Win32.ActiveCfg = Release|Win32
+		{31D544D2-E162-4B97-AAC3-A9DD3908FFC4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
