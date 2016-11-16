@@ -1,6 +1,7 @@
 #include "Drawer.h"
 #include "Application.h"
 #include "DxLib.h"
+#include "Encorder.h"
 #include <assert.h>
 
 DrawerPtr Drawer::getTask( ) {
@@ -23,11 +24,17 @@ void Drawer::update( ) {
 }
 
 void Drawer::loadGraph( const int number, std::string filename ) {
+	Encorder encorder;
+	//変換
+	encorder.encode( filename );
+	//画像読み込み
 	int graph_id = LoadGraph( filename.c_str( ) );
 	if ( graph_id < 0 ) {
 		assert( "ERROR_LOAD_GRAPH" );
 	}
 	_graph_id[ number ] = graph_id;
+	//元に戻す
+	encorder.encode( filename );
 }
 
 //Spriteデータのセット
