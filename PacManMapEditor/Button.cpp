@@ -14,11 +14,11 @@ Button::~Button() {
 
 bool Button::onClick( ) {
 	bool result = false;
-	Mouse mouse;
-	int mx = ( int )mouse.getPoint( ).x;
-	int my = ( int )mouse.getPoint( ).y;
+	MousePtr mouse = Mouse::getTask( );
+	int mx = ( int )mouse->getPoint( ).x;
+	int my = ( int )mouse->getPoint( ).y;
 	bool on_mouse = POS_X < mx && mx < POS_X + WIDTH && POS_Y < my && my < POS_Y + HEIGHT;
-	bool is_click = mouse.isInputButton( Mouse::INPUT_LEFT );
+	bool is_click = mouse->isInputButton( Mouse::INPUT_ON_LEFT );
 	if ( on_mouse && is_click ) {
 		result = true;
 	}

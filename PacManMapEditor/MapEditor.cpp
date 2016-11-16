@@ -47,8 +47,8 @@ void MapEditor::meshMapUpdate( ) {
 			_mesh_map[ i ][ j ] = 0;
 		}
 	}
-	Mouse mouse;
-	Vector mpos = mouse.getPoint( );
+	MousePtr mouse = Mouse::getTask( );
+	Vector mpos = mouse->getPoint( );
 	if ( 0 < mpos.x && mpos.x < MAP_SIZE_X * CHIP_SIZE && 0 < mpos.y && mpos.y < MAP_SIZE_Y * CHIP_SIZE ) {
 		for ( int i = 0; i < _select_object.size_y; i++ ) {
 			for ( int j = 0; j < _select_object.size_x; j++ ) {
@@ -63,9 +63,9 @@ void MapEditor::meshMapUpdate( ) {
 void MapEditor::putObjectUpdate( ) {
 	int id =  _select_manager->getSelectObject( );
 	_select_object = _object_list[ id ];
-	Mouse mouse;
-	if ( mouse.isInputButton( Mouse::INPUT_LEFT ) ) {
-		Vector mpos = mouse.getPoint( );
+	MousePtr mouse = Mouse::getTask( );
+	if ( mouse->isInputButton( Mouse::INPUT_ON_LEFT ) ) {
+		Vector mpos = mouse->getPoint( );
 		if ( 0 < mpos.x && mpos.x < MAP_SIZE_X * CHIP_SIZE && 0 < mpos.y && mpos.y < MAP_SIZE_Y * CHIP_SIZE ) {
 			for ( int i = 0; i < _select_object.size_y; i++ ) {
 				for ( int j = 0; j < _select_object.size_x; j++ ) {
