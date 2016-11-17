@@ -31,6 +31,7 @@ void Drawer::loadGraph( const int number, std::string filename ) {
 	int graph_id = LoadGraph( filename.c_str( ) );
 	if ( graph_id < 0 ) {
 		assert( "ERROR_LOAD_GRAPH" );
+		return;
 	}
 	_graph_id[ number ] = graph_id;
 	//Œ³‚É–ß‚·

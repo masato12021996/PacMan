@@ -4,8 +4,8 @@
 const int BUTTON_WIDTH = 150;
 const int BUTTON_HEIGHT = 30;
 
-const int INDEX_POS_X = 1150 - BUTTON_WIDTH - 20;
-const int INDEX_POS_Y = 10;
+const int INDEX_POS_X = 1110 - BUTTON_WIDTH;
+const int INDEX_POS_Y = 0;
 const int DIFF_POS_Y = 30;
 
 TremsManager::TremsManager( ) {

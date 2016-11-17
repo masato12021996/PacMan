@@ -11,12 +11,6 @@ PTR( SelectObjectManager );
 
 class MapEditor : public Task {
 public:
-	struct OBJECT {
-		int name;
-		int size_x;
-		int size_y;
-	};
-public:
 	static MapEditorPtr getTask( );
 	static std::string getTag( ) { return "MAP_EDITOR"; }
 public:
@@ -37,8 +31,7 @@ private:
 	static const int MAP_SIZE_Y = Field::MAP_CHIP_NUM_Y;
 	const int CHIP_SIZE = Field::CHIP_SIZE;
 	
-	OBJECT _select_object;
-	OBJECT _object_list[ Stage::OBJECT_NAME_MAX ];
+	Stage::OBJECT_NAME _select_object;
 	int _mesh_map[ MAP_SIZE_Y ][ MAP_SIZE_X ];
 	int _object_map[ MAP_SIZE_Y ][ MAP_SIZE_X ];
 

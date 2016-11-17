@@ -19,16 +19,6 @@ MapEditor::MapEditor( ) {
 			_object_map[ i ][ j ] = 0;
 		}
 	}
-	_object_list[ Stage::OBJECT_NAME_NONE ]		= { Stage::OBJECT_NAME_NONE, 1, 1 };
-	_object_list[ Stage::OBJECT_NAME_WALL ]		= { Stage::OBJECT_NAME_WALL, 2, 2 };
-	_object_list[ Stage::OBJECT_NAME_PLAYER ]	= { Stage::OBJECT_NAME_PLAYER, 1, 1 };
-	_object_list[ Stage::OBJECT_NAME_ENEMY_BLUE ]		= { Stage::OBJECT_NAME_ENEMY_BLUE, 1, 1 };
-	_object_list[ Stage::OBJECT_NAME_ENEMY_RED ]		= { Stage::OBJECT_NAME_ENEMY_RED, 1, 1 };
-	_object_list[ Stage::OBJECT_NAME_ENEMY_ORANGE ]		= { Stage::OBJECT_NAME_ENEMY_ORANGE, 1, 1 };
-	_object_list[ Stage::OBJECT_NAME_ENEMY_PINC ]		= { Stage::OBJECT_NAME_ENEMY_PINC, 1, 1 };
-	_object_list[ Stage::OBJECT_NAME_BATE ]		= { Stage::OBJECT_NAME_BATE, 1, 1 };
-	_object_list[ Stage::OBJECT_NAME_POWER_BATE ]		= { Stage::OBJECT_NAME_POWER_BATE, 1, 1 };
-	_select_object = _object_list[ Stage::OBJECT_NAME_NONE ];
 }
 
 MapEditor::~MapEditor( ) {
@@ -50,30 +40,21 @@ void MapEditor::meshMapUpdate( ) {
 	MousePtr mouse = Mouse::getTask( );
 	Vector mpos = mouse->getPoint( );
 	if ( 0 < mpos.x && mpos.x < MAP_SIZE_X * CHIP_SIZE && 0 < mpos.y && mpos.y < MAP_SIZE_Y * CHIP_SIZE ) {
-		for ( int i = 0; i < _select_object.size_y; i++ ) {
-			for ( int j = 0; j < _select_object.size_x; j++ ) {
-				int x = ( int )mpos.x / CHIP_SIZE + j;
-				int y = ( int )mpos.y / CHIP_SIZE + i;
-				_mesh_map[ y ][ x ] = 1;
-			}
-		}
+		int x = ( int )mpos.x / CHIP_SIZE;
+		int y = ( int )mpos.y / CHIP_SIZE;
+		_mesh_map[ y ][ x ] = 1;
 	}
 }
 
 void MapEditor::putObjectUpdate( ) {
-	int id =  _select_manager->getSelectObject( );
-	_select_object = _object_list[ id ];
+	_select_object =  _select_manager->getSelectObject( );
 	MousePtr mouse = Mouse::getTask( );
 	if ( mouse->isInputButton( Mouse::INPUT_ON_LEFT ) ) {
 		Vector mpos = mouse->getPoint( );
 		if ( 0 < mpos.x && mpos.x < MAP_SIZE_X * CHIP_SIZE && 0 < mpos.y && mpos.y < MAP_SIZE_Y * CHIP_SIZE ) {
-			for ( int i = 0; i < _select_object.size_y; i++ ) {
-				for ( int j = 0; j < _select_object.size_x; j++ ) {
-					int x = ( int )mpos.x / CHIP_SIZE + j;
-					int y = ( int )mpos.y / CHIP_SIZE + i;
-					_object_map[ y ][ x ] = _select_object.name;
-				}
-			}
+			int x = ( int )mpos.x / CHIP_SIZE;
+			int y = ( int )mpos.y / CHIP_SIZE;
+			_object_map[ y ][ x ] = _select_object;
 		}
 	}
 }
