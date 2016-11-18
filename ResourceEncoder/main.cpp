@@ -9,7 +9,7 @@ void main( ) {
 	char name[ 1024 ];
 	while ( scanf_s( "%s", name, 1024 ) != EOF ) {
 		FILE *rfp;
-		errno_t err = fopen_s( &rfp, name, "r" );
+		errno_t err = fopen_s( &rfp, name, "rb" );
 		if ( err == 0 ) {
 			unsigned char a;
 			fscanf_s( rfp, "%c", &a );

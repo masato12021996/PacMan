@@ -11,7 +11,7 @@ Encorder::~Encorder( ) {
 
 void Encorder::encode( std::string filename ) {
 	FILE *rfp;
-	errno_t err = fopen_s( &rfp, filename.c_str( ), "r" );
+	errno_t err = fopen_s( &rfp, filename.c_str( ), "rb" );
 	if ( err == 0 ) {
 		unsigned char a;
 		fscanf_s( rfp, "%c", &a );
