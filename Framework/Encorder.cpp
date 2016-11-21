@@ -14,7 +14,7 @@ void Encorder::encode( std::string filename ) {
 	errno_t err = fopen_s( &rfp, filename.c_str( ), "rb" );
 	if ( err == 0 ) {
 		unsigned char a;
-		fscanf_s( rfp, "%c", &a );
+		fread( &a,  sizeof( unsigned char ), 1, rfp );
 		fclose( rfp );
 		a = a ^ KEY;//•ÏŠ·
 		FILE *wfp;
