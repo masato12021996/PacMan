@@ -35,6 +35,7 @@ Viewer::~Viewer( ) {
 void Viewer::update( ) {
 	drawTremsButton( );
 	drawObjectButton( );
+	drawSaveButton( );
 	drawMatrix( );
 	drawObject( );
 }
@@ -80,6 +81,9 @@ void Viewer::drawObject( ) {
 			case Stage::OBJECT_NAME_POWER_BATE:
 				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_TARGET_POWER_BATE );
 				break;
+			case Stage::OBJECT_NAME_WALL:
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_BACK_GROUND_NONE );
+				break;
 			default:
 				break;
 			}
@@ -114,7 +118,22 @@ void Viewer::drawObjectButton( ) {
 		int width = button->getButtonWidth( );
 		int height = button->getButtonHeight( );
 		bool fill_flag = button->getFillFlag( );
-		_graph_manager->drawChip( px, py, OBJECT_LIST[ i ] );
+		if ( i < select_manager->getButtonNum( ) - 1 ) {
+			_graph_manager->drawChip( px, py, OBJECT_LIST[ i ] );
+		}
 		drawer->drawBox( px, py, width, height, fill_flag );
 	}
+}
+
+void Viewer::drawSaveButton( ) {
+	DrawerPtr drawer = Drawer::getTask( );
+	MapEditorPtr map_editor = MapEditor::getTask( );
+	ButtonPtr button = map_editor->getSaveButton( );
+	int px = button->getButtonPosX( );
+	int py = button->getButtonPosY( );
+	int width = button->getButtonWidth( );
+	int height = button->getButtonHeight( );
+	bool fill_flag = button->getFillFlag( );
+	drawer->drawString( px + 5, py + 5, "SAVE", fill_flag );
+	drawer->drawBox( px, py, width, height, fill_flag );
 }

@@ -15,7 +15,7 @@ public:
 	int getButtonNum( );
 	ButtonPtr getButton( int id );
 public:
-	static const int BUTTON_NUM = 8;
+	static const int BUTTON_NUM = 9;
 private:
 	Stage::OBJECT_NAME _select_object;
 	int _select_index;

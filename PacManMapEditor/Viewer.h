@@ -19,6 +19,7 @@ private:
 	void drawObject( );
 	void drawTremsButton( );
 	void drawObjectButton( );
+	void drawSaveButton( );
 private:
 	GraphManagerPtr _graph_manager;
 };

@@ -14,6 +14,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="Encorder.cpp" />
+    <ClCompile Include="MessageBoxMaker.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -23,6 +24,7 @@
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="Encorder.h" />
     <ClInclude Include="mathmatics.h" />
+    <ClInclude Include="MessageBoxMaker.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="smart_ptr.h" />
     <ClInclude Include="Task.h" />

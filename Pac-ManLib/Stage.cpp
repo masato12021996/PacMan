@@ -1,6 +1,5 @@
 #include "Stage.h"
 
-
 Stage::Stage( ) {
 	_trems = CLEAR_TREMS_FOOD_EAT;
 	for ( int i = 0; i < MAP_SIZE_Y; i++ ) {
@@ -11,4 +10,12 @@ Stage::Stage( ) {
 }
 
 Stage::~Stage( ) {
+}
+
+void Stage::setTrems( CLEAR_TREMS trems ) {
+	_trems = trems;
+}
+
+void Stage::setTargetCell( int x, int y, OBJECT_NAME object ) {
+	_map[ y ][ x ] = object;
 }

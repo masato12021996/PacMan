@@ -8,6 +8,7 @@ PTR( MapEditor );
 PTR( Stage );
 PTR( TremsManager );
 PTR( SelectObjectManager );
+PTR( Button );
 
 class MapEditor : public Task {
 public:
@@ -22,10 +23,13 @@ public:
 	int getObjectMap( int x, int y ) const;
 	TremsManagerPtr getTremsManager( ) const;
 	SelectObjectManagerPtr getSelectObjectManager( ) const;
+	ButtonPtr getSaveButton( ) const;
 private:
 	void meshMapUpdate( );
 	void putObjectUpdate( );
 	Stage::CLEAR_TREMS getClearTrems( ) const;
+	void save( );
+	void load( );
 private:
 	static const int MAP_SIZE_X = Field::MAP_CHIP_NUM_X;
 	static const int MAP_SIZE_Y = Field::MAP_CHIP_NUM_Y;
@@ -37,5 +41,6 @@ private:
 
 	TremsManagerPtr _trems_manager;
 	SelectObjectManagerPtr _select_manager;
+	ButtonPtr _save_button;
 };
 

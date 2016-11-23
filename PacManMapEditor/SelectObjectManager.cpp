@@ -17,7 +17,8 @@ const int BUTTON_POS_X[ SelectObjectManager::BUTTON_NUM ] = {
 	MARGIN_BUTTON * 1,
 	MARGIN_BUTTON * 0,
 	MARGIN_BUTTON * 1,
-	MARGIN_BUTTON * 0
+	MARGIN_BUTTON * 0,
+	MARGIN_BUTTON * 1
 };
 
 const int BUTTON_POS_Y[ SelectObjectManager::BUTTON_NUM ] = {
@@ -28,6 +29,7 @@ const int BUTTON_POS_Y[ SelectObjectManager::BUTTON_NUM ] = {
 	MARGIN_BUTTON * 2,
 	MARGIN_BUTTON * 3,
 	MARGIN_BUTTON * 3,
+	MARGIN_BUTTON * 4,
 	MARGIN_BUTTON * 4
 };
 
@@ -40,6 +42,7 @@ const Stage::OBJECT_NAME BUTTON_LIST[ SelectObjectManager::BUTTON_NUM ] = {
 	Stage::OBJECT_NAME_BATE,
 	Stage::OBJECT_NAME_POWER_BATE,
 	Stage::OBJECT_NAME_WALL,
+	Stage::OBJECT_NAME_NONE
 };
 
 SelectObjectManager::SelectObjectManager( ) {
