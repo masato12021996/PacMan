@@ -17,7 +17,7 @@ const GraphManager::CHIP_ID OBJECT_LIST[ 8 ] = {
 	GraphManager::CHIP_ID_ENEMY_ORANGE_LEFT_0,
 	GraphManager::CHIP_ID_TARGET_BATE,
 	GraphManager::CHIP_ID_TARGET_POWER_BATE,
-	GraphManager::CHIP_ID_BACK_GROUND_NONE
+	GraphManager::CHIP_ID_BACK_GROUND_000010000
 };
 
 ViewerPtr Viewer::getTask( ) {
@@ -82,7 +82,7 @@ void Viewer::drawObject( ) {
 				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_TARGET_POWER_BATE );
 				break;
 			case Stage::OBJECT_NAME_WALL:
-				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_BACK_GROUND_NONE );
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_BACK_GROUND_000010000 );
 				break;
 			default:
 				break;

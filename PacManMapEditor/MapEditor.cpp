@@ -236,6 +236,7 @@ void MapEditor::save( ) {
 		errno_t err = fopen_s( &fp, "stage.stg", "wb" );
 		fwrite( &stage, sizeof( Stage ), 1, fp );
 		fclose( fp );
+		message->create( "SUCCESS", "セーブデータの作成に成功しました。" );
 	} else {
 		message->create( "ERROR", message_str.c_str( ) );
 	}
