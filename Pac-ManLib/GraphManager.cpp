@@ -55,8 +55,8 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 	if ( CHIP_ID_BACK_GROUND_NONE <= id && id <= CHIP_ID_BACK_GROUND_UDLR ) {
 		int index = id - CHIP_ID_BACK_GROUND_NONE;
 		sprite.image = GRAPH_ID_BACK_GROUND;
-		sprite.tx = CHIP_SIZE * ( index % 8 );
-		sprite.ty = CHIP_SIZE * ( index / 8 );
+		sprite.tx = CHIP_SIZE * ( index % 10 );
+		sprite.ty = CHIP_SIZE * ( index / 10 );
 	}
 	if ( CHIP_ID_TARGET_CHERRY <= id && id <= CHIP_ID_TARGET_POWER_BATE ) {
 		int index = id - CHIP_ID_TARGET_CHERRY;
