@@ -12,7 +12,6 @@ const int SAVE_BUTTON_POS_Y  = 600;
 const int SAVE_BUTTON_WIDTH  = 100;
 const int SAVE_BUTTON_HEIGHT = 32;
 
-
 MapEditorPtr MapEditor::getTask( ) {
 	ApplicationPtr application = Application::getInstance( );
 	return std::dynamic_pointer_cast< MapEditor >( application->getTask( getTag( ) ) );
@@ -255,8 +254,11 @@ void MapEditor::load( ) {
 	Stage stage;
 	stage.setTrems( getClearTrems( ) );
 	FILE *fp;
-	errno_t err = fopen_s( &fp, "stage.stg", "rb" );
+	//ファイル名を指定したい
+	std::string filename;
 	MessageBoxMakerPtr message = MessageBoxMakerPtr( new MessageBoxMaker( ) );
+	filename = message->keyInput( 0, 0 );
+	errno_t err = fopen_s( &fp, filename.c_str( ), "rb" );
 	if ( err == 0 ) {
 		fread( &stage, sizeof( Stage ), 1, fp );
 		fclose( fp );
@@ -266,7 +268,7 @@ void MapEditor::load( ) {
 			}
 		}
 		_trems_manager->setClearTrems( stage.getTrems( ) );
-		message->create( "SUCCESS", "セーブデータの読み込みに成功しました。" );
+		message->create( "SUCCESS", "セーブデータの読み込みに成功しました" );
 	} else {
 		message->create( "ERROR", "セーブデータの読み込みに失敗しました" );
 	}

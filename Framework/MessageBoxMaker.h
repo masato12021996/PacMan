@@ -10,4 +10,5 @@ public:
 	virtual ~MessageBoxMaker( );
 public:
 	void create( std::string title, std::string message );
+	std::string keyInput( int x, int y );
 };
