@@ -73,8 +73,8 @@ void Drawer::drawSprite( ) {
 	}
 }
 
-void Drawer::drawBox( int x, int y, int size, bool fill_flag ) {
-	DrawBox( x, y, x + size, y + size, GetColor( 255, 255, 255 ), fill_flag  );
+void Drawer::drawBox( int x, int y, int size, bool fill_flag, int color ) {
+	DrawBox( x, y, x + size, y + size, color, fill_flag  );
 }
 
 void Drawer::drawBox( int x, int y, int width, int height, bool fill_flag ) {

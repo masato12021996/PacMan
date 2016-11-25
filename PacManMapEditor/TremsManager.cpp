@@ -47,3 +47,9 @@ ButtonPtr TremsManager::getButton( int id ) const{
 std::string TremsManager::getButtonName( int id ) const{
 	return _button_name[ id ];
 }
+
+void TremsManager::setClearTrems( Stage::CLEAR_TREMS trems ) {
+	_button[ _select_trems ]->setFillFlag( false );
+	_select_trems = trems;
+	_button[ _select_trems ]->setFillFlag( true );
+}

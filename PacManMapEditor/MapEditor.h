@@ -24,6 +24,7 @@ public:
 	TremsManagerPtr getTremsManager( ) const;
 	SelectObjectManagerPtr getSelectObjectManager( ) const;
 	ButtonPtr getSaveButton( ) const;
+	ButtonPtr getLoadButton( ) const;
 private:
 	void meshMapUpdate( );
 	void putObjectUpdate( );
@@ -42,5 +43,6 @@ private:
 	TremsManagerPtr _trems_manager;
 	SelectObjectManagerPtr _select_manager;
 	ButtonPtr _save_button;
+	ButtonPtr _load_button;
 };
 

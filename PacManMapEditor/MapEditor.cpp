@@ -22,6 +22,7 @@ MapEditor::MapEditor( ) {
 	_trems_manager = TremsManagerPtr( new TremsManager );
 	_select_manager = SelectObjectManagerPtr( new SelectObjectManager );
 	_save_button = ButtonPtr( new Button( SAVE_BUTTON_POS_X, SAVE_BUTTON_POS_Y, SAVE_BUTTON_WIDTH, SAVE_BUTTON_HEIGHT ) );
+	_load_button = ButtonPtr( new Button( SAVE_BUTTON_POS_X, SAVE_BUTTON_POS_Y - SAVE_BUTTON_HEIGHT - 10, SAVE_BUTTON_WIDTH, SAVE_BUTTON_HEIGHT ) );
 	for ( int i = 0 ; i < MAP_SIZE_Y; i++ ) {
 		for ( int j = 0; j < MAP_SIZE_X; j++ ) {
 			_mesh_map[ i ][ j ] = 0;
@@ -45,11 +46,15 @@ void MapEditor::update( ) {
 	_select_manager->update( );
 	meshMapUpdate( );
 	putObjectUpdate( );
+
+	//LOAD
+	if ( _load_button->onClick( ) ) {
+		load( );
+	}
+
+	//SAVE
 	if ( _save_button->onClick( ) ) {
-		_save_button->setFillFlag( true );
 		save( );
-	} else {
-		_save_button->setFillFlag( false );
 	}
 }
 
@@ -107,6 +112,10 @@ SelectObjectManagerPtr MapEditor::getSelectObjectManager( ) const {
 
 ButtonPtr MapEditor::getSaveButton( ) const {
 	return _save_button;
+}
+
+ButtonPtr MapEditor::getLoadButton( ) const {
+	return _load_button;
 }
 
 void MapEditor::save( ) {
@@ -229,7 +238,7 @@ void MapEditor::save( ) {
 		stage.setTrems( getClearTrems( ) );
 		for ( int i = 0 ; i < MAP_SIZE_Y; i++ ) {
 			for ( int j = 0; j < MAP_SIZE_X; j++ ) {
-				stage.setTargetCell( j, i, ( Stage::OBJECT_NAME )_object_map[ j ][ i ] );
+				stage.setTargetCell( j, i, ( Stage::OBJECT_NAME )_object_map[ i ][ j ] );
 			}
 		}
 		FILE *fp;
@@ -243,5 +252,22 @@ void MapEditor::save( ) {
 }
 
 void MapEditor::load( ) {
-
+	Stage stage;
+	stage.setTrems( getClearTrems( ) );
+	FILE *fp;
+	errno_t err = fopen_s( &fp, "stage.stg", "rb" );
+	MessageBoxMakerPtr message = MessageBoxMakerPtr( new MessageBoxMaker( ) );
+	if ( err == 0 ) {
+		fread( &stage, sizeof( Stage ), 1, fp );
+		fclose( fp );
+		for ( int i = 0 ; i < MAP_SIZE_Y; i++ ) {
+			for ( int j = 0; j < MAP_SIZE_X; j++ ) {
+				_object_map[ i ][ j ] = stage.getTargetCell( j, i );
+			}
+		}
+		_trems_manager->setClearTrems( stage.getTrems( ) );
+		message->create( "SUCCESS", "セーブデータの読み込みに成功しました。" );
+	} else {
+		message->create( "ERROR", "セーブデータの読み込みに失敗しました" );
+	}
 }

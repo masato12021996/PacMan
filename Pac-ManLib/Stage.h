@@ -30,6 +30,8 @@ public:
 public:
 	void setTrems( CLEAR_TREMS trems );
 	void setTargetCell( int x, int y, OBJECT_NAME object );
+	CLEAR_TREMS getTrems( ) const;
+	int getTargetCell( int x, int y ) const;
 private:
 	static const int MAP_SIZE_X = Field::MAP_CHIP_NUM_X;
 	static const int MAP_SIZE_Y = Field::MAP_CHIP_NUM_Y;

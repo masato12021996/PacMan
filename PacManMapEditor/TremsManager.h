@@ -13,6 +13,7 @@ public:
 public:
 	void update( );
 	Stage::CLEAR_TREMS getClearTrems( ) const;
+	void setClearTrems( Stage::CLEAR_TREMS trems );
 	int getButtonNum( ) const;
 	ButtonPtr getButton( int id ) const;
 	std::string getButtonName( int id ) const;

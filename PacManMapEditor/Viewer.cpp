@@ -17,7 +17,7 @@ const GraphManager::CHIP_ID OBJECT_LIST[ 8 ] = {
 	GraphManager::CHIP_ID_ENEMY_ORANGE_LEFT_0,
 	GraphManager::CHIP_ID_TARGET_BATE,
 	GraphManager::CHIP_ID_TARGET_POWER_BATE,
-	GraphManager::CHIP_ID_BACK_GROUND_000010000
+	GraphManager::CHIP_ID_BACK_GROUND_000010000,
 };
 
 ViewerPtr Viewer::getTask( ) {
@@ -35,9 +35,9 @@ Viewer::~Viewer( ) {
 void Viewer::update( ) {
 	drawTremsButton( );
 	drawObjectButton( );
-	drawSaveButton( );
-	drawMatrix( );
+	drawContorlButton( );
 	drawObject( );
+	drawMatrix( );
 }
 
 void Viewer::drawMatrix( ) {
@@ -46,7 +46,7 @@ void Viewer::drawMatrix( ) {
 	for ( int i = 0; i < 24; i++ ) {
 		for ( int j = 0; j < 30; j++ ) {
 			bool flag = map_editor->getMeshMap( j, i ) == 1;
-			drawer->drawBox( j * CHIP_SIZE, i * CHIP_SIZE, CHIP_SIZE, flag );
+			drawer->drawBox( j * CHIP_SIZE, i * CHIP_SIZE, CHIP_SIZE, flag, 0x00ff00 );
 		}
 	}
 }
@@ -82,7 +82,7 @@ void Viewer::drawObject( ) {
 				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_TARGET_POWER_BATE );
 				break;
 			case Stage::OBJECT_NAME_WALL:
-				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_BACK_GROUND_000010000 );
+				drawer->drawBox( x, y, 32, true );
 				break;
 			default:
 				break;
@@ -125,15 +125,28 @@ void Viewer::drawObjectButton( ) {
 	}
 }
 
-void Viewer::drawSaveButton( ) {
+void Viewer::drawContorlButton( ) {
 	DrawerPtr drawer = Drawer::getTask( );
 	MapEditorPtr map_editor = MapEditor::getTask( );
-	ButtonPtr button = map_editor->getSaveButton( );
-	int px = button->getButtonPosX( );
-	int py = button->getButtonPosY( );
-	int width = button->getButtonWidth( );
-	int height = button->getButtonHeight( );
-	bool fill_flag = button->getFillFlag( );
-	drawer->drawString( px + 5, py + 5, "SAVE", fill_flag );
-	drawer->drawBox( px, py, width, height, fill_flag );
+	{
+		ButtonPtr button = map_editor->getSaveButton( );
+		int px = button->getButtonPosX( );
+		int py = button->getButtonPosY( );
+		int width = button->getButtonWidth( );
+		int height = button->getButtonHeight( );
+		bool fill_flag = button->getFillFlag( );
+		drawer->drawString( px + 5, py + 5, "SAVE", fill_flag );
+		drawer->drawBox( px, py, width, height, fill_flag );
+	}
+
+	{
+		ButtonPtr button = map_editor->getLoadButton( );
+		int px = button->getButtonPosX( );
+		int py = button->getButtonPosY( );
+		int width = button->getButtonWidth( );
+		int height = button->getButtonHeight( );
+		bool fill_flag = button->getFillFlag( );
+		drawer->drawString( px + 5, py + 5, "LOAD", fill_flag );
+		drawer->drawBox( px, py, width, height, fill_flag );
+	}
 }

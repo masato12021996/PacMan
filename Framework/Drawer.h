@@ -49,7 +49,7 @@ public:
 	void update( );
 	void loadGraph( const int number, std::string filename );
 	void setSprite( Sprite sprite );
-	void drawBox( int x, int y, int size, bool fill_flag );
+	void drawBox( int x, int y, int size, bool fill_flag, int color = 0xffffff );
 	void drawBox( int x, int y, int width, int height, bool fill_flag );
 	void drawString( int x, int y, const char* string, bool fill_flag );
 private:
