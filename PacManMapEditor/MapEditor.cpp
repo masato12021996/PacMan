@@ -258,6 +258,7 @@ void MapEditor::load( ) {
 	std::string filename;
 	MessageBoxMakerPtr message = MessageBoxMakerPtr( new MessageBoxMaker( ) );
 	filename = message->keyInput( 0, 0 );
+	filename += ".stg";
 	errno_t err = fopen_s( &fp, filename.c_str( ), "rb" );
 	if ( err == 0 ) {
 		fread( &stage, sizeof( Stage ), 1, fp );
