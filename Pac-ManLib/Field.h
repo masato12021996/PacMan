@@ -1,6 +1,7 @@
 #pragma once
 #include "smart_ptr.h"
 #include "mathmatics.h"
+#include "MapDefine.h"
 #include <array>
 
 PTR( Field );
@@ -14,10 +15,6 @@ PTR( Object )
 
 class Field {
 public:
-	static const int CHIP_SIZE = 32;
-	static const int MAP_CHIP_NUM_X = 30;
-	static const int MAP_CHIP_NUM_Y = 24;
-public:
 	Field( );
 	virtual ~Field( );
 public:
@@ -29,6 +26,9 @@ public:
 private:
 	int getIndex( const Vector& pos ) const;
 private:
+	static const int MAP_CHIP_NUM_X = MapParameter::MAP_SIZE_X;
+	static const int MAP_CHIP_NUM_Y = MapParameter::MAP_SIZE_Y;
+	static const int CHIP_SIZE = MapParameter::CHIP_SIZE;
 	static const int MAP_MAX_INDEX = MAP_CHIP_NUM_X * MAP_CHIP_NUM_Y;
 private:
 	const int CHIP_SIZE_X = CHIP_SIZE;

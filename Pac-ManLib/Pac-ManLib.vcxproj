@@ -18,6 +18,7 @@
   <ItemGroup>
     <ClInclude Include="Field.h" />
     <ClInclude Include="GraphManager.h" />
+    <ClInclude Include="MapDefine.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Stage.h" />
   </ItemGroup>

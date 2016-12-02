@@ -1,6 +1,6 @@
 #pragma once
 #include "smart_ptr.h"
-#include "Field.h"
+#include "MapDefine.h"
 
 PTR( Stage );
 
@@ -33,8 +33,8 @@ public:
 	CLEAR_TREMS getTrems( ) const;
 	int getTargetCell( int x, int y ) const;
 private:
-	static const int MAP_SIZE_X = Field::MAP_CHIP_NUM_X;
-	static const int MAP_SIZE_Y = Field::MAP_CHIP_NUM_Y;
+	static const int MAP_SIZE_X = MapParameter::MAP_SIZE_X;
+	static const int MAP_SIZE_Y = MapParameter::MAP_SIZE_Y;
 	CLEAR_TREMS _trems;
 	OBJECT_NAME _map[ MAP_SIZE_Y ][ MAP_SIZE_X ];
 };

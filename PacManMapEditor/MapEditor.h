@@ -1,6 +1,6 @@
 #pragma once
 #include "Task.h"
-#include "Field.h"
+#include "MapDefine.h"
 #include "Stage.h"
 #include <string>
 
@@ -32,9 +32,9 @@ private:
 	void save( );
 	void load( );
 private:
-	static const int MAP_SIZE_X = Field::MAP_CHIP_NUM_X;
-	static const int MAP_SIZE_Y = Field::MAP_CHIP_NUM_Y;
-	const int CHIP_SIZE = Field::CHIP_SIZE;
+	static const int MAP_SIZE_X = MapParameter::MAP_SIZE_X;
+	static const int MAP_SIZE_Y = MapParameter::MAP_SIZE_Y;
+	const int CHIP_SIZE = 32;
 	
 	Stage::OBJECT_NAME _select_object;
 	int _mesh_map[ MAP_SIZE_Y ][ MAP_SIZE_X ];

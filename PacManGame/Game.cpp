@@ -41,3 +41,7 @@ void Game::update( ) {
 Game::GAME_STATE Game::getGameState( ) const {
 	return _game_state;
 }
+
+PlayGamePtr Game::getPlayGame( ) const {
+	return _play_game;
+}

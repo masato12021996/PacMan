@@ -3,7 +3,7 @@
 #include <array>
 
 PTR( PlayGame );
-PTR( Stage )
+PTR( Stage );
 
 class PlayGame {
 public:

@@ -3,6 +3,7 @@
 #include <string>
 
 PTR( Viewer );
+PTR( Stage );
 
 class Viewer : public Task {
 public:
@@ -17,5 +18,6 @@ public:
 private:
 	void drawTitle( );
 	void drawPlayGame( );
+	void drawStage( StagePtr stage );
 };
 
