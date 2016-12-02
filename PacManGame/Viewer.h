@@ -15,5 +15,7 @@ public:
 	void initialize( );
 	void update( );
 private:
+	void drawTitle( );
+	void drawPlayGame( );
 };
 

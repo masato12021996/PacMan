@@ -86,11 +86,13 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayGame.cpp" />
+    <ClCompile Include="Title.cpp" />
     <ClCompile Include="Viewer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="PlayGame.h" />
+    <ClInclude Include="Title.h" />
     <ClInclude Include="Viewer.h" />
   </ItemGroup>
   <ItemGroup>

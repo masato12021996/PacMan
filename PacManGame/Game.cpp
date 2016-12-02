@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Application.h"
 #include "PlayGame.h"
+#include "Title.h"
 #include <assert.h>
 
 GamePtr Game::getTask( ) {
@@ -9,6 +10,7 @@ GamePtr Game::getTask( ) {
 }
 
 Game::Game( ) {
+	_title = TitlePtr( new Title( ) );
 	_play_game = PlayGamePtr( new PlayGame( ) );
 }
 
@@ -22,8 +24,12 @@ void Game::initialize( ) {
 void Game::update( ) {
 	switch ( _game_state ) {
 		case GAME_STATE_TITILE:
+			_title->update( );
 			break;
 		case GAME_STATE_PLAY:
+			_play_game->update( );
+			break;
+		case GAME_STATE_RESULT:
 			_play_game->update( );
 			break;
 		default:

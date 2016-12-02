@@ -7,7 +7,7 @@ PTR( Stage )
 
 class PlayGame {
 public:
-	static const int STAGE_NUM = 20;				//保存するステージの数
+	static const int STAGE_NUM = 30;//保存するステージの数
 	enum PLAY_STATE {
 		PLAY_STATE_READY,
 		PLAY_STATE_PLAY,
@@ -18,10 +18,13 @@ public:
 	~PlayGame( );
 public:
 	void update( );
+	StagePtr getPlayStage( ) const;
+	PLAY_STATE getState( ) const;
 private:
-	PLAY_STATE _state;		//ゲームの現在の状態
-	bool _is_clear;			//ステージのクリア判定
-	int _clear_stage_num;	//クリアしたステージ数の管理
-	int _stage_index;		//現在遊んでいるステージナンバー
+	void changeStage( );
+private:
+	PLAY_STATE _state;	 //ゲームの現在の状態
+	bool _is_clear;		 //ステージのクリア判定
+	int _clear_stage_num;//クリアしたステージ数の管理
 	std::array< StagePtr, STAGE_NUM > _stage_list;	//保存してるステージ
 };

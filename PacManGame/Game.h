@@ -3,13 +3,16 @@
 #include <string>
 
 PTR( Game );
+PTR( Title );
 PTR( PlayGame );
+PTR( Result );
 
 class Game : public Task {
 public:
 	enum GAME_STATE {
 		GAME_STATE_TITILE,
 		GAME_STATE_PLAY,
+		GAME_STATE_RESULT,
 		GAME_STATE_MAX
 	};
 public:
@@ -22,7 +25,10 @@ public:
 	void initialize( );
 	void update( );
 	GAME_STATE getGameState( ) const;
+	TitlePtr getTitle( ) const;
+	PlayGamePtr getPlayGame( ) const;
 private:
 	GAME_STATE _game_state;
 	PlayGamePtr _play_game;
+	TitlePtr _title;
 };

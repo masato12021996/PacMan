@@ -30,11 +30,21 @@ void Viewer::update( ) {
 	Game::GAME_STATE game_state = game->getGameState( );
 	switch ( game_state ) {
 		case Game::GAME_STATE_TITILE:
+			drawTitle( );
 			break;
 		case Game::GAME_STATE_PLAY:
+			drawPlayGame( );
 			break;
 		default:
 			assert( "NoneGameState" );
 			break;
 	}
+}
+
+void Viewer::drawTitle( ) {
+
+}
+
+void Viewer::drawPlayGame( ) {
+
 }
