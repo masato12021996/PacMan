@@ -44,10 +44,10 @@ PlayGame::PlayGame( ) {
 		errno_t err;
 		err = fopen_s( &fp, STAGE_PASS[ i ].c_str( ), "rb" );
 		if ( err == 0 ) {
-			StagePtr stage = StagePtr( new Stage( ) );
-			fread( stage.get( ), sizeof( Stage ), 1, fp );
+			Stage stage;
+			fread( &stage, sizeof( Stage ), 1, fp );
 			fclose( fp );
-			_stage_list[ i ] = stage;
+			_stage_list[ i ] = StagePtr( new Stage( stage ) );
 		} else {
 			_stage_list[ i ] = NULL;
 		}
@@ -55,7 +55,6 @@ PlayGame::PlayGame( ) {
 }
 
 PlayGame::~PlayGame( ) {
-	_stage_list;
 }
 
 void PlayGame::update( ) {

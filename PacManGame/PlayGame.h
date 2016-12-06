@@ -3,6 +3,7 @@
 #include <array>
 
 PTR( PlayGame );
+PTR( PlayStage );
 PTR( Stage );
 
 class PlayGame {
@@ -27,4 +28,6 @@ private:
 	bool _is_clear;		 //ステージのクリア判定
 	int _clear_stage_num;//クリアしたステージ数の管理
 	std::array< StagePtr, STAGE_NUM > _stage_list;	//保存してるステージ
+
+	PlayStagePtr _play_stage;
 };

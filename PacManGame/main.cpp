@@ -5,7 +5,7 @@
 
 void main( ) {
 	ApplicationPtr application = Application::getInstance( );
-	application->setWindowSize( MapParameter::MAP_SIZE_X * MapParameter::CHIP_SIZE, MapParameter::MAP_SIZE_Y * MapParameter::CHIP_SIZE );
+	application->setWindowSize( MapParameter::MAP_SIZE_X * MapParameter::CHIP_SIZE, MapParameter::MAP_SIZE_Y * ( MapParameter::CHIP_SIZE + 1 ) );
 	GamePtr game = GamePtr( new Game );
 	ViewerPtr viewer = ViewerPtr( new Viewer );
 

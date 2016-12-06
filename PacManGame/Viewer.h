@@ -3,6 +3,8 @@
 #include <string>
 
 PTR( Viewer );
+PTR( ViewerTitle );
+PTR( ViewerPlay );
 PTR( Stage );
 
 class Viewer : public Task {
@@ -13,11 +15,9 @@ public:
 	Viewer( );
 	virtual ~Viewer( );
 public:
-	void initialize( );
 	void update( );
+	void initialize( );
 private:
-	void drawTitle( );
-	void drawPlayGame( );
-	void drawStage( StagePtr stage );
+	ViewerTitlePtr _titile;
+	ViewerPlayPtr _play;
 };
-
