@@ -9,9 +9,9 @@ public:
 	PlayStage( );
 	virtual ~PlayStage( );
 public:
-	void setStage( StagePtr stage );
+	void update( );
+	void create( StagePtr stage );
 	bool isEndStage( ) const;
-
 private:
 	StagePtr _stage;
 };
