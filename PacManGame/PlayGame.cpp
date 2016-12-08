@@ -1,5 +1,6 @@
 #include "PlayGame.h"
 #include "Stage.h"
+#include "PlayStage.h"
 
 const std::string STAGE_PASS[ PlayGame::STAGE_NUM ] {
 	"../Resource/StageData/Stage_01.stg",//00
@@ -34,8 +35,11 @@ const std::string STAGE_PASS[ PlayGame::STAGE_NUM ] {
 };
 
 PlayGame::PlayGame( ) {
+	_play_stage = PlayStagePtr( new PlayStage( ) );
+
 	_state = PLAY_STATE_READY;
 	_clear_stage_num = 0;
+	_stage_index = 0;
 	_is_clear = false;
 
 	//ステージの読み込み
@@ -63,6 +67,7 @@ void PlayGame::update( ) {
 		//入った時
 			//音楽再生開始
 			//初期化
+			_play_stage->create( _stage_list[ _stage_index ] );
 		//音楽再生中
 			//クリア条件表示
 		//再生終了
@@ -70,6 +75,7 @@ void PlayGame::update( ) {
 		break;
 		case PLAY_STATE_PLAY:
 		//ゲーム処理更新
+		_play_stage->update( );
 		//ゲーム終了判定
 			//_state = PLAY_STATE_RESULT;//ステート更新
 		break;
@@ -85,16 +91,17 @@ void PlayGame::update( ) {
 }
 
 void PlayGame::changeStage( ) {
-	_clear_stage_num++;
-	while ( _clear_stage_num < STAGE_NUM && _stage_list[ _clear_stage_num ] == NULL ) {
-		_clear_stage_num++;
+	_stage_index++;
+	while ( _stage_index < STAGE_NUM && _stage_list[ _stage_index ] == NULL ) {
+		_stage_index++;
 	}
-}
 
-StagePtr PlayGame::getPlayStage( ) const {
-	return _stage_list[ _clear_stage_num ];
 }
 
 PlayGame::PLAY_STATE PlayGame::getState( ) const {
 	return _state;
+}
+
+PlayStagePtr PlayGame::getPlayStage( ) const {
+	return _play_stage;
 }

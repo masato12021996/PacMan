@@ -3,7 +3,7 @@
 
 PTR( ViewerPlay );
 PTR( PlayGame );
-PTR( Stage );
+PTR( PlayStage );
 
 class ViewerPlay {
 public:
@@ -12,7 +12,10 @@ public:
 public:
 	void update( );
 private:
-	void drawStage( StagePtr stage );
+	void drawReady( );
+	void drawPlay( );
+	void drawResult( );
+	void drawField( PlayStagePtr stage );
 private:
 	PlayGamePtr _play_game;
 };

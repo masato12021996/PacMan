@@ -1,8 +1,12 @@
 #pragma once
 #include "smart_ptr.h"
+#include <vector>
 
 PTR( PlayStage );
 PTR( Stage );
+PTR( Field );
+PTR( Player );
+PTR( Enemy );
 
 class PlayStage {
 public:
@@ -12,6 +16,9 @@ public:
 	void update( );
 	void create( StagePtr stage );
 	bool isEndStage( ) const;
+	FieldPtr getField( ) const;
 private:
-	StagePtr _stage;
+	FieldPtr _field;
+	PlayerPtr _player;
+	std::vector< EnemyPtr > _enemies;
 };
