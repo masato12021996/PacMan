@@ -70,3 +70,4 @@ void ViewerPlay::drawField( PlayStagePtr stage ) {
 		}
 	}
 }
+

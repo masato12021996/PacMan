@@ -1,11 +1,12 @@
 #include "PlayStage.h"
 #include "Field.h"
 #include "Stage.h"
+#include "Player.h"
 #include "MapDefine.h"
 
 PlayStage::PlayStage( ) {
 	_field = FieldPtr( new Field( ) );
-
+	_player = PlayerPtr( new Player( ) );
 }
 
 PlayStage::~PlayStage( ) {
@@ -39,6 +40,7 @@ void PlayStage::create( StagePtr stage ) {
 				_field->setFieldTarget( i, j, Field::OBJECT_POWER_BATE );
 				break;
 				case Stage::OBJECT_NAME_PLAYER:
+				_player->create( Vector( i * MapParameter::CHIP_SIZE, j * MapParameter::MAP_SIZE_Y ) );
 				break;
 				case Stage::OBJECT_NAME_ENEMY_BLUE:
 				break;
@@ -60,4 +62,8 @@ bool PlayStage::isEndStage( ) const {
 
 FieldPtr PlayStage::getField( ) const {
 	return _field;
+}
+
+PlayerPtr PlayStage::getPlayer( ) const {
+	return _player;
 }

@@ -16,6 +16,7 @@ private:
 	void drawPlay( );
 	void drawResult( );
 	void drawField( PlayStagePtr stage );
+	void drawPlayer( PlayStagePtr stage );
 private:
 	PlayGamePtr _play_game;
 };

@@ -17,6 +17,7 @@ public:
 	void create( StagePtr stage );
 	bool isEndStage( ) const;
 	FieldPtr getField( ) const;
+	PlayerPtr getPlayer( ) const;
 private:
 	FieldPtr _field;
 	PlayerPtr _player;

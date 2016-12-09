@@ -83,8 +83,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayGame.cpp" />
     <ClCompile Include="PlayStage.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -93,7 +95,9 @@
     <ClCompile Include="ViewerTitle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayGame.h" />
     <ClInclude Include="PlayStage.h" />
     <ClInclude Include="Title.h" />
