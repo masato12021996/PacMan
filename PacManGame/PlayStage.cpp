@@ -6,7 +6,7 @@
 
 PlayStage::PlayStage( ) {
 	_field = FieldPtr( new Field( ) );
-	_player = PlayerPtr( new Player( ) );
+	_player = PlayerPtr( new Player( _field ) );
 }
 
 PlayStage::~PlayStage( ) {
