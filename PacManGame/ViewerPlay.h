@@ -4,10 +4,11 @@
 PTR( ViewerPlay );
 PTR( PlayGame );
 PTR( PlayStage );
+PTR( GraphManager );
 
 class ViewerPlay {
 public:
-	ViewerPlay( );
+	ViewerPlay( GraphManagerPtr graph_manager );
 	virtual ~ViewerPlay( );
 public:
 	void update( );
@@ -19,4 +20,5 @@ private:
 	void drawPlayer( PlayStagePtr stage );
 private:
 	PlayGamePtr _play_game;
+	GraphManagerPtr _graph_manager;
 };

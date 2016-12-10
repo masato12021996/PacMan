@@ -2,6 +2,7 @@
 #include "Viewer.h"
 #include "ViewerTitle.h"
 #include "ViewerPlay.h"
+#include "GraphManager.h"
 #include "Game.h"
 #include "MapDefine.h"
 #include <assert.h>
@@ -13,14 +14,15 @@ ViewerPtr Viewer::getTask( ) {
 }
 
 Viewer::Viewer( ) {
+	_graph_manager = GraphManagerPtr( new GraphManager( ) );
 }
 
 Viewer::~Viewer( ) {
 }
 
 void Viewer::initialize( ) {
-	_titile = ViewerTitlePtr( new ViewerTitle( ) );
-	_play = ViewerPlayPtr( new ViewerPlay( ) );
+	_titile = ViewerTitlePtr( new ViewerTitle( _graph_manager ) );
+	_play = ViewerPlayPtr( new ViewerPlay( _graph_manager ) );
 }
 
 void Viewer::update( ) {

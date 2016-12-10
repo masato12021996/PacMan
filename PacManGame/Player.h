@@ -14,9 +14,12 @@ public:
 	void update( );
 	Vector getPos( ) const;
 	Vector getDir( ) const;
+	AnimationPtr getAnimation( ) const;
 	bool isDead( ) const;
 private:
 	void InputControlDir( );
+	void move( );
+	void posNormalize( );
 private:
 	Vector _pos;
 	Vector _dir;

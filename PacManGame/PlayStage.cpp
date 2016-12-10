@@ -14,6 +14,7 @@ PlayStage::~PlayStage( ) {
 
 void PlayStage::update( ) {
 	//クリアしてなかったら更新
+	_player->update( );
 }
 
 //ステージの制作,初期化
@@ -22,7 +23,7 @@ void PlayStage::create( StagePtr stage ) {
 	if ( !_enemies.empty( ) ) {
 		_enemies.clear( );
 	}
-	//更新
+	//マップクリエイト
 	for ( int i = 0; i < MapParameter::MAP_SIZE_X; i++ ) {
 		for ( int j = 0; j < MapParameter::MAP_SIZE_Y; j++ ) {
 			int object = stage->getTargetCell( i, j );
@@ -40,7 +41,7 @@ void PlayStage::create( StagePtr stage ) {
 				_field->setFieldTarget( i, j, Field::OBJECT_POWER_BATE );
 				break;
 				case Stage::OBJECT_NAME_PLAYER:
-				_player->create( Vector( i * MapParameter::CHIP_SIZE, j * MapParameter::MAP_SIZE_Y ) );
+				_player->create( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::MAP_SIZE_Y + MapParameter::CHIP_SIZE / 2 ) );
 				break;
 				case Stage::OBJECT_NAME_ENEMY_BLUE:
 				break;
