@@ -2,32 +2,29 @@
 #include "smart_ptr.h"
 #include "mathmatics.h"
 
-PTR( Player );
+PTR( Enemy );
 PTR( Animation );
-PTR( Field );
 
-class Player {
+class Enemy {
 public:
-	Player( FieldPtr field );
-	virtual ~Player( );
+	Enemy( const Vector& pos );
+	virtual ~Enemy( );
 public:
-	void create( const Vector& pos );
 	void update( );
 	Vector getPos( ) const;
 	Vector getDir( ) const;
 	AnimationPtr getAnimation( ) const;
 	bool isExpired( ) const;
+protected:
+	virtual void actor( ) = 0;//çsìÆÇÃåàíË
+	void setDir( const Vector& dir );
+	void setAnimation( AnimationPtr animation );
 private:
-	void InputControlDir( );
 	void move( );
-	bool canMove( Vector pos );
-	bool onMap( Vector pos );
-	void posNormalize( );
 private:
+	bool _is_expired;
+	bool _is_bad;
 	Vector _pos;
 	Vector _dir;
-	bool _is_expired;
 	AnimationPtr _animation;
-	FieldPtr _field;
 };
-

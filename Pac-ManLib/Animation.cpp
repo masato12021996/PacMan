@@ -1,9 +1,10 @@
 #include "Animation.h"
 
+const int FPS = 60;
 
 Animation::Animation( int anim_frame, int anim_max_time ) {
 	_animation_fream = anim_frame;
-	_animation_max_time = anim_max_time;
+	_animation_max_time = anim_max_time * FPS;
 }
 
 Animation::~Animation( ) {

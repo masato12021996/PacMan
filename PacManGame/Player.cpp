@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Animation.h"
+#include "PlayerAnimationFactory.h"
 #include "Keyboard.h"
 #include "MapDefine.h"
 #include "Field.h"
@@ -16,8 +17,8 @@ const Vector DIR_DOWN	= Vector(  0,  1, 0 );
 
 Player::Player( FieldPtr field ) {
 	_field = field;
-	_is_dead = true;
-	_animation;
+	_is_expired = true;
+	_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WAIT );
 }
 
 Player::~Player( ) {
@@ -28,17 +29,17 @@ void Player::update( ) {
 	//移動処理
 	move( );
 	//アニメーションアップデート
-	//_animation->update( );
+	_animation->update( );
 }
 
 void Player::create( const Vector& pos ) {
 	_pos = pos;
 	_dir = DIR_LEFT;
-	_is_dead = false;
+	_is_expired = false;
 }
 
-bool Player::isDead( ) const {
-	return _is_dead;
+bool Player::isExpired( ) const {
+	return _is_expired;
 }
 
 Vector Player::getPos( ) const {
