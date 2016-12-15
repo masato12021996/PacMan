@@ -2,7 +2,7 @@
 
 const int FPS = 60;
 
-Animation::Animation( int anim_frame, int anim_max_time ) {
+Animation::Animation( int anim_frame, double anim_max_time ) {
 	_animation_fream = anim_frame;
 	_animation_max_time = anim_max_time * FPS;
 }
@@ -10,23 +10,18 @@ Animation::Animation( int anim_frame, int anim_max_time ) {
 Animation::~Animation( ) {
 }
 
-bool Animation::isEndAnimation( ) {
-	bool result = false;
-	if ( _animation_time > _animation_max_time ) {
-		result = true;
-	}
-	return result;
-}
-
 void Animation::update( ) {
 	_animation_time++;
+	if ( _animation_max_time < _animation_time ) {
+		_animation_time = 0;
+	}
 }
 
 int Animation::getAnimGraph( ) const {
 	int ratio = _animation_max_time / _animation_fream;
 	int index = _animation_time / ratio;
-	if ( index > _animation_fream ) {
-		index = _animation_fream;
+	if ( index >= _animation_fream ) {
+		index = _animation_fream - 1;
 	}
 	return index;
 }

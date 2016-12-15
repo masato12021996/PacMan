@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Animation.h"
 
 Enemy::Enemy( const Vector& pos  ) {
 	_pos = pos;
@@ -9,6 +10,17 @@ Enemy::Enemy( const Vector& pos  ) {
 }
 
 Enemy::~Enemy( ) {
+}
+
+void Enemy::update( ) {
+	if ( _is_bad ) {
+		//“¦‚°‚é
+
+	} else {
+		actor( );
+	}
+	move( );
+	_animation->update( );
 }
 
 Vector Enemy::getPos( ) const {

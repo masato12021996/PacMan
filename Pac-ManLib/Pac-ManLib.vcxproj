@@ -22,6 +22,7 @@
     <ClInclude Include="MapDefine.h" />
     <ClInclude Include="PlayerAnimationFactory.h" />
     <ClInclude Include="PlayerWaitAniamtion.h" />
+    <ClInclude Include="PlayerWalkAnimation.h" />
     <ClInclude Include="Stage.h" />
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +31,7 @@
     <ClCompile Include="GraphManager.cpp" />
     <ClCompile Include="PlayerAnimationFactory.cpp" />
     <ClCompile Include="PlayerWaitAniamtion.cpp" />
+    <ClCompile Include="PlayerWalkAnimation.cpp" />
     <ClCompile Include="Stage.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -82,6 +82,6 @@ void ViewerPlay::drawPlayer( PlayStagePtr stage ) {
 	AnimationPtr anim = player->getAnimation( );
 	int x = ( int )pos.x - MapParameter::CHIP_SIZE / 2;
 	int y = ( int )pos.y - MapParameter::CHIP_SIZE / 2;
-	//GraphManager::CHIP_ID id = ( GraphManager::CHIP_ID )anim->getAnimGraph( );
-	_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_PACMAN_1 );
+	GraphManager::CHIP_ID id = ( GraphManager::CHIP_ID )anim->getAnimGraph( );
+	_graph_manager->drawChip( x, y, id );
 }

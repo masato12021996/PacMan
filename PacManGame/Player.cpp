@@ -19,6 +19,7 @@ Player::Player( FieldPtr field ) {
 	_field = field;
 	_is_expired = true;
 	_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WAIT );
+	_state = STATE::STATE_WAIT;
 }
 
 Player::~Player( ) {
@@ -28,8 +29,8 @@ void Player::update( ) {
 	InputControlDir( );//向きが変更される。
 	//移動処理
 	move( );
-	//アニメーションアップデート
-	_animation->update( );
+	stateUpdate( );
+	animator( );//アニメーション管理
 }
 
 void Player::create( const Vector& pos ) {
@@ -55,6 +56,7 @@ AnimationPtr Player::getAnimation( ) const {
 }
 
 void Player::InputControlDir( ) {
+	_befor_dir = _dir;
 	KeyboardPtr keyboad = Keyboard::getTask( );
 	if ( keyboad->isPushKey( "ARROW_LEFT" ) ) {
 		_dir = DIR_LEFT;
@@ -71,6 +73,7 @@ void Player::InputControlDir( ) {
 }
 
 void Player::move( ) {
+	_befor_pos = _pos;
 	Vector next_pos = _pos + _dir;
 	if ( canMove( next_pos ) ) {
 		_pos = next_pos;
@@ -119,4 +122,30 @@ bool Player::canMove( Vector pos ) {
 		}
 	}
 	return result;
+}
+
+void Player::stateUpdate( ) {
+	_befor_state = _state;
+	_state = STATE_WAIT;
+	int movement = ( _befor_pos - _pos ).getLength( );
+	if ( movement ) {
+		_state = STATE_WALK;
+	}
+}
+
+void Player::animator( ) {
+	if ( _state != _befor_state ) {
+		//アニメーション更新
+		switch ( _state ) {
+			case STATE_WAIT:
+				_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WAIT );
+				break;
+			case STATE_WALK:
+				_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK );
+				break;
+		}
+	} else {
+		//アニメーションアップデート
+		_animation->update( );
+	}
 }

@@ -1,5 +1,6 @@
 #include "PlayerAnimationFactory.h"
 #include "PlayerWaitAniamtion.h"
+#include "PlayerWalkAnimation.h"
 
 PlayerAnimationFactory::PlayerAnimationFactory( ) {
 }
@@ -12,6 +13,9 @@ AnimationPtr PlayerAnimationFactory::createAnimation( STATE state ) {
 	switch ( state ) {
 	case STATE::STATE_WAIT:
 		animation = PlayerWaitAniamtionPtr( new PlayerWaitAniamtion( ) );
+		break;
+	case STATE::STATE_WALK:
+		animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( ) );
 		break;
 	}
 	return animation;
