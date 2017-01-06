@@ -18,8 +18,8 @@ void Animation::update( ) {
 }
 
 int Animation::getAnimGraph( ) const {
-	int ratio = _animation_max_time / _animation_fream;
-	int index = _animation_time / ratio;
+	int ratio = ( int )_animation_max_time / _animation_fream;
+	int index = ( int )_animation_time / ratio;
 	if ( index >= _animation_fream ) {
 		index = _animation_fream - 1;
 	}

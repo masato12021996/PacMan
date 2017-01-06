@@ -74,9 +74,8 @@ void Player::InputControlDir( ) {
 
 void Player::move( ) {
 	_befor_pos = _pos;
-	Vector next_pos = _pos + _dir;
-	if ( canMove( next_pos ) ) {
-		_pos = next_pos;
+	if ( canMove( _pos ) ) {
+		_pos+= _dir;
 	}
 	posNormalize( );
 }
@@ -113,12 +112,34 @@ bool Player::onMap( Vector pos ) {
 
 bool Player::canMove( Vector pos ) {
 	bool result = true;
-	if ( onMap( pos ) ) {
-		int x = ( int )pos.x / MapParameter::CHIP_SIZE;
-		int y = ( ( int )pos.y / MapParameter::CHIP_SIZE ) - 1;
-		int object_id = _field->getFieldTarget( x, y );
-		if ( object_id == Field::OBJECT_WALL ){
-			result = false;
+	//まず自分のいるマスを取得する
+	int px = ( int )pos.x / MapParameter::CHIP_SIZE;
+	int py = ( int )pos.y / MapParameter::CHIP_SIZE;
+	//そのあと進行方向のマスとそのうえ側のマスと下側のマスを取得する
+	for ( int i = 0; i < 3; i++ ) {
+		int x = px;
+		int y = py;
+		if ( _dir.x > 0 ) {
+			y += i - 2;
+		} else {
+			x += i - 2;
+		}
+		if ( onMap( Vector( x * MapParameter::CHIP_SIZE, y * MapParameter::CHIP_SIZE ) ) ) {
+			//各マスが壁か判断する。
+			int object_id = _field->getFieldTarget( x, y );
+			if ( object_id == Field::OBJECT_WALL ){
+				double bsx = x * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
+				double bsy = y * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
+				Vector bsp = Vector( bsx, bsy );
+				Vector diff = bsp - pos;
+				//その後正方形と円のあたり判定をする
+				double box_length;
+				//方法としては正方形と円のベクトルを取りその角度を利用して当たりそうな正方形の辺の長さを求め判定する。
+				double length = diff.getLength( );
+				if ( length < box_length + MapParameter::CHIP_SIZE / 2 ) {
+					result = false;
+				}
+			}
 		}
 	}
 	return result;
@@ -127,7 +148,7 @@ bool Player::canMove( Vector pos ) {
 void Player::stateUpdate( ) {
 	_befor_state = _state;
 	_state = STATE_WAIT;
-	int movement = ( _befor_pos - _pos ).getLength( );
+	bool movement = ( _befor_pos - _pos ).getLength( ) > 0;
 	if ( movement ) {
 		_state = STATE_WALK;
 	}
