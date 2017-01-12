@@ -117,12 +117,12 @@ bool Player::canMove( Vector pos ) {
 	int py = ( int )pos.y / MapParameter::CHIP_SIZE;
 	//そのあと進行方向のマスとそのうえ側のマスと下側のマスを取得する
 	for ( int i = 0; i < 3; i++ ) {
-		int x = px;
-		int y = py;
+		int x = px + _dir.x;
+		int y = py + _dir.y;
 		if ( _dir.x > 0 ) {
-			y += i - 2;
+			y += i - 1;
 		} else {
-			x += i - 2;
+			x += i - 1;
 		}
 		if ( onMap( Vector( x * MapParameter::CHIP_SIZE, y * MapParameter::CHIP_SIZE ) ) ) {
 			//各マスが壁か判断する。
@@ -133,7 +133,7 @@ bool Player::canMove( Vector pos ) {
 				Vector bsp = Vector( bsx, bsy );
 				Vector diff = bsp - pos;
 				//その後正方形と円のあたり判定をする
-				double box_length;
+				double box_length = MapParameter::CHIP_SIZE / 2;
 				//方法としては正方形と円のベクトルを取りその角度を利用して当たりそうな正方形の辺の長さを求め判定する。
 				double length = diff.getLength( );
 				if ( length < box_length + MapParameter::CHIP_SIZE / 2 ) {
