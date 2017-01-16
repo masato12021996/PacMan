@@ -29,6 +29,7 @@ public:
 	OBJECT getFieldTarget( int x, int y ) const;
 	int getSizeX( ) const;
 	int getSizeY( ) const;
+	bool isNotBate( ) const;
 private:
 	int getIndex( int x, int y ) const;
 private:

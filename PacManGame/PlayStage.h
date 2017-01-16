@@ -22,4 +22,5 @@ private:
 	FieldPtr _field;
 	PlayerPtr _player;
 	std::vector< EnemyPtr > _enemies;
+	int _trems;
 };

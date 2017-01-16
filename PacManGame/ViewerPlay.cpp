@@ -72,6 +72,20 @@ void ViewerPlay::drawField( PlayStagePtr stage ) {
 				//‚±‚±‚Å–{—ˆ‚Ì•Ç‚Ì•`‰æ‚ð‚·‚é
 				drawer->drawBox( x, y, chip_size, true );
 			}
+			if ( object == Field::OBJECT_BATE ) {
+				int chip_size = MapParameter::CHIP_SIZE;
+				int x = DRAW_STAGE_POS_X + i * chip_size;
+				int y = DRAW_STAGE_POS_Y + j * chip_size;
+				GraphManager::CHIP_ID id = GraphManager::CHIP_ID_TARGET_BATE;
+				_graph_manager->drawChip( x, y, id );
+			}
+			if ( object == Field::OBJECT_POWER_BATE ) {
+				int chip_size = MapParameter::CHIP_SIZE;
+				int x = DRAW_STAGE_POS_X + i * chip_size;
+				int y = DRAW_STAGE_POS_Y + j * chip_size;
+				GraphManager::CHIP_ID id = GraphManager::CHIP_ID_TARGET_POWER_BATE;
+				_graph_manager->drawChip( x, y, id );
+			}
 		}
 	}
 }

@@ -38,3 +38,15 @@ int Field::getSizeX( ) const {
 int Field::getSizeY( ) const {
 	return MAP_CHIP_NUM_Y;
 }
+
+bool Field::isNotBate( ) const {
+	bool result = true;
+	for( int i = 0; i < MAP_MAX_INDEX; i++ ) {
+		int obj = _field[ i ];
+		if ( obj == OBJECT_BATE || obj == OBJECT_POWER_BATE ) {
+			result = false;
+			break;
+		}
+	}
+	return result;
+}

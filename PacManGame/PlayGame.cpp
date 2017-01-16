@@ -77,7 +77,9 @@ void PlayGame::update( ) {
 		//ゲーム処理更新
 		_play_stage->update( );
 		//ゲーム終了判定
-			//_state = PLAY_STATE_RESULT;//ステート更新
+		if ( _play_stage->isEndStage( ) ) {
+			_state = PLAY_STATE_RESULT;//ステート更新
+		}
 		break;
 		case PLAY_STATE_RESULT:
 		//リザルト表示

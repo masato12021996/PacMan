@@ -19,6 +19,7 @@ void PlayStage::update( ) {
 
 //ステージの制作,初期化
 void PlayStage::create( StagePtr stage ) {
+	_trems = stage->getTrems( );
 	//リセット
 	if ( !_enemies.empty( ) ) {
 		_enemies.clear( );
@@ -58,6 +59,17 @@ void PlayStage::create( StagePtr stage ) {
 
 bool PlayStage::isEndStage( ) const {
 	bool is_end = false;
+	switch( _trems ) {
+	case Stage::CLEAR_TREMS_ENEMY_EAT:
+		break;
+	case Stage::CLEAR_TREMS_FOOD_EAT:
+		if( _field->isNotBate( ) ) {
+			is_end = true;
+		}
+		break;
+	case Stage::CLEAR_TREMS_OUTRUN:
+		break;
+	}
 	return is_end;
 }
 
