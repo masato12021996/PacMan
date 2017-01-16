@@ -8,7 +8,10 @@ class PlayerAnimationFactory {
 public:
 	enum STATE {
 		STATE_WAIT,
-		STATE_WALK,
+		STATE_WALK_LEFT,
+		STATE_WALK_RIGHT,
+		STATE_WALK_DOWN,
+		STATE_WALK_UP
 	};
 public:
 	PlayerAnimationFactory( );

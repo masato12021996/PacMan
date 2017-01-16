@@ -4,7 +4,10 @@ const int CHIP_SIZE = 32;
 
 GraphManager::GraphManager( ) {
 	DrawerPtr drawer = Drawer::getTask( );
-	drawer->loadGraph( GRAPH_ID_PACMAN, "../Resource/Graph/Player.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_LEFT, "../Resource/Graph/PlayerLeft.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_RIGHT, "../Resource/Graph/PlayerRight.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_DOWN, "../Resource/Graph/PlayerDown.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_UP, "../Resource/Graph/PlayerUp.png" );
 	drawer->loadGraph( GRAPH_ID_ENEMY, "../Resource/Graph/Enemy.png" );
 	drawer->loadGraph( GRAPH_ID_TARGET, "../Resource/Graph/Target.png" );
 	drawer->loadGraph( GRAPH_ID_BACK_GROUND, "../Resource/Graph/BackGround.png" );
@@ -28,11 +31,39 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 	sprite.width = CHIP_SIZE;
 	sprite.trans_flag = true;
 	
-	if ( CHIP_ID_PACMAN_1 <= id && id <= CHIP_ID_PACMAN_3 ) {
-		int index = id - CHIP_ID_PACMAN_1;
-		const int OFFSET_X = 4;
+	//¶Œü‚«
+	if ( CHIP_ID_PACMAN_1_LEFT <= id && id <= CHIP_ID_PACMAN_3_LEFT ) {
+		int index = id - CHIP_ID_PACMAN_1_LEFT;
+		const int OFFSET_X = 0;
 		const int OFFSET_Y = 0;
-		sprite.image = GRAPH_ID_PACMAN;
+		sprite.image = GRAPH_ID_PACMAN_LEFT;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+	//‰EŒü‚«
+	if ( CHIP_ID_PACMAN_1_RIGHT <= id && id <= CHIP_ID_PACMAN_3_RIGHT ) {
+		int index = id - CHIP_ID_PACMAN_1_RIGHT;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_PACMAN_RIGHT;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+	//‰ºŒü‚«
+	if ( CHIP_ID_PACMAN_1_DOWN <= id && id <= CHIP_ID_PACMAN_3_DOWN ) {
+		int index = id - CHIP_ID_PACMAN_1_DOWN;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_PACMAN_DOWN;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+	//ãŒü‚«
+	if ( CHIP_ID_PACMAN_1_UP <= id && id <= CHIP_ID_PACMAN_3_UP ) {
+		int index = id - CHIP_ID_PACMAN_1_UP;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_PACMAN_UP;
 		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
 		sprite.ty = OFFSET_Y;
 	}
@@ -40,7 +71,7 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 		int index = id - CHIP_ID_PACMAN_DEAD_01;
 		const int OFFSET_X = 4;
 		const int OFFSET_Y = CHIP_SIZE + 4;
-		sprite.image = GRAPH_ID_PACMAN;
+		sprite.image = GRAPH_ID_PACMAN_DEAD;
 		sprite.tx = ( CHIP_SIZE + OFFSET_X ) * index;
 		sprite.ty = OFFSET_Y;
 	}

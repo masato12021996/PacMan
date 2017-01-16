@@ -10,7 +10,7 @@
 const int CHIP_SIZE = 32;
 
 const GraphManager::CHIP_ID OBJECT_LIST[ 8 ] = {
-	GraphManager::CHIP_ID_PACMAN_1,
+	GraphManager::CHIP_ID_PACMAN_1_LEFT,
 	GraphManager::CHIP_ID_ENEMY_RED_LEFT_0,
 	GraphManager::CHIP_ID_ENEMY_PINC_LEFT_0,
 	GraphManager::CHIP_ID_ENEMY_BLUE_LEFT_0,
@@ -61,7 +61,7 @@ void Viewer::drawObject( ) {
 			int y = CHIP_SIZE * i;
 			switch ( id ) {
 			case Stage::OBJECT_NAME_PLAYER:
-				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_PACMAN_1 );
+				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_PACMAN_1_LEFT );
 				break;
 			case Stage::OBJECT_NAME_ENEMY_RED:
 				_graph_manager->drawChip( x, y, GraphManager::CHIP_ID_ENEMY_RED_LEFT_0 );

@@ -164,14 +164,25 @@ void Player::stateUpdate( ) {
 }
 
 void Player::animator( ) {
-	if ( _state != _befor_state ) {
+	if ( _state != _befor_state || _dir != _befor_dir ) {
 		//アニメーション更新
 		switch ( _state ) {
 			case STATE_WAIT:
 				_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WAIT );
 				break;
 			case STATE_WALK:
-				_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK );
+				if ( _dir.x == -1 && _dir.y == 0 ) {
+					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_LEFT );
+				}
+				if ( _dir.x == 1 && _dir.y == 0 ) {
+					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_RIGHT );
+				}
+				if ( _dir.x == 0 && _dir.y == 1 ) {
+					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_DOWN );
+				}
+				if ( _dir.x == 0 && _dir.y == -1 ) {
+					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_UP );
+				}
 				break;
 		}
 	} else {

@@ -23,7 +23,7 @@ int Animation::getAnimGraph( ) const {
 	if ( index >= _animation_fream ) {
 		index = _animation_fream - 1;
 	}
-	return index;
+	return _animation_graph[index];
 }
 
 void Animation::setAnimationGraph( int id ) {
