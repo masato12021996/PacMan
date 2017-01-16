@@ -83,8 +83,8 @@ void Player::move( ) {
 	posNormalize( );
 
 	//餌の取得
-	int x = _pos.x / MapParameter::CHIP_SIZE;
-	int y = _pos.y / MapParameter::CHIP_SIZE;
+	int x = ( int )_pos.x / MapParameter::CHIP_SIZE;
+	int y = ( int )_pos.y / MapParameter::CHIP_SIZE;
 	int on_object = _field->getFieldTarget( x, y );
 	if ( on_object == Field::OBJECT_BATE ) {
 		_field->setFieldTarget( x, y, Field::OBJECT_NULL );
@@ -122,8 +122,8 @@ bool Player::onMap( Vector pos ) {
 bool Player::canMove( Vector pos ) {
 	bool result = true;
 	//まず自分のいるマスを取得する
-	int px = ( int )pos.x / MapParameter::CHIP_SIZE + _dir.x;
-	int py = ( int )pos.y / MapParameter::CHIP_SIZE + _dir.y;
+	int px = ( int )pos.x / MapParameter::CHIP_SIZE + ( int )_dir.x;
+	int py = ( int )pos.y / MapParameter::CHIP_SIZE + ( int )_dir.y;
 	//そのあと進行方向のマスとそのうえ側のマスと下側のマスを取得する
 	for ( int i = 0; i < 3; i++ ) {
 		int x = px;
