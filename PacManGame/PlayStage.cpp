@@ -2,6 +2,7 @@
 #include "Field.h"
 #include "Stage.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "MapDefine.h"
 #include <time.h>
 
@@ -18,6 +19,13 @@ PlayStage::~PlayStage( ) {
 void PlayStage::update( ) {
 	//クリアしてなかったら更新
 	_player->update( );
+	if ( !_enemies.empty( ) ) {
+		for ( int i = 0; i < _enemies.size( ); i++ ) {
+			if ( _enemies[ i ]->isExpired( ) ) {
+				_enemies[ i ]->update( );
+			}
+		}
+	}
 	_stage_time = ( clock( ) - _start_time );
 }
 

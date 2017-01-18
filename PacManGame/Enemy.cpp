@@ -1,12 +1,14 @@
 #include "Enemy.h"
 #include "Animation.h"
 
+const double SPEED = 1.0;
+
 Enemy::Enemy( const Vector& pos  ) {
 	_pos = pos;
+	_dir = Vector( 1, 0, 0 );
 	_is_expired = true;
 	_is_bad = false;
-	//_animation;
-	//actor( );
+	_animation;
 }
 
 Enemy::~Enemy( ) {
@@ -48,9 +50,9 @@ bool Enemy::isExpired( ) const {
 }
 
 void Enemy::move( ) {
-	double speed = 1.0;
+	double speed = SPEED;
 	if ( _is_bad ) {
-		speed /= 2;
+		speed = speed / 2;
 	}
-	_pos += _dir *speed;
+	_pos += _dir * speed;
 }
