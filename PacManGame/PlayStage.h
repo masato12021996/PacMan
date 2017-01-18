@@ -15,7 +15,8 @@ public:
 public:
 	void update( );
 	void create( StagePtr stage );
-	bool isEndStage( ) const;
+	bool isClearStage( ) const;
+	bool isDeadStage( ) const;
 	FieldPtr getField( ) const;
 	PlayerPtr getPlayer( ) const;
 	double getTime( ) const;

@@ -7,6 +7,7 @@
 #include <time.h>
 
 const int CLEAR_TIME = 10;
+const int GAMEOVER_TIME = 180;
 
 PlayStage::PlayStage( ) {
 	_field = FieldPtr( new Field( ) );
@@ -72,7 +73,7 @@ void PlayStage::create( StagePtr stage ) {
 	}
 }
 
-bool PlayStage::isEndStage( ) const {
+bool PlayStage::isClearStage( ) const {
 	bool is_end = false;
 	switch( _trems ) {
 	case Stage::CLEAR_TREMS_ENEMY_EAT:
@@ -83,11 +84,27 @@ bool PlayStage::isEndStage( ) const {
 		}
 		break;
 	case Stage::CLEAR_TREMS_OUTRUN:
-		if ( _stage_time > CLEAR_TIME ) {
+		if ( getTime( ) > CLEAR_TIME ) {
 			is_end = true;
 		}
 		break;
 	}
+	return is_end;
+}
+
+bool PlayStage::isDeadStage( ) const {
+	bool is_end = false;
+	switch( _trems ) {
+	case Stage::CLEAR_TREMS_ENEMY_EAT:
+	case Stage::CLEAR_TREMS_FOOD_EAT:
+		if ( getTime( ) > GAMEOVER_TIME ) {
+			is_end = true;
+		}
+		break;
+	case Stage::CLEAR_TREMS_OUTRUN:
+		break;
+	}
+	//“G‚É“–‚½‚Á‚½Žž
 	return is_end;
 }
 

@@ -78,7 +78,7 @@ void PlayGame::update( ) {
 		//ゲーム処理更新
 		_play_stage->update( );
 		//ゲーム終了判定
-		if ( _play_stage->isEndStage( ) ) {
+		if ( _play_stage->isClearStage( ) || _play_stage->isDeadStage( ) ) {
 			_state = PLAY_STATE_RESULT;//ステート更新
 		}
 		break;
@@ -87,8 +87,14 @@ void PlayGame::update( ) {
 			//ゲーム画面表示
 			//リザルト文字表示
 		//リザルト終了時
-			changeStage( );//ステージ切り替え
-			_state = PLAY_STATE_READY;//ステート切り替え
+			//クリアした場合
+			if ( _play_stage->isClearStage( ) ) {
+				changeStage( );//ステージ切り替え
+				_state = PLAY_STATE_READY;//ステート切り替え
+			}
+			//ゲームオーバー
+			if ( _play_stage->isDeadStage( ) ) {
+			}
 		break;
 	}
 }
