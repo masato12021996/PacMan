@@ -11,6 +11,7 @@ public:
 	enum STATE {
 		STATE_WAIT,
 		STATE_WALK,
+		STATE_CHANGE_DIR,
 	};
 public:
 	Player( FieldPtr field );

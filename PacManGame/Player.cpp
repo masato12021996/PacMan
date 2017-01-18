@@ -20,9 +20,6 @@ const int PLAYER_RANGE = 10;
 
 Player::Player( FieldPtr field ) {
 	_field = field;
-	_is_expired = true;
-	_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WAIT );
-	_state = STATE::STATE_WAIT;
 }
 
 Player::~Player( ) {
@@ -39,7 +36,9 @@ void Player::update( ) {
 void Player::create( const Vector& pos ) {
 	_pos = pos;
 	_dir = DIR_LEFT;
-	_is_expired = false;
+	_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_LEFT );
+	_state = STATE::STATE_WAIT;
+	_is_expired = true;
 }
 
 bool Player::isExpired( ) const {
@@ -161,26 +160,46 @@ void Player::stateUpdate( ) {
 	if ( movement ) {
 		_state = STATE_WALK;
 	}
+	if ( _befor_dir != _dir || ( _befor_state == STATE_CHANGE_DIR && _animation->getAnimTime( ) < 5 ) ) {
+		_state = STATE_CHANGE_DIR;
+	}
 }
 
 void Player::animator( ) {
-	if ( _state != _befor_state || _dir != _befor_dir ) {
+	if ( _state == STATE_WAIT || _state != _befor_state || _dir != _befor_dir ) {
 		//アニメーション更新
 		switch ( _state ) {
 			case STATE_WAIT:
-				_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WAIT );
 				break;
 			case STATE_WALK:
-				if ( _dir.x == -1 && _dir.y == 0 ) {
+				if ( _dir == DIR_LEFT ) {
 					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_LEFT );
 				}
-				if ( _dir.x == 1 && _dir.y == 0 ) {
+				if ( _dir == DIR_RIGHT ) {
 					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_RIGHT );
 				}
-				if ( _dir.x == 0 && _dir.y == 1 ) {
+				if ( _dir == DIR_DOWN ) {
 					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_DOWN );
 				}
-				if ( _dir.x == 0 && _dir.y == -1 ) {
+				if ( _dir == DIR_UP ) {
+					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_UP );
+				}
+				break;
+			case STATE_CHANGE_DIR:
+				//左上
+				if ( ( _dir == DIR_LEFT && _befor_dir == DIR_UP ) || ( _befor_dir == DIR_LEFT && _dir == DIR_UP ) ) {
+					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_LEFT );
+				}
+				//左下
+				if ( ( _dir == DIR_LEFT && _befor_dir == DIR_DOWN ) || ( _befor_dir == DIR_LEFT && _dir == DIR_DOWN ) ) {
+					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_RIGHT );
+				}
+				//右上
+				if ( ( _dir == DIR_RIGHT && _befor_dir == DIR_UP ) || ( _befor_dir == DIR_RIGHT && _dir == DIR_UP ) ) {
+					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_DOWN );
+				}
+				//右下
+				if ( ( _dir == DIR_RIGHT && _befor_dir == DIR_DOWN ) || ( _befor_dir == DIR_RIGHT && _dir == DIR_DOWN ) ) {
 					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_UP );
 				}
 				break;

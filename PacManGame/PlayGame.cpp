@@ -3,35 +3,36 @@
 #include "PlayStage.h"
 
 const std::string STAGE_PASS[ PlayGame::STAGE_NUM ] {
-	"../Resource/StageData/Stage_01.stg",//00
-	"../Resource/StageData/Stage_01.stg",//01
-	"../Resource/StageData/Stage_01.stg",//02
-	"../Resource/StageData/Stage_01.stg",//03
-	"../Resource/StageData/Stage_01.stg",//04
-	"../Resource/StageData/Stage_01.stg",//05
-	"../Resource/StageData/Stage_01.stg",//06
-	"../Resource/StageData/Stage_01.stg",//07
-	"../Resource/StageData/Stage_01.stg",//08
-	"../Resource/StageData/Stage_01.stg",//09
-	"../Resource/StageData/Stage_01.stg",//10
-	"../Resource/StageData/Stage_01.stg",//11
-	"../Resource/StageData/Stage_01.stg",//12
-	"../Resource/StageData/Stage_01.stg",//13
-	"../Resource/StageData/Stage_01.stg",//14
-	"../Resource/StageData/Stage_01.stg",//15
-	"../Resource/StageData/Stage_01.stg",//16
-	"../Resource/StageData/Stage_01.stg",//17
-	"../Resource/StageData/Stage_01.stg",//18
-	"../Resource/StageData/Stage_01.stg" //20
-	"../Resource/StageData/Stage_01.stg" //21
-	"../Resource/StageData/Stage_01.stg" //22
-	"../Resource/StageData/Stage_01.stg" //23
-	"../Resource/StageData/Stage_01.stg" //24
-	"../Resource/StageData/Stage_01.stg" //25
-	"../Resource/StageData/Stage_01.stg" //26
-	"../Resource/StageData/Stage_01.stg" //27
-	"../Resource/StageData/Stage_01.stg" //28
-	"../Resource/StageData/Stage_01.stg" //29
+	"../Resource/StageData/Stage_01.stg",
+	"../Resource/StageData/Stage_02.stg",
+	"../Resource/StageData/Stage_03.stg",
+	"../Resource/StageData/Stage_04.stg",
+	"../Resource/StageData/Stage_05.stg",
+	"../Resource/StageData/Stage_06.stg",
+	"../Resource/StageData/Stage_07.stg",
+	"../Resource/StageData/Stage_08.stg",
+	"../Resource/StageData/Stage_09.stg",
+	"../Resource/StageData/Stage_10.stg",
+	"../Resource/StageData/Stage_11.stg",
+	"../Resource/StageData/Stage_12.stg",
+	"../Resource/StageData/Stage_13.stg",
+	"../Resource/StageData/Stage_14.stg",
+	"../Resource/StageData/Stage_15.stg",
+	"../Resource/StageData/Stage_16.stg",
+	"../Resource/StageData/Stage_17.stg",
+	"../Resource/StageData/Stage_18.stg",
+	"../Resource/StageData/Stage_19.stg",
+	"../Resource/StageData/Stage_20.stg",
+	"../Resource/StageData/Stage_21.stg",
+	"../Resource/StageData/Stage_22.stg",
+	"../Resource/StageData/Stage_23.stg",
+	"../Resource/StageData/Stage_24.stg",
+	"../Resource/StageData/Stage_25.stg",
+	"../Resource/StageData/Stage_26.stg",
+	"../Resource/StageData/Stage_27.stg",
+	"../Resource/StageData/Stage_28.stg",
+	"../Resource/StageData/Stage_29.stg",
+	"../Resource/StageData/Stage_30.stg"
 };
 
 PlayGame::PlayGame( ) {
@@ -97,7 +98,7 @@ void PlayGame::changeStage( ) {
 	while ( _stage_index < STAGE_NUM && _stage_list[ _stage_index ] == NULL ) {
 		_stage_index++;
 	}
-
+	_clear_stage_num++;
 }
 
 PlayGame::PLAY_STATE PlayGame::getState( ) const {
@@ -106,4 +107,8 @@ PlayGame::PLAY_STATE PlayGame::getState( ) const {
 
 PlayStagePtr PlayGame::getPlayStage( ) const {
 	return _play_stage;
+}
+
+int PlayGame::getClearStageNum( ) const {
+	return _clear_stage_num;
 }

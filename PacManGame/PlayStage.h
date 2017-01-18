@@ -18,9 +18,13 @@ public:
 	bool isEndStage( ) const;
 	FieldPtr getField( ) const;
 	PlayerPtr getPlayer( ) const;
+	double getTime( ) const;
+	int getTrems( ) const;
 private:
 	FieldPtr _field;
 	PlayerPtr _player;
 	std::vector< EnemyPtr > _enemies;
 	int _trems;
+	int _start_time;
+	int _stage_time;
 };

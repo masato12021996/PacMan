@@ -3,6 +3,9 @@
 #include "Stage.h"
 #include "Player.h"
 #include "MapDefine.h"
+#include <time.h>
+
+const int CLEAR_TIME = 10;
 
 PlayStage::PlayStage( ) {
 	_field = FieldPtr( new Field( ) );
@@ -15,15 +18,19 @@ PlayStage::~PlayStage( ) {
 void PlayStage::update( ) {
 	//クリアしてなかったら更新
 	_player->update( );
+	_stage_time = ( clock( ) - _start_time );
 }
 
 //ステージの制作,初期化
 void PlayStage::create( StagePtr stage ) {
 	_trems = stage->getTrems( );
+	_start_time = clock( );
+	_stage_time = 0;
 	//リセット
 	if ( !_enemies.empty( ) ) {
 		_enemies.clear( );
 	}
+	_field->initialize( );
 	//マップクリエイト
 	for ( int i = 0; i < MapParameter::MAP_SIZE_X; i++ ) {
 		for ( int j = 0; j < MapParameter::MAP_SIZE_Y; j++ ) {
@@ -42,7 +49,7 @@ void PlayStage::create( StagePtr stage ) {
 				_field->setFieldTarget( i, j, Field::OBJECT_POWER_BATE );
 				break;
 				case Stage::OBJECT_NAME_PLAYER:
-				_player->create( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::MAP_SIZE_Y + MapParameter::CHIP_SIZE / 2 ) );
+				_player->create( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) );
 				break;
 				case Stage::OBJECT_NAME_ENEMY_BLUE:
 				break;
@@ -68,6 +75,9 @@ bool PlayStage::isEndStage( ) const {
 		}
 		break;
 	case Stage::CLEAR_TREMS_OUTRUN:
+		if ( _stage_time > CLEAR_TIME ) {
+			is_end = true;
+		}
 		break;
 	}
 	return is_end;
@@ -79,4 +89,12 @@ FieldPtr PlayStage::getField( ) const {
 
 PlayerPtr PlayStage::getPlayer( ) const {
 	return _player;
+}
+
+double PlayStage::getTime( ) const {
+	return _stage_time / 1000.0;
+}
+
+int PlayStage::getTrems( ) const {
+	return _trems;
 }

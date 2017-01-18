@@ -29,3 +29,7 @@ int Animation::getAnimGraph( ) const {
 void Animation::setAnimationGraph( int id ) {
 	_animation_graph.push_back( id );
 }
+
+double Animation::getAnimTime( ) const {
+	return _animation_time;
+}

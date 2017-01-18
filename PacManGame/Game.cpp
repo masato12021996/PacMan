@@ -24,13 +24,15 @@ void Game::initialize( ) {
 void Game::update( ) {
 	switch ( _game_state ) {
 		case GAME_STATE_TITILE:
+			//タイトル
 			_title->update( );
 			break;
 		case GAME_STATE_PLAY:
+			//ステージのプレイ
 			_play_game->update( );
 			break;
 		case GAME_STATE_RESULT:
-			_play_game->update( );
+			//ランキング
 			break;
 		default:
 			assert( "NoneGameState" );

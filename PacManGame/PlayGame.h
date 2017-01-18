@@ -21,6 +21,7 @@ public:
 	void update( );
 	PLAY_STATE getState( ) const;
 	PlayStagePtr getPlayStage( ) const;
+	int getClearStageNum( ) const;
 private:
 	void changeStage( );
 private:

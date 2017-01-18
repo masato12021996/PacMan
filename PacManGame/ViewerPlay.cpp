@@ -8,6 +8,7 @@
 #include "MapDefine.h"
 #include "GraphManager.h"
 #include "Drawer.h"
+#include <string>
 
 const int DRAW_STAGE_POS_X = 0;
 const int DRAW_STAGE_POS_Y = MapParameter::CHIP_SIZE;
@@ -51,6 +52,10 @@ void ViewerPlay::drawPlay( ) {
 	//ƒvƒŒƒCƒ„[‚Ì•`‰æ
 	drawPlayer( stage );
 	//UI‚Ì•`‰æ
+	if ( stage->getTrems( ) == 2 ) {
+		drawTime( stage->getTime( ) );
+	}
+	drawClearStageNum( );
 }
 
 void ViewerPlay::drawResult( ) {
@@ -98,4 +103,21 @@ void ViewerPlay::drawPlayer( PlayStagePtr stage ) {
 	int y = MapParameter::CHIP_SIZE + ( int )pos.y - MapParameter::CHIP_SIZE / 2;
 	GraphManager::CHIP_ID id = ( GraphManager::CHIP_ID )anim->getAnimGraph( );
 	_graph_manager->drawChip( x, y, id );
+}
+
+void ViewerPlay::drawTime( double time ) {
+	DrawerPtr drawer = Drawer::getTask( );
+	std::string str = "Time:" + std::to_string( ( int )( time ) % 100 / 10 );
+	str += std::to_string( ( int )( time ) % 10 );
+	str += ".";
+	str += std::to_string( ( int )( time * 100 ) % 100 / 10 );
+	str += std::to_string( ( int )( time * 100 ) % 10 );
+	drawer->drawString( 700, 16, str.c_str( ), false );
+}
+
+void ViewerPlay::drawClearStageNum( ) {
+	int num = _play_game->getClearStageNum( );
+	DrawerPtr drawer = Drawer::getTask( );
+	std::string str = "ClearStageNum:" + std::to_string( num );
+	drawer->drawString( 800, 16, str.c_str( ), false );
 }

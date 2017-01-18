@@ -12,6 +12,7 @@ public:
 	void update( );
 	int getAnimGraph( ) const;
 	bool isEndAnimation( );
+	double getAnimTime( ) const;
 protected:
 	void setAnimationGraph( int id );
 private:

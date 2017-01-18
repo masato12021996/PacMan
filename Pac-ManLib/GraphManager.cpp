@@ -4,13 +4,17 @@ const int CHIP_SIZE = 32;
 
 GraphManager::GraphManager( ) {
 	DrawerPtr drawer = Drawer::getTask( );
-	drawer->loadGraph( GRAPH_ID_PACMAN_LEFT, "../Resource/Graph/PlayerLeft.png" );
-	drawer->loadGraph( GRAPH_ID_PACMAN_RIGHT, "../Resource/Graph/PlayerRight.png" );
-	drawer->loadGraph( GRAPH_ID_PACMAN_DOWN, "../Resource/Graph/PlayerDown.png" );
-	drawer->loadGraph( GRAPH_ID_PACMAN_UP, "../Resource/Graph/PlayerUp.png" );
-	drawer->loadGraph( GRAPH_ID_ENEMY, "../Resource/Graph/Enemy.png" );
-	drawer->loadGraph( GRAPH_ID_TARGET, "../Resource/Graph/Target.png" );
-	drawer->loadGraph( GRAPH_ID_BACK_GROUND, "../Resource/Graph/BackGround.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_LEFT,	"../Resource/Graph/Player/PlayerLeft.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_RIGHT,	"../Resource/Graph/Player/PlayerRight.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_DOWN,	"../Resource/Graph/Player/PlayerDown.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_UP,		"../Resource/Graph/Player/PlayerUp.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_LD,		"../Resource/Graph/Player/PlayerLD.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_LU,		"../Resource/Graph/Player/PlayerLU.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_RD,		"../Resource/Graph/Player/PlayerRD.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_RU,		"../Resource/Graph/Player/PlayerRU.png" );
+	drawer->loadGraph( GRAPH_ID_ENEMY,			"../Resource/Graph/Enemy.png" );
+	drawer->loadGraph( GRAPH_ID_TARGET,			"../Resource/Graph/Target.png" );
+	drawer->loadGraph( GRAPH_ID_BACK_GROUND,	"../Resource/Graph/BackGround.png" );
 }
 
 GraphManager::~GraphManager( ) {
@@ -67,6 +71,43 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
 		sprite.ty = OFFSET_Y;
 	}
+
+	if ( id == CHIP_ID_PACMAN_LD ) {
+		int index = id - CHIP_ID_PACMAN_LD;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_PACMAN_LD;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+
+	if ( id == CHIP_ID_PACMAN_LU ) {
+		int index = id - CHIP_ID_PACMAN_LU;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_PACMAN_LU;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+
+	if ( id == CHIP_ID_PACMAN_RD ) {
+		int index = id - CHIP_ID_PACMAN_RD;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_PACMAN_RD;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+
+	if ( id == CHIP_ID_PACMAN_RU ) {
+		int index = id - CHIP_ID_PACMAN_RU;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_PACMAN_RU;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+
 	if ( CHIP_ID_PACMAN_DEAD_01 <= id && id <= CHIP_ID_PACMAN_DEAD_11 ) {
 		int index = id - CHIP_ID_PACMAN_DEAD_01;
 		const int OFFSET_X = 4;

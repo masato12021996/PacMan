@@ -7,10 +7,13 @@ PTR( Animation );
 class PlayerAnimationFactory {
 public:
 	enum STATE {
-		STATE_WAIT,
 		STATE_WALK_LEFT,
 		STATE_WALK_RIGHT,
 		STATE_WALK_DOWN,
+		STATE_CHANGE_DIR_LU,
+		STATE_CHANGE_DIR_LD,
+		STATE_CHANGE_DIR_RU,
+		STATE_CHANGE_DIR_RD,
 		STATE_WALK_UP
 	};
 public:
