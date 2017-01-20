@@ -18,6 +18,8 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BGMManager.h" />
+    <ClInclude Include="EnemyBadAnimation.h" />
+    <ClInclude Include="EnemyBadEndAnimation.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="GraphManager.h" />
     <ClInclude Include="MapDefine.h" />
@@ -30,6 +32,8 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BGMManager.cpp" />
+    <ClCompile Include="EnemyBadAnimation.cpp" />
+    <ClCompile Include="EnemyBadEndAnimation.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="GraphManager.cpp" />
     <ClCompile Include="PlayerAnimationFactory.cpp" />

@@ -94,6 +94,9 @@ void PlayGame::update( ) {
 			}
 			//ゲームオーバー
 			if ( _play_stage->isDeadStage( ) ) {
+				//現在は続ける
+				changeStage( );//ステージ切り替え
+				_state = PLAY_STATE_READY;//ステート切り替え
 			}
 		break;
 	}
