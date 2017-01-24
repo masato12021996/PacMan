@@ -19,6 +19,8 @@ public:
 	bool isDeadStage( ) const;
 	FieldPtr getField( ) const;
 	PlayerPtr getPlayer( ) const;
+	int getEnemyNum( ) const;
+	EnemyPtr getEnemy( int index ) const;
 	double getTime( ) const;
 	int getTrems( ) const;
 private:

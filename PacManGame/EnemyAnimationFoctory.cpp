@@ -1,5 +1,5 @@
 #include "EnemyAnimationFoctory.h"
-
+#include"PlayerWalkAnimation.h"
 
 EnemyAnimationFoctory::EnemyAnimationFoctory( ENEMY_COLOR color ) {
 	_color = color;
@@ -13,16 +13,16 @@ AnimationPtr EnemyAnimationFoctory::createAnimation( STATE state ) {
 	if ( _color == ENEMY_COLOR_RED ) {
 		switch ( state ) {
 		case STATE::STATE_WALK_LEFT:
-			//animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_LEFT ) );
+			animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_LEFT ) );
 			break;
 		case STATE::STATE_WALK_RIGHT:
-			//animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_RIGHT ) );
+			animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_RIGHT ) );
 			break;
 		case STATE::STATE_WALK_DOWN:
-			//animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_DOWN ) );
+			animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_DOWN ) );
 			break;
 		case STATE::STATE_WALK_UP:
-			//animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_UP ) );
+			animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_UP ) );
 			break;
 		case STATE::STATE_CHANGE_DIR_LD:
 			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_LD ) );

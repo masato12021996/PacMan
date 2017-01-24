@@ -18,6 +18,7 @@ private:
 	void drawResult( );
 	void drawField( PlayStagePtr stage );
 	void drawPlayer( PlayStagePtr stage );
+	void drawEnemy( PlayStagePtr stage );
 	void drawTime( double time );
 	void drawClearStageNum( );
 private:

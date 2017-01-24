@@ -4,6 +4,7 @@
 #include "PlayStage.h"
 #include "Field.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Animation.h"
 #include "MapDefine.h"
 #include "GraphManager.h"
@@ -49,6 +50,7 @@ void ViewerPlay::drawPlay( ) {
 	//フィールドの描画
 	drawField( stage );
 	//エネミーの描画
+	drawEnemy( stage );
 	//プレイヤーの描画
 	drawPlayer( stage );
 	//UIの描画
@@ -103,6 +105,19 @@ void ViewerPlay::drawPlayer( PlayStagePtr stage ) {
 	int y = MapParameter::CHIP_SIZE + ( int )pos.y - MapParameter::CHIP_SIZE / 2;
 	GraphManager::CHIP_ID id = ( GraphManager::CHIP_ID )anim->getAnimGraph( );
 	_graph_manager->drawChip( x, y, id );
+}
+
+void ViewerPlay::drawEnemy( PlayStagePtr stage ) {
+	int num = stage->getEnemyNum( );
+	for ( int i = 0; i < num; i++ ) {
+		EnemyPtr enemy = stage->getEnemy( i );
+		Vector pos = enemy->getPos( );
+		AnimationPtr anim = enemy->getAnimation( );
+		int x = ( int )pos.x - MapParameter::CHIP_SIZE / 2;
+		int y = MapParameter::CHIP_SIZE + ( int )pos.y - MapParameter::CHIP_SIZE / 2;
+		GraphManager::CHIP_ID id = ( GraphManager::CHIP_ID )anim->getAnimGraph( );
+		_graph_manager->drawChip( x, y, id );
+	}
 }
 
 void ViewerPlay::drawTime( double time ) {

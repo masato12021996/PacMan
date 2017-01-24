@@ -3,6 +3,7 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "EnemyRed.h"
 #include "MapDefine.h"
 #include <time.h>
 
@@ -21,7 +22,7 @@ void PlayStage::update( ) {
 	//クリアしてなかったら更新
 	_player->update( );
 	if ( !_enemies.empty( ) ) {
-		for ( int i = 0; i < _enemies.size( ); i++ ) {
+		for ( int i = 0; i < ( int )_enemies.size( ); i++ ) {
 			if ( _enemies[ i ]->isExpired( ) ) {
 				_enemies[ i ]->update( );
 			}
@@ -67,6 +68,7 @@ void PlayStage::create( StagePtr stage ) {
 				case Stage::OBJECT_NAME_ENEMY_PINC:
 				break;
 				case Stage::OBJECT_NAME_ENEMY_RED:
+					_enemies.push_back( EnemyRedPtr( new EnemyRed( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) ) ) );
 				break;
 			}
 		}
@@ -122,4 +124,12 @@ double PlayStage::getTime( ) const {
 
 int PlayStage::getTrems( ) const {
 	return _trems;
+}
+
+int PlayStage::getEnemyNum( ) const {
+	return _enemies.size( );
+}
+
+EnemyPtr PlayStage::getEnemy( int index ) const {
+	return _enemies[ index ];
 }

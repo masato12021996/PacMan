@@ -26,11 +26,11 @@ Enemy::Enemy( const Vector& pos  ) {
 	_dir = Vector( 1, 0, 0 );
 	_is_expired = true;
 	_is_bad = false;
-	_animation;
 	GamePtr game = Game::getTask( );
 	PlayGamePtr play_game = game->getPlayGame( );
 	PlayStagePtr play_stage = play_game->getPlayStage( );
 	_field = play_stage->getField( );
+	_player = play_stage->getPlayer( );
 	_bad_timer = 0;
 }
 
@@ -38,6 +38,7 @@ Enemy::~Enemy( ) {
 }
 
 void Enemy::update( ) {
+
 	if ( _is_bad ) {
 		badRun( );//“¦‚°‚é
 	} else {
@@ -151,16 +152,19 @@ void Enemy::move( ) {
 }
 
 void Enemy::badRun( ) {
-	GamePtr game = Game::getTask( );
-	PlayGamePtr play_game = game->getPlayGame( );
-	PlayStagePtr play_stage = play_game->getPlayStage( );
-	PlayerPtr player = play_stage->getPlayer( );
-
-	Vector move_dir = player->getPos( ) - getPos( );
+	Vector move_dir = getPlayerPos( ) - getPos( );
 	if ( move_dir.x > move_dir.y ) {
 		move_dir = Vector( -move_dir.x, 0, 0 );
 	} else {
 		move_dir = Vector( 0, -move_dir.y, 0 );
 	}
-	setDir( move_dir );
+	setDir( move_dir.normalize( ) );
+}
+
+Vector Enemy::getPlayerPos( ) const {
+	return _player->getPos( );
+}
+
+Vector Enemy::getPlayerDir( ) const {
+	return _player->getDir( );
 }

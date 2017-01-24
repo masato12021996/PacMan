@@ -3,6 +3,7 @@
 #include "mathmatics.h"
 
 PTR( Enemy );
+PTR( Player )
 PTR( Field );
 PTR( Animation );
 
@@ -21,9 +22,11 @@ protected:
 	virtual void actor( ) = 0;//çsìÆÇÃåàíË
 	void setDir( const Vector& dir );
 	void setAnimation( AnimationPtr animation );
+	Vector getPlayerPos( ) const;
+	Vector getPlayerDir( ) const;
+	bool canMove( Vector pos );
 private:
 	bool onMap( Vector pos );
-	bool canMove( Vector pos );
 	void badRun( );
 	void move( );
 private:
@@ -33,6 +36,7 @@ private:
 	bool _before_bad;
 	Vector _pos;
 	Vector _dir;
+	PlayerPtr _player;
 	AnimationPtr _animation;
 	FieldPtr _field;
 };
