@@ -1,5 +1,7 @@
 #include "EnemyAnimationFoctory.h"
-#include"PlayerWalkAnimation.h"
+#include "PlayerWalkAnimation.h"
+#include "EnemyBadAnimation.h"
+#include "EnemyBadEndAnimation.h"
 
 EnemyAnimationFoctory::EnemyAnimationFoctory( ENEMY_COLOR color ) {
 	_color = color;
@@ -10,6 +12,14 @@ EnemyAnimationFoctory::~EnemyAnimationFoctory( ) {
 
 AnimationPtr EnemyAnimationFoctory::createAnimation( STATE state ) {
 	AnimationPtr animation;
+	if ( state == STATE_BAD ) {
+		animation = EnemyBadAnimationPtr( new EnemyBadAnimation( ) );
+		return animation;
+	}
+	if ( state == STATE_BAD_END ) {
+		animation = EnemyBadEndAnimationPtr( new EnemyBadEndAnimation( ) );
+		return animation;
+	}
 	if ( _color == ENEMY_COLOR_RED ) {
 		switch ( state ) {
 		case STATE::STATE_WALK_LEFT:
@@ -23,18 +33,6 @@ AnimationPtr EnemyAnimationFoctory::createAnimation( STATE state ) {
 			break;
 		case STATE::STATE_WALK_UP:
 			animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_UP ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_LD:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_LD ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_LU:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_LU ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_RD:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_RD ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_RU:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_RU ) );
 			break;
 		}
 	}
@@ -52,18 +50,6 @@ AnimationPtr EnemyAnimationFoctory::createAnimation( STATE state ) {
 		case STATE::STATE_WALK_UP:
 			//animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_UP ) );
 			break;
-		case STATE::STATE_CHANGE_DIR_LD:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_LD ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_LU:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_LU ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_RD:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_RD ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_RU:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_RU ) );
-			break;
 		}
 	}
 	if ( _color == ENEMY_COLOR_PINC ) {
@@ -80,18 +66,6 @@ AnimationPtr EnemyAnimationFoctory::createAnimation( STATE state ) {
 		case STATE::STATE_WALK_UP:
 			//animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_UP ) );
 			break;
-		case STATE::STATE_CHANGE_DIR_LD:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_LD ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_LU:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_LU ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_RD:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_RD ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_RU:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_RU ) );
-			break;
 		}
 	}
 	if ( _color == ENEMY_COLOR_BLUE ) {
@@ -107,18 +81,6 @@ AnimationPtr EnemyAnimationFoctory::createAnimation( STATE state ) {
 			break;
 		case STATE::STATE_WALK_UP:
 			//animation = PlayerWalkAnimationPtr( new PlayerWalkAnimation( PlayerWalkAnimation::WALK_DIR_UP ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_LD:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_LD ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_LU:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_LU ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_RD:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_RD ) );
-			break;
-		case STATE::STATE_CHANGE_DIR_RU:
-			//animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_RU ) );
 			break;
 		}
 	}

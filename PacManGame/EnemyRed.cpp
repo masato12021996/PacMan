@@ -1,10 +1,7 @@
 #include "EnemyRed.h"
-#include "EnemyAnimationFoctory.h"
  
 EnemyRed::EnemyRed( const Vector& pos ) :
-Enemy( pos ) {
-	_anim_factory = EnemyAnimationFoctoryPtr( new EnemyAnimationFoctory( EnemyAnimationFoctory::ENEMY_COLOR_RED ) );
-	setAnimation( _anim_factory->createAnimation( EnemyAnimationFoctory::STATE_WALK_LEFT ) );
+Enemy( pos, Enemy::COLOR_RED ) {
 }
 
 EnemyRed::~EnemyRed( ) {
@@ -12,7 +9,6 @@ EnemyRed::~EnemyRed( ) {
 
 void EnemyRed::actor( ) {
 	changeDir( );
-	changeAnimation( );
 }
 
 void EnemyRed::changeDir( ) {
@@ -23,7 +19,4 @@ void EnemyRed::changeDir( ) {
 		move_dir = Vector( 0, move_dir.y, 0 );
 	}
 	setDir( move_dir.normalize( ) );
-}
-
-void EnemyRed::changeAnimation( ) {
 }

@@ -6,8 +6,7 @@
 #include "PlayStage.h"
 #include "Player.h"
 #include "Field.h"
-#include "EnemyBadAnimation.h"
-#include "EnemyBadEndAnimation.h"
+#include "EnemyAnimationFoctory.h"
 
 const int MAP_TOP_BORDER = 0;
 const int MAP_BOTTOM_BORDER = MAP_TOP_BORDER + MapParameter::MAP_SIZE_Y * MapParameter::CHIP_SIZE;
@@ -16,53 +15,120 @@ const int MAP_RIGHT_BORDER = MAP_LEFT_BORDER + MapParameter::MAP_SIZE_X * MapPar
 const int MAP_OUT_BORDER = 4;
 const double ENEMY_RANGE = 10;
 
-const double SPEED = 1.0;
+const Vector DIR_LEFT	= Vector( -1,  0, 0 );
+const Vector DIR_RIGHT	= Vector(  1,  0, 0 );
+const Vector DIR_UP		= Vector(  0, -1, 0 );
+const Vector DIR_DOWN	= Vector(  0,  1, 0 );
+const double SPEED = 2;
 
 const int BAD_END_TIME = 180;
 const int BAD_LIMIT_TIME = BAD_END_TIME + 60;
 
-Enemy::Enemy( const Vector& pos  ) {
+Enemy::Enemy( const Vector& pos,Enemy::COLOR color  ) {
 	_pos = pos;
 	_dir = Vector( 1, 0, 0 );
 	_is_expired = true;
 	_is_bad = false;
+	_bad_timer = 0;
+	_state = STATE_BAD;
+	//_state = STATE_WALK;
+
 	GamePtr game = Game::getTask( );
 	PlayGamePtr play_game = game->getPlayGame( );
 	PlayStagePtr play_stage = play_game->getPlayStage( );
 	_field = play_stage->getField( );
 	_player = play_stage->getPlayer( );
-	_bad_timer = 0;
+
+	switch ( color ) {
+		case COLOR_RED:
+			_anim_factory = EnemyAnimationFoctoryPtr( new EnemyAnimationFoctory( EnemyAnimationFoctory::ENEMY_COLOR_RED ) );
+			break;
+		case COLOR_BLUE:
+			_anim_factory = EnemyAnimationFoctoryPtr( new EnemyAnimationFoctory( EnemyAnimationFoctory::ENEMY_COLOR_BLUE ) );
+			break;
+		case COLOR_PINC:
+			_anim_factory = EnemyAnimationFoctoryPtr( new EnemyAnimationFoctory( EnemyAnimationFoctory::ENEMY_COLOR_PINC ) );
+			break;
+		case COLOR_ORANGE:
+			_anim_factory = EnemyAnimationFoctoryPtr( new EnemyAnimationFoctory( EnemyAnimationFoctory::ENEMY_COLOR_ORANGE ) );
+			break;
+	}
+	_animation = _anim_factory->createAnimation( EnemyAnimationFoctory::STATE_BAD );
 }
 
 Enemy::~Enemy( ) {
 }
 
 void Enemy::update( ) {
+	//向き変更
+	bool on_center = ( int )_pos.x % MapParameter::CHIP_SIZE == MapParameter::CHIP_SIZE / 2 && ( int )_pos.y % MapParameter::CHIP_SIZE == MapParameter::CHIP_SIZE / 2;
+	if ( on_center ) {
+		if ( _is_bad ) {
+			badRun( );//逃げる
+		} else {
+			actor( );
+		}
+	}
+	//移動処理
+	move( );
+	stateUpdate( );
+	animator( );
+}
 
-	if ( _is_bad ) {
-		badRun( );//逃げる
-	} else {
-		actor( );
-	}
-	if ( canMove( _pos ) ) {
-		move( );
-	}
-	if ( _is_bad && !_before_bad ) {
-		_animation = EnemyBadAnimationPtr( new EnemyBadAnimation( ) );//青いやつ
+void Enemy::stateUpdate( ) {
+	_before_state = _state;
+	_state = STATE_WALK;
+
+	if ( _before_state != STATE_BAD && _before_state != STATE_BAD_END && _is_bad ) {
 		_bad_timer = 0;
+		_state = STATE_BAD;
 	}
-	if ( _is_bad ) {
+	if ( _before_state == STATE_BAD ) {
+		//_bad_timer++;
+		_state = STATE_BAD;
+	}
+	if ( _before_state == STATE_BAD_END ) {
 		_bad_timer++;
+		_state = STATE_BAD_END;
 	}
 	if ( _bad_timer > BAD_END_TIME ) {
-		_animation = EnemyBadEndAnimationPtr( new EnemyBadEndAnimation( ) );//青い白いやつ
+		_state = STATE_BAD_END;
 	}
 	if ( _bad_timer > BAD_LIMIT_TIME ) {
-		_is_bad = false;
+		_state = STATE_WALK;
 	}
+	_is_bad = false;
+}
 
-	_animation->update( );
-	_before_bad = _is_bad;
+void Enemy::animator( ) {
+	if ( _state != _before_state || _dir != _before_dir ) {
+		//アニメーション更新
+		switch ( _state ) {
+			case STATE_WALK:
+				if ( _dir == DIR_LEFT ) {
+					_animation = _anim_factory->createAnimation( EnemyAnimationFoctory::STATE_WALK_LEFT );
+				}
+				if ( _dir == DIR_RIGHT ) {
+					_animation = _anim_factory->createAnimation( EnemyAnimationFoctory::STATE_WALK_RIGHT );
+				}
+				if ( _dir == DIR_DOWN ) {
+					_animation = _anim_factory->createAnimation( EnemyAnimationFoctory::STATE_WALK_DOWN );
+				}
+				if ( _dir == DIR_UP ) {
+					_animation = _anim_factory->createAnimation( EnemyAnimationFoctory::STATE_WALK_UP );
+				}
+				break;
+			case STATE_BAD:
+				_animation = _anim_factory->createAnimation( EnemyAnimationFoctory::STATE_BAD );
+				break;
+			case STATE_BAD_END:
+				_animation = _anim_factory->createAnimation( EnemyAnimationFoctory::STATE_BAD_END );
+				break;
+		}
+	} else {
+		//アニメーションアップデート
+		_animation->update( );
+	}
 }
 
 Vector Enemy::getPos( ) const {
@@ -83,13 +149,6 @@ void Enemy::setBad( ) {
 
 AnimationPtr Enemy::getAnimation( ) const {
 	return _animation;
-}
-
-void Enemy::setAnimation( AnimationPtr animation ) {
-	if ( _is_bad ) {
-		return;
-	}
-	_animation = animation;
 }
 
 bool Enemy::isExpired( ) const {
@@ -153,11 +212,7 @@ void Enemy::move( ) {
 
 void Enemy::badRun( ) {
 	Vector move_dir = getPlayerPos( ) - getPos( );
-	if ( move_dir.x > move_dir.y ) {
-		move_dir = Vector( -move_dir.x, 0, 0 );
-	} else {
-		move_dir = Vector( 0, -move_dir.y, 0 );
-	}
+	
 	setDir( move_dir.normalize( ) );
 }
 
