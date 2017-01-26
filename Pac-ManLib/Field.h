@@ -30,6 +30,7 @@ public:
 	int getSizeX( ) const;
 	int getSizeY( ) const;
 	bool isNotBate( ) const;
+	int getRootNum( const int target_x, const int target_y, const int start_x, const int start_y );
 private:
 	int getIndex( int x, int y ) const;
 private:

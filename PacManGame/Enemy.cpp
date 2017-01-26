@@ -63,7 +63,7 @@ void Enemy::update( ) {
 	//Œü‚«•ÏX
 	bool on_center = ( int )_pos.x % MapParameter::CHIP_SIZE == MapParameter::CHIP_SIZE / 2 && ( int )_pos.y % MapParameter::CHIP_SIZE == MapParameter::CHIP_SIZE / 2;
 	if ( on_center ) {
-		if ( _is_bad ) {
+		if ( _state == STATE_BAD || _state == STATE_BAD_END ) {
 			badRun( );//“¦‚°‚é
 		} else {
 			actor( );
@@ -211,9 +211,27 @@ void Enemy::move( ) {
 }
 
 void Enemy::badRun( ) {
-	Vector move_dir = getPlayerPos( ) - getPos( );
-	
-	setDir( move_dir.normalize( ) );
+	Vector target = _player->getPos( );
+	const Vector DIR[ 4 ] = {
+		DIR_LEFT, 
+		DIR_RIGHT,
+		DIR_UP,
+		DIR_DOWN
+	};
+	int min_root = 100000;
+	int key = -1;
+	for ( int i = 0; i < 4; i++ ) {
+		Vector next_pos = _pos + DIR[ i ];
+		int root_num = _field->getRootNum( target.x / MapParameter::CHIP_SIZE, target.y / MapParameter::CHIP_SIZE, next_pos.x / MapParameter::CHIP_SIZE, next_pos.y  / MapParameter::CHIP_SIZE );
+		if ( min_root > root_num && root_num > 0 ) {
+			key = i;
+			min_root = root_num;
+		}
+	}
+	if ( key >= 0 ) {
+		Vector move_dir = DIR[ key ];
+		setDir( move_dir.normalize( ) );
+	}
 }
 
 Vector Enemy::getPlayerPos( ) const {
@@ -222,4 +240,8 @@ Vector Enemy::getPlayerPos( ) const {
 
 Vector Enemy::getPlayerDir( ) const {
 	return _player->getDir( );
+}
+
+FieldPtr Enemy::getField( ) const {
+	return _field;
 }

@@ -38,6 +38,7 @@ protected:
 	void setDir( const Vector& dir );
 	Vector getPlayerPos( ) const;
 	Vector getPlayerDir( ) const;
+	FieldPtr getField( ) const;
 	bool canMove( Vector pos );
 private:
 	bool onMap( Vector pos );
