@@ -70,6 +70,12 @@ int Field::getRootNum( const int target_x, const int target_y, const int start_x
 	}
 	std::queue< ROOT_KEY > queue;
 	ROOT_KEY key = std::make_pair( std::make_pair( start_x, start_y ), 0 );
+	if ( start_x < 0 || start_x > MAP_CHIP_NUM_X || start_y < 0 || start_y > MAP_CHIP_NUM_Y  ) {
+		return result;
+	}
+	if ( getFieldTarget( start_x, start_y ) == OBJECT_WALL ) {
+		return result;
+	}
 	visited_map[ getIndex( start_x, start_y ) ] = 1;
 	queue.push( key );
 
@@ -83,6 +89,9 @@ int Field::getRootNum( const int target_x, const int target_y, const int start_x
 		}
 		for ( int i = 0; i < 4; i++ ) {
 			VECTOR_INT next_pos = std::make_pair( pos.first + DIR[ i ].first, pos.second + DIR[ i ].second );
+			if ( next_pos.first < 0 || next_pos.first > MAP_CHIP_NUM_X || next_pos.second < 0 || next_pos.second > MAP_CHIP_NUM_Y  ) {
+				continue;
+			}
 			if ( getFieldTarget( next_pos.first, next_pos.second ) != OBJECT_WALL && visited_map[ getIndex( next_pos.first, next_pos.second ) ] == 0 ) {
 				ROOT_KEY next_key = std::make_pair( next_pos, temp.second + 1 );
 				visited_map[ getIndex( next_pos.first, next_pos.second ) ] = 1;

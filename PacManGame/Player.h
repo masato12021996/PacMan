@@ -19,6 +19,7 @@ public:
 public:
 	void create( const Vector& pos );
 	void update( );
+	bool isGetPowerBate( ) const;
 	Vector getPos( ) const;
 	Vector getDir( ) const;
 	void stateUpdate( );
@@ -38,6 +39,7 @@ private:
 	AnimationPtr _animation;
 	FieldPtr _field;
 	STATE _state;
+	bool _get_power_bate;
 
 	STATE _befor_state;
 	Vector _befor_dir;

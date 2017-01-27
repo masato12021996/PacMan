@@ -4,6 +4,10 @@
 #include "Keyboard.h"
 #include "MapDefine.h"
 #include "Field.h"
+#include "Game.h"
+#include "PlayGame.h"
+#include "PlayStage.h"
+#include "Enemy.h"
 
 const int MAP_TOP_BORDER = 0;
 const int MAP_BOTTOM_BORDER = MAP_TOP_BORDER + MapParameter::MAP_SIZE_Y * MapParameter::CHIP_SIZE;
@@ -26,6 +30,7 @@ Player::~Player( ) {
 }
 
 void Player::update( ) {
+	_get_power_bate = false;
 	InputControlDir( );//向きが変更される。
 	//移動処理
 	move( );
@@ -90,6 +95,24 @@ void Player::move( ) {
 	}
 	if ( on_object == Field::OBJECT_POWER_BATE ) {
 		_field->setFieldTarget( x, y, Field::OBJECT_NULL );
+		_get_power_bate = true;
+	}
+	//敵のあたり判定
+	GamePtr game = Game::getTask( );
+	PlayGamePtr play_game = game->getPlayGame( );
+	PlayStagePtr stage = play_game->getPlayStage( );
+	for ( int i = 0; i < stage->getEnemyNum( ); i++ ) {
+		EnemyPtr enemy = stage->getEnemy( i );
+		Vector vec = enemy->getPos( ) - getPos( );
+		if ( vec.getLength( ) < MapParameter::CHIP_SIZE ) {
+			//敵がやられじゃなかったら死ぬ
+			if ( !enemy->isBad( ) ) {
+			}
+			//敵がやられだったら倒す
+			if ( enemy->isBad( ) ) {
+				enemy->Dead( );
+			}
+		}
 	}
 }
 
@@ -208,4 +231,8 @@ void Player::animator( ) {
 		//アニメーションアップデート
 		_animation->update( );
 	}
+}
+
+bool Player::isGetPowerBate( ) const {
+	return _get_power_bate;
 }

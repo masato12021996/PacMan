@@ -1,24 +1,29 @@
-#include "EnemyRed.h"
+#include "EnemyPinc.h"
 #include "MapDefine.h"
 #include "Field.h"
- 
-EnemyRed::EnemyRed( const Vector& pos ) :
-Enemy( pos, Enemy::COLOR_RED ) {
+
+EnemyPinc::EnemyPinc( const Vector& pos ) :
+Enemy( pos, Enemy::COLOR_PINC ){
 }
 
-EnemyRed::~EnemyRed( ) {
+
+EnemyPinc::~EnemyPinc( ) {
 }
 
-void EnemyRed::actor( ) {
+void EnemyPinc::actor( ) {
 	FieldPtr field = getField( );
 	Vector target = getPlayerPos( );
+	while ( field->getFieldTarget( target.x / MapParameter::CHIP_SIZE, target.y / MapParameter::CHIP_SIZE ) != Field::OBJECT_WALL ) {
+		target += getPlayerDir( ) * MapParameter::CHIP_SIZE;
+	}
+	target -= getPlayerDir( ) * MapParameter::CHIP_SIZE;;
 	const Vector DIR[ 4 ] = {
 		Vector( -1,  0 ), 
 		Vector(  1,  0 ),
 		Vector(  0, -1 ),
 		Vector(  0,  1 )
 	};
-	int min_root = 100000;
+	int min_root = 10000;
 	int key = -1;
 	for ( int i = 0; i < 4; i++ ) {
 		Vector next_pos = getPos( ) + DIR[ i ] * MapParameter::CHIP_SIZE;

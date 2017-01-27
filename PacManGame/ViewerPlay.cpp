@@ -111,12 +111,14 @@ void ViewerPlay::drawEnemy( PlayStagePtr stage ) {
 	int num = stage->getEnemyNum( );
 	for ( int i = 0; i < num; i++ ) {
 		EnemyPtr enemy = stage->getEnemy( i );
-		Vector pos = enemy->getPos( );
-		AnimationPtr anim = enemy->getAnimation( );
-		int x = ( int )pos.x - MapParameter::CHIP_SIZE / 2;
-		int y = MapParameter::CHIP_SIZE + ( int )pos.y - MapParameter::CHIP_SIZE / 2;
-		GraphManager::CHIP_ID id = ( GraphManager::CHIP_ID )anim->getAnimGraph( );
-		_graph_manager->drawChip( x, y, id );
+		if ( enemy->isExpired( ) ) {
+			Vector pos = enemy->getPos( );
+			AnimationPtr anim = enemy->getAnimation( );
+			int x = ( int )pos.x - MapParameter::CHIP_SIZE / 2;
+			int y = MapParameter::CHIP_SIZE + ( int )pos.y - MapParameter::CHIP_SIZE / 2;
+			GraphManager::CHIP_ID id = ( GraphManager::CHIP_ID )anim->getAnimGraph( );
+			_graph_manager->drawChip( x, y, id );
+		}
 	}
 }
 

@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "EnemyRed.h"
+#include "EnemyPinc.h"
+#include "EnemyOrange.h"
 #include "MapDefine.h"
 #include <time.h>
 
@@ -24,6 +26,9 @@ void PlayStage::update( ) {
 	if ( !_enemies.empty( ) ) {
 		for ( int i = 0; i < ( int )_enemies.size( ); i++ ) {
 			if ( _enemies[ i ]->isExpired( ) ) {
+				if ( _player->isGetPowerBate( ) ) {
+					_enemies[ i ]->setBad( );
+				}
 				_enemies[ i ]->update( );
 			}
 		}
@@ -62,10 +67,13 @@ void PlayStage::create( StagePtr stage ) {
 				_player->create( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) );
 				break;
 				case Stage::OBJECT_NAME_ENEMY_BLUE:
+					_enemies.push_back( EnemyRedPtr( new EnemyRed( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) ) ) );
 				break;
 				case Stage::OBJECT_NAME_ENEMY_ORANGE:
+					_enemies.push_back( EnemyOrangePtr( new EnemyOrange( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) ) ) );
 				break;
 				case Stage::OBJECT_NAME_ENEMY_PINC:
+					_enemies.push_back( EnemyPincPtr( new EnemyPinc( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) ) ) );
 				break;
 				case Stage::OBJECT_NAME_ENEMY_RED:
 					_enemies.push_back( EnemyRedPtr( new EnemyRed( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) ) ) );
@@ -79,6 +87,12 @@ bool PlayStage::isClearStage( ) const {
 	bool is_end = false;
 	switch( _trems ) {
 	case Stage::CLEAR_TREMS_ENEMY_EAT:
+		is_end = true;
+		for ( int i = 0; i < _enemies.size( ); i++ ) {
+			if ( _enemies[ i ]->isExpired( ) ) {
+				is_end = false;
+			}
+		}
 		break;
 	case Stage::CLEAR_TREMS_FOOD_EAT:
 		if( _field->isNotBate( ) ) {

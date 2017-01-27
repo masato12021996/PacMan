@@ -33,15 +33,15 @@ public:
 	AnimationPtr getAnimation( ) const;
 	void setBad( );
 	bool isExpired( ) const;
+	void Dead( );
+	bool isBad( ) const;
 protected:
 	virtual void actor( ) = 0;//çsìÆÇÃåàíË
 	void setDir( const Vector& dir );
 	Vector getPlayerPos( ) const;
 	Vector getPlayerDir( ) const;
 	FieldPtr getField( ) const;
-	bool canMove( Vector pos );
 private:
-	bool onMap( Vector pos );
 	void badRun( );
 	void move( );
 	void stateUpdate( );

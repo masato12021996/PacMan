@@ -21,8 +21,8 @@ const Vector DIR_UP		= Vector(  0, -1, 0 );
 const Vector DIR_DOWN	= Vector(  0,  1, 0 );
 const double SPEED = 2;
 
-const int BAD_END_TIME = 180;
-const int BAD_LIMIT_TIME = BAD_END_TIME + 60;
+const int BAD_END_TIME = 300;
+const int BAD_LIMIT_TIME = BAD_END_TIME + 120;
 
 Enemy::Enemy( const Vector& pos,Enemy::COLOR color  ) {
 	_pos = pos;
@@ -30,8 +30,7 @@ Enemy::Enemy( const Vector& pos,Enemy::COLOR color  ) {
 	_is_expired = true;
 	_is_bad = false;
 	_bad_timer = 0;
-	_state = STATE_BAD;
-	//_state = STATE_WALK;
+	_state = STATE_WALK;
 
 	GamePtr game = Game::getTask( );
 	PlayGamePtr play_game = game->getPlayGame( );
@@ -73,6 +72,7 @@ void Enemy::update( ) {
 	move( );
 	stateUpdate( );
 	animator( );
+	_before_dir = _dir;
 }
 
 void Enemy::stateUpdate( ) {
@@ -84,7 +84,7 @@ void Enemy::stateUpdate( ) {
 		_state = STATE_BAD;
 	}
 	if ( _before_state == STATE_BAD ) {
-		//_bad_timer++;
+		_bad_timer++;
 		_state = STATE_BAD;
 	}
 	if ( _before_state == STATE_BAD_END ) {
@@ -96,6 +96,9 @@ void Enemy::stateUpdate( ) {
 	}
 	if ( _bad_timer > BAD_LIMIT_TIME ) {
 		_state = STATE_WALK;
+		_bad_timer = 0;
+		Vector mp = Vector( ( int )_pos.x / MapParameter::CHIP_SIZE, ( int )_pos.y / MapParameter::CHIP_SIZE );
+		_pos = Vector( mp.x * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, mp.y * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 );
 	}
 	_is_bad = false;
 }
@@ -155,56 +158,9 @@ bool Enemy::isExpired( ) const {
 	return _is_expired;
 }
 
-bool Enemy::onMap( Vector pos ) {
-	bool result = false;
-	int x = ( int )pos.x;
-	int y = ( int )pos.y;
-	if ( MAP_LEFT_BORDER <= x && x <= MAP_RIGHT_BORDER ) {
-		if ( MAP_TOP_BORDER <= y && y <= MAP_BOTTOM_BORDER ) {
-			result = true;
-		}
-	}
-	return result;
-}
-
-bool Enemy::canMove( Vector pos ) {
-	bool result = true;
-	//まず自分のいるマスを取得する
-	int px = ( int )pos.x / MapParameter::CHIP_SIZE + ( int )_dir.x;
-	int py = ( int )pos.y / MapParameter::CHIP_SIZE + ( int )_dir.y;
-	//そのあと進行方向のマスとそのうえ側のマスと下側のマスを取得する
-	for ( int i = 0; i < 3; i++ ) {
-		int x = px;
-		int y = py;
-		if ( _dir.x > 0 ) {
-			y += i - 1;
-		} else {
-			x += i - 1;
-		}
-		if ( onMap( Vector( x * MapParameter::CHIP_SIZE, y * MapParameter::CHIP_SIZE ) ) ) {
-			//各マスが壁か判断する。
-			int object_id = _field->getFieldTarget( x, y );
-			if ( object_id == Field::OBJECT_WALL ){
-				double bsx = x * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
-				double bsy = y * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
-				Vector bsp = Vector( bsx, bsy );
-				Vector diff = bsp - pos;
-				//その後正方形と円のあたり判定をする
-				double box_length = MapParameter::CHIP_SIZE / 2;
-				//方法としては正方形と円のベクトルを取りその角度を利用して当たりそうな正方形の辺の長さを求め判定する。
-				double length = diff.getLength( );
-				if ( length < box_length + ENEMY_RANGE ) {
-					result = false;
-				}
-			}
-		}
-	}
-	return result;
-}
-
 void Enemy::move( ) {
 	double speed = SPEED;
-	if ( _is_bad ) {
+	if ( _state == STATE_BAD || _state == STATE_BAD_END ) {
 		speed = speed / 2;
 	}
 	_pos += _dir * speed;
@@ -218,14 +174,14 @@ void Enemy::badRun( ) {
 		DIR_UP,
 		DIR_DOWN
 	};
-	int min_root = 100000;
+	int max_root = 1;
 	int key = -1;
 	for ( int i = 0; i < 4; i++ ) {
-		Vector next_pos = _pos + DIR[ i ];
+		Vector next_pos = getPos( ) + DIR[ i ] * MapParameter::CHIP_SIZE;
 		int root_num = _field->getRootNum( target.x / MapParameter::CHIP_SIZE, target.y / MapParameter::CHIP_SIZE, next_pos.x / MapParameter::CHIP_SIZE, next_pos.y  / MapParameter::CHIP_SIZE );
-		if ( min_root > root_num && root_num > 0 ) {
+		if ( max_root < root_num && root_num >= 0 ) {
 			key = i;
-			min_root = root_num;
+			max_root = root_num;
 		}
 	}
 	if ( key >= 0 ) {
@@ -244,4 +200,16 @@ Vector Enemy::getPlayerDir( ) const {
 
 FieldPtr Enemy::getField( ) const {
 	return _field;
+}
+
+void Enemy::Dead( ) {
+	_is_expired = false;
+}
+
+bool Enemy::isBad( ) const {
+	bool result = false;
+	if ( _state == STATE_BAD || _state == STATE_BAD_END ) {
+		result = true;
+	}
+	return result;
 }

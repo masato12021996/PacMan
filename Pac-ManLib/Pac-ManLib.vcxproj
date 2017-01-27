@@ -20,6 +20,7 @@
     <ClInclude Include="BGMManager.h" />
     <ClInclude Include="EnemyBadAnimation.h" />
     <ClInclude Include="EnemyBadEndAnimation.h" />
+    <ClInclude Include="EnemyWalkAnimation.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="GraphManager.h" />
     <ClInclude Include="MapDefine.h" />
@@ -34,6 +35,7 @@
     <ClCompile Include="BGMManager.cpp" />
     <ClCompile Include="EnemyBadAnimation.cpp" />
     <ClCompile Include="EnemyBadEndAnimation.cpp" />
+    <ClCompile Include="EnemyWalkAnimation.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="GraphManager.cpp" />
     <ClCompile Include="PlayerAnimationFactory.cpp" />

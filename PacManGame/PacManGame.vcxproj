@@ -85,6 +85,8 @@
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAnimationFoctory.cpp" />
+    <ClCompile Include="EnemyOrange.cpp" />
+    <ClCompile Include="EnemyPinc.cpp" />
     <ClCompile Include="EnemyRed.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -99,6 +101,8 @@
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAnimationFoctory.h" />
+    <ClInclude Include="EnemyOrange.h" />
+    <ClInclude Include="EnemyPinc.h" />
     <ClInclude Include="EnemyRed.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />

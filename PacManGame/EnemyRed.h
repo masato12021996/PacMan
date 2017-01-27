@@ -10,8 +10,5 @@ public:
 	virtual ~EnemyRed( );
 private:
 	void actor( );
-	void changeDir( );
-	void changeAnimation( );
-	EnemyAnimationFoctoryPtr _anim_factory;
 };
 
