@@ -29,7 +29,7 @@ void Viewer::update( ) {
 	GamePtr game = Game::getTask( );
 	Game::GAME_STATE game_state = game->getGameState( );
 	switch ( game_state ) {
-		case Game::GAME_STATE_TITILE:
+		case Game::GAME_STATE_TITLE:
 			_titile->update( );
 			break;
 		case Game::GAME_STATE_PLAY:

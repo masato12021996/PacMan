@@ -26,7 +26,9 @@
     <ClInclude Include="MapDefine.h" />
     <ClInclude Include="PlayerAnimationFactory.h" />
     <ClInclude Include="PlayerChangeDirAnimation.h" />
+    <ClInclude Include="PlayerDeadAnimation.h" />
     <ClInclude Include="PlayerWalkAnimation.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SEManager.h" />
     <ClInclude Include="Stage.h" />
   </ItemGroup>
@@ -40,6 +42,7 @@
     <ClCompile Include="GraphManager.cpp" />
     <ClCompile Include="PlayerAnimationFactory.cpp" />
     <ClCompile Include="PlayerChangeDirAnimation.cpp" />
+    <ClCompile Include="PlayerDeadAnimation.cpp" />
     <ClCompile Include="PlayerWalkAnimation.cpp" />
     <ClCompile Include="SEManager.cpp" />
     <ClCompile Include="Stage.cpp" />

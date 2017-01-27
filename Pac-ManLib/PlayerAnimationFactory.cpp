@@ -1,6 +1,7 @@
 #include "PlayerAnimationFactory.h"
 #include "PlayerWalkAnimation.h"
 #include "PlayerChangeDirAnimation.h"
+#include "PlayerDeadAnimation.h"
 
 PlayerAnimationFactory::PlayerAnimationFactory( ) {
 }
@@ -34,6 +35,9 @@ AnimationPtr PlayerAnimationFactory::createAnimation( STATE state ) {
 		break;
 	case STATE::STATE_CHANGE_DIR_RU:
 		animation = PlayerChangeDirAnimationPtr( new PlayerChangeDirAnimation( PlayerChangeDirAnimation::CHANGE_DIR_RU ) );
+		break;
+	case STATE::STATE_DEAD:
+		animation = PlayerDeadAnimationPtr( new PlayerDeadAnimation( ) );
 		break;
 	}
 	return animation;

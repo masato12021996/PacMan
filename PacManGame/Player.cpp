@@ -31,9 +31,11 @@ Player::~Player( ) {
 
 void Player::update( ) {
 	_get_power_bate = false;
-	InputControlDir( );//向きが変更される。
-	//移動処理
-	move( );
+	if ( _is_expired ) {
+		InputControlDir( );//向きが変更される。
+		//移動処理
+		move( );
+	}
 	stateUpdate( );
 	animator( );//アニメーション管理
 }
@@ -44,6 +46,7 @@ void Player::create( const Vector& pos ) {
 	_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_LEFT );
 	_state = STATE::STATE_WAIT;
 	_is_expired = true;
+	_is_dead = false;
 }
 
 bool Player::isExpired( ) const {
@@ -107,6 +110,7 @@ void Player::move( ) {
 		if ( vec.getLength( ) < MapParameter::CHIP_SIZE ) {
 			//敵がやられじゃなかったら死ぬ
 			if ( !enemy->isBad( ) ) {
+				_is_expired = false;
 			}
 			//敵がやられだったら倒す
 			if ( enemy->isBad( ) ) {
@@ -186,6 +190,12 @@ void Player::stateUpdate( ) {
 	if ( _befor_dir != _dir || ( _befor_state == STATE_CHANGE_DIR && _animation->getAnimTime( ) < 5 ) ) {
 		_state = STATE_CHANGE_DIR;
 	}
+	if ( !_is_expired ) {
+		_state = STATE_DEAD;
+	}
+	if ( _befor_state == STATE_DEAD && _animation->getAnimTime( ) > 59 ) {
+		_is_dead = true;
+	}
 }
 
 void Player::animator( ) {
@@ -226,6 +236,9 @@ void Player::animator( ) {
 					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_UP );
 				}
 				break;
+			case STATE_DEAD:
+				_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_DEAD );
+				break;
 		}
 	} else {
 		//アニメーションアップデート
@@ -235,4 +248,8 @@ void Player::animator( ) {
 
 bool Player::isGetPowerBate( ) const {
 	return _get_power_bate;
+}
+
+bool Player::isDead( ) const {
+	return _is_dead;
 }

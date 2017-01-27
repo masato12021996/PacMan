@@ -36,27 +36,7 @@ const std::string STAGE_PASS[ PlayGame::STAGE_NUM ] {
 };
 
 PlayGame::PlayGame( ) {
-	_play_stage = PlayStagePtr( new PlayStage( ) );
-
-	_state = PLAY_STATE_READY;
-	_clear_stage_num = 0;
-	_stage_index = 0;
-	_is_clear = false;
-
-	//ステージの読み込み
-	for( int i = 0; i < STAGE_NUM; i++ ) {
-		FILE *fp;
-		errno_t err;
-		err = fopen_s( &fp, STAGE_PASS[ i ].c_str( ), "rb" );
-		if ( err == 0 ) {
-			Stage stage;
-			fread( &stage, sizeof( Stage ), 1, fp );
-			fclose( fp );
-			_stage_list[ i ] = StagePtr( new Stage( stage ) );
-		} else {
-			_stage_list[ i ] = NULL;
-		}
-	}
+	reset( );	
 }
 
 PlayGame::~PlayGame( ) {
@@ -87,16 +67,15 @@ void PlayGame::update( ) {
 			//ゲーム画面表示
 			//リザルト文字表示
 		//リザルト終了時
-			//クリアした場合
-			if ( _play_stage->isClearStage( ) ) {
-				changeStage( );//ステージ切り替え
-				_state = PLAY_STATE_READY;//ステート切り替え
-			}
 			//ゲームオーバー
-			if ( _play_stage->isDeadStage( ) ) {
-				//現在は続ける
-				changeStage( );//ステージ切り替え
-				_state = PLAY_STATE_READY;//ステート切り替え
+			if ( _play_stage->isDeadStage( ) || _clear_stage_num == STAGE_NUM ) {
+				_is_end_game = true;
+			} else {
+				//クリアした場合
+				if ( _play_stage->isClearStage( ) ) {
+					changeStage( );//ステージ切り替え
+					_state = PLAY_STATE_READY;//ステート切り替え
+				}
 			}
 		break;
 	}
@@ -120,4 +99,32 @@ PlayStagePtr PlayGame::getPlayStage( ) const {
 
 int PlayGame::getClearStageNum( ) const {
 	return _clear_stage_num;
+}
+
+bool PlayGame::isEndGame( ) const {
+	return _is_end_game;
+}
+
+void PlayGame::reset( ) {
+	_play_stage = PlayStagePtr( new PlayStage( ) );
+	_state = PLAY_STATE_READY;
+	_clear_stage_num = 0;
+	_stage_index = 0;
+	_is_clear = false;
+	_is_end_game = false;
+
+	//ステージの読み込み
+	for( int i = 0; i < STAGE_NUM; i++ ) {
+		FILE *fp;
+		errno_t err;
+		err = fopen_s( &fp, STAGE_PASS[ i ].c_str( ), "rb" );
+		if ( err == 0 ) {
+			Stage stage;
+			fread( &stage, sizeof( Stage ), 1, fp );
+			fclose( fp );
+			_stage_list[ i ] = StagePtr( new Stage( stage ) );
+		} else {
+			_stage_list[ i ] = NULL;
+		}
+	}
 }

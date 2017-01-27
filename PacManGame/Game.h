@@ -10,7 +10,7 @@ PTR( Result );
 class Game : public Task {
 public:
 	enum GAME_STATE {
-		GAME_STATE_TITILE,
+		GAME_STATE_TITLE,
 		GAME_STATE_PLAY,
 		GAME_STATE_RESULT,
 		GAME_STATE_MAX
@@ -31,4 +31,5 @@ private:
 	GAME_STATE _game_state;
 	PlayGamePtr _play_game;
 	TitlePtr _title;
+	bool _reset_flag;
 };

@@ -23,7 +23,7 @@ PlayStage::~PlayStage( ) {
 void PlayStage::update( ) {
 	//クリアしてなかったら更新
 	_player->update( );
-	if ( !_enemies.empty( ) ) {
+	if ( !_enemies.empty( ) && _player->isExpired( ) ) {
 		for ( int i = 0; i < ( int )_enemies.size( ); i++ ) {
 			if ( _enemies[ i ]->isExpired( ) ) {
 				if ( _player->isGetPowerBate( ) ) {
@@ -121,6 +121,9 @@ bool PlayStage::isDeadStage( ) const {
 		break;
 	}
 	//敵に当たった時
+	if ( _player->isDead( ) ) {
+		is_end = true;
+	}
 	return is_end;
 }
 

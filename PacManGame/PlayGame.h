@@ -22,6 +22,8 @@ public:
 	PLAY_STATE getState( ) const;
 	PlayStagePtr getPlayStage( ) const;
 	int getClearStageNum( ) const;
+	bool isEndGame( ) const;
+	void reset( );
 private:
 	void changeStage( );
 private:
@@ -30,6 +32,7 @@ private:
 	int _stage_index;		//現在のステージの番号
 	int _clear_stage_num;	//クリアしたステージ数の管理
 	std::array< StagePtr, STAGE_NUM > _stage_list;//保存してるステージ
+	bool _is_end_game;
 
 	PlayStagePtr _play_stage;
 };

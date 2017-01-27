@@ -12,6 +12,7 @@ public:
 		STATE_WAIT,
 		STATE_WALK,
 		STATE_CHANGE_DIR,
+		STATE_DEAD
 	};
 public:
 	Player( FieldPtr field );
@@ -25,6 +26,7 @@ public:
 	void stateUpdate( );
 	AnimationPtr getAnimation( ) const;
 	bool isExpired( ) const;
+	bool isDead( ) const;
 private:
 	void InputControlDir( );
 	void move( );
@@ -40,6 +42,7 @@ private:
 	FieldPtr _field;
 	STATE _state;
 	bool _get_power_bate;
+	bool _is_dead;
 
 	STATE _befor_state;
 	Vector _befor_dir;

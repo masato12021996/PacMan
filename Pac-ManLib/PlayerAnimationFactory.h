@@ -14,7 +14,8 @@ public:
 		STATE_CHANGE_DIR_LU,
 		STATE_CHANGE_DIR_LD,
 		STATE_CHANGE_DIR_RU,
-		STATE_CHANGE_DIR_RD
+		STATE_CHANGE_DIR_RD,
+		STATE_DEAD
 	};
 public:
 	PlayerAnimationFactory( );

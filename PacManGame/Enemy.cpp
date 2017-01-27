@@ -79,10 +79,6 @@ void Enemy::stateUpdate( ) {
 	_before_state = _state;
 	_state = STATE_WALK;
 
-	if ( _before_state != STATE_BAD && _before_state != STATE_BAD_END && _is_bad ) {
-		_bad_timer = 0;
-		_state = STATE_BAD;
-	}
 	if ( _before_state == STATE_BAD ) {
 		_bad_timer++;
 		_state = STATE_BAD;
@@ -90,6 +86,10 @@ void Enemy::stateUpdate( ) {
 	if ( _before_state == STATE_BAD_END ) {
 		_bad_timer++;
 		_state = STATE_BAD_END;
+	}
+	if ( _before_state != STATE_BAD && _is_bad ) {
+		_bad_timer = 0;
+		_state = STATE_BAD;
 	}
 	if ( _bad_timer > BAD_END_TIME ) {
 		_state = STATE_BAD_END;

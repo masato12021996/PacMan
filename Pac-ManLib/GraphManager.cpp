@@ -12,6 +12,7 @@ GraphManager::GraphManager( ) {
 	drawer->loadGraph( GRAPH_ID_PACMAN_LU,			"../Resource/Graph/Player/PlayerLU.png" );
 	drawer->loadGraph( GRAPH_ID_PACMAN_RD,			"../Resource/Graph/Player/PlayerRD.png" );
 	drawer->loadGraph( GRAPH_ID_PACMAN_RU,			"../Resource/Graph/Player/PlayerRU.png" );
+	drawer->loadGraph( GRAPH_ID_PACMAN_DEAD,		"../Resource/Graph/Player/PlayerDead.png" );
 	drawer->loadGraph( GRAPH_ID_ENEMY_BAD_B,		"../Resource/Graph/Enemy/Bad/EnemyBad_B.png" );
 	drawer->loadGraph( GRAPH_ID_ENEMY_BAD_W,		"../Resource/Graph/Enemy/Bad/EnemyBad_W.png" );
 	drawer->loadGraph( GRAPH_ID_ENEMY_RED_DOWN,		"../Resource/Graph/Enemy/Red/RedDown.png" );
@@ -123,8 +124,8 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 
 	if ( CHIP_ID_PACMAN_DEAD_01 <= id && id <= CHIP_ID_PACMAN_DEAD_11 ) {
 		int index = id - CHIP_ID_PACMAN_DEAD_01;
-		const int OFFSET_X = 4;
-		const int OFFSET_Y = CHIP_SIZE + 4;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
 		sprite.image = GRAPH_ID_PACMAN_DEAD;
 		sprite.tx = ( CHIP_SIZE + OFFSET_X ) * index;
 		sprite.ty = OFFSET_Y;

@@ -12,27 +12,43 @@ GamePtr Game::getTask( ) {
 Game::Game( ) {
 	_title = TitlePtr( new Title( ) );
 	_play_game = PlayGamePtr( new PlayGame( ) );
+	_reset_flag = false;
 }
 
 Game::~Game( ) {
 }
 
 void Game::initialize( ) {
-	_game_state = GAME_STATE_PLAY;
+	_game_state = GAME_STATE_TITLE;
 }
 
 void Game::update( ) {
 	switch ( _game_state ) {
-		case GAME_STATE_TITILE:
+		case GAME_STATE_TITLE:
+			if ( _reset_flag ) {
+				_play_game->reset( );
+				_reset_flag = false;
+			}
 			//タイトル
 			_title->update( );
+			if ( true ) {
+				_game_state = GAME_STATE_PLAY;
+			}
 			break;
 		case GAME_STATE_PLAY:
 			//ステージのプレイ
 			_play_game->update( );
+			if ( _play_game->isEndGame( ) ) {
+				_game_state = GAME_STATE_RESULT;
+			}
 			break;
 		case GAME_STATE_RESULT:
 			//ランキング
+			_play_game->getClearStageNum( );
+			_reset_flag = true;
+			if ( true ) {
+				_game_state = GAME_STATE_TITLE;
+			}
 			break;
 		default:
 			assert( "NoneGameState" );
