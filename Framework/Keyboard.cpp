@@ -102,3 +102,7 @@ bool Keyboard::isPushKey( std::string key ) {
 char Keyboard::getInputChar( ) {
 	return GetInputChar( TRUE );
 }
+
+bool Keyboard::isAnyKey( ) {
+	return CheckHitKeyAll( ) != 0;
+}

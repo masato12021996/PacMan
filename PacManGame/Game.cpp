@@ -31,7 +31,7 @@ void Game::update( ) {
 			}
 			//ƒ^ƒCƒgƒ‹
 			_title->update( );
-			if ( true ) {
+			if ( _title->isEndTitle( ) ) {
 				_game_state = GAME_STATE_PLAY;
 			}
 			break;

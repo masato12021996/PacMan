@@ -193,7 +193,7 @@ void Player::stateUpdate( ) {
 	if ( !_is_expired ) {
 		_state = STATE_DEAD;
 	}
-	if ( _befor_state == STATE_DEAD && _animation->getAnimTime( ) > 59 ) {
+	if ( _befor_state == STATE_DEAD && _animation->getAnimTime( ) > 58 ) {
 		_is_dead = true;
 	}
 }

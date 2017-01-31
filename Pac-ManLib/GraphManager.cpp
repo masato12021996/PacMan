@@ -29,6 +29,7 @@ GraphManager::GraphManager( ) {
 	drawer->loadGraph( GRAPH_ID_ENEMY_PINC_UP,		"../Resource/Graph/Enemy/Pinc/PincUp.png" );
 	drawer->loadGraph( GRAPH_ID_TARGET,				"../Resource/Graph/Target.png" );
 	drawer->loadGraph( GRAPH_ID_BACK_GROUND,		"../Resource/Graph/BackGround.png" );
+	drawer->loadGraph( GRAPH_ID_TITLE,				"../Resource/Graph/Title.png" );
 }
 
 GraphManager::~GraphManager( ) {
@@ -268,6 +269,15 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 		sprite.image = GRAPH_ID_TARGET;
 		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
 		sprite.ty = OFFSET_Y;
+	}
+
+	if ( id == CHIP_ID_TITLE ) {
+		int index = id - CHIP_ID_TITLE;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_TITLE;
+		sprite.height = 0;
+		sprite.width = 0;
 	}
 	return sprite;
 }

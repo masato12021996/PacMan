@@ -2,6 +2,8 @@
 #include "Stage.h"
 #include "PlayStage.h"
 
+const int RESULT_TIME = 60 * 2;
+
 const std::string STAGE_PASS[ PlayGame::STAGE_NUM ] {
 	"../Resource/StageData/Stage_01.stg",
 	"../Resource/StageData/Stage_02.stg",
@@ -46,9 +48,9 @@ void PlayGame::update( ) {
 	switch ( _state ) {
 		case PLAY_STATE_READY:
 		//入った時
-			//音楽再生開始
 			//初期化
 			_play_stage->create( _stage_list[ _stage_index ] );
+			//音楽再生開始
 		//音楽再生中
 			//クリア条件表示
 		//再生終了
@@ -60,6 +62,7 @@ void PlayGame::update( ) {
 		//ゲーム終了判定
 		if ( _play_stage->isClearStage( ) || _play_stage->isDeadStage( ) ) {
 			_state = PLAY_STATE_RESULT;//ステート更新
+			_result_time = 0;
 		}
 		break;
 		case PLAY_STATE_RESULT:
@@ -67,16 +70,19 @@ void PlayGame::update( ) {
 			//ゲーム画面表示
 			//リザルト文字表示
 		//リザルト終了時
-			//ゲームオーバー
-			if ( _play_stage->isDeadStage( ) || _clear_stage_num == STAGE_NUM ) {
-				_is_end_game = true;
-			} else {
-				//クリアした場合
-				if ( _play_stage->isClearStage( ) ) {
-					changeStage( );//ステージ切り替え
-					_state = PLAY_STATE_READY;//ステート切り替え
+			if ( _result_time > RESULT_TIME ) {
+				//ゲームオーバー
+				if ( _play_stage->isDeadStage( ) || _clear_stage_num == STAGE_NUM ) {
+					_is_end_game = true;
+				} else {
+					//クリアした場合
+					if ( _play_stage->isClearStage( ) ) {
+						changeStage( );//ステージ切り替え
+						_state = PLAY_STATE_READY;//ステート切り替え
+					}
 				}
 			}
+			_result_time++;
 		break;
 	}
 }
@@ -127,4 +133,5 @@ void PlayGame::reset( ) {
 			_stage_list[ i ] = NULL;
 		}
 	}
+	_result_time = 0;
 }

@@ -18,6 +18,7 @@ public:
 public:
 	bool isPushKey( std::string key );
 	bool isHoldKey( std::string key );
+	bool isAnyKey( );
 	char getInputChar( );
 private:
 	struct KEYS {
