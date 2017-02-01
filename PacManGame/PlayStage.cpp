@@ -6,6 +6,7 @@
 #include "EnemyRed.h"
 #include "EnemyPinc.h"
 #include "EnemyOrange.h"
+#include "EnemyBlue.h"
 #include "MapDefine.h"
 #include <time.h>
 #include "Sound.h"
@@ -25,6 +26,7 @@ void PlayStage::update( ) {
 	//クリアしてなかったら更新
 	_player->update( );
 	bool bad = false;
+	bool not_enemy = true;
 	if ( !_enemies.empty( ) && _player->isExpired( ) ) {
 		for ( int i = 0; i < ( int )_enemies.size( ); i++ ) {
 			if ( _enemies[ i ]->isExpired( ) ) {
@@ -33,6 +35,9 @@ void PlayStage::update( ) {
 				}
 				if ( _enemies[ i ]->isBad( ) ) {
 					bad = true;
+				}
+				if ( _enemies[ i ]->isExpired( ) ) {
+					not_enemy = false;
 				}
 				_enemies[ i ]->update( );
 			}
@@ -46,6 +51,9 @@ void PlayStage::update( ) {
 		if ( !bad ) {
 			sound->playBGM( "ghost_move.wav" );
 		}
+	}
+	if ( not_enemy ) {
+		sound->stopBGM( );
 	}
 	_enemy_blue = bad;
 	_stage_time = ( clock( ) - _start_time );
@@ -84,7 +92,7 @@ void PlayStage::create( StagePtr stage ) {
 				_player->create( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) );
 				break;
 				case Stage::OBJECT_NAME_ENEMY_BLUE:
-					_enemies.push_back( EnemyRedPtr( new EnemyRed( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) ) ) );
+					_enemies.push_back( EnemyBluePtr( new EnemyBlue( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) ) ) );
 				break;
 				case Stage::OBJECT_NAME_ENEMY_ORANGE:
 					_enemies.push_back( EnemyOrangePtr( new EnemyOrange( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) ) ) );

@@ -9,5 +9,7 @@ public:
 	virtual ~EnemyOrange();
 private:
 	void actor( );
+private:
+	int _counter;
 };
 

@@ -21,7 +21,7 @@ const Vector DIR_RIGHT	= Vector(  1,  0, 0 );
 const Vector DIR_UP		= Vector(  0, -1, 0 );
 const Vector DIR_DOWN	= Vector(  0,  1, 0 );
 const double SPEED = 2;
-const int PLAYER_RANGE = 10;
+const int PLAYER_RANGE = 8;
 
 Player::Player( FieldPtr field ) {
 	_field = field;

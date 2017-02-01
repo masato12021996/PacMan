@@ -9,24 +9,24 @@ Animation( ANIMATION_FREAM, ANIMATION_MAX_TIME ) {
 	if ( color == COLOR_BLUE ) {
 		switch( dir ) {
 		case WALK_DIR_LEFT:
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_LEFT_0 );
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_LEFT_1 );
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_LEFT_2 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_LEFT_0 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_LEFT_1 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_LEFT_2 );
 			break;
 		case WALK_DIR_RIGHT:
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_RIGHT_0 );
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_RIGHT_1 );
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_RIGHT_2 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_RIGHT_0 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_RIGHT_1 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_RIGHT_2 );
 			break;
 		case WALK_DIR_DOWN:
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_DOWN_0 );
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_DOWN_1 );
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_DOWN_2 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_DOWN_0 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_DOWN_1 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_DOWN_2 );
 			break;
 		case WALK_DIR_UP:
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_UP_0 );
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_UP_1 );
-			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_RED_UP_2 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_UP_0 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_UP_1 );
+			setAnimationGraph( GraphManager::CHIP_ID_ENEMY_BLUE_UP_2 );
 			break;
 		}
 	}

@@ -27,6 +27,10 @@ GraphManager::GraphManager( ) {
 	drawer->loadGraph( GRAPH_ID_ENEMY_PINC_LEFT,	"../Resource/Graph/Enemy/Pinc/PincLeft.png" );
 	drawer->loadGraph( GRAPH_ID_ENEMY_PINC_RIGHT,	"../Resource/Graph/Enemy/Pinc/PincRight.png" );
 	drawer->loadGraph( GRAPH_ID_ENEMY_PINC_UP,		"../Resource/Graph/Enemy/Pinc/PincUp.png" );
+	drawer->loadGraph( GRAPH_ID_ENEMY_BLUE_DOWN,	"../Resource/Graph/Enemy/Blue/BlueDown.png" );
+	drawer->loadGraph( GRAPH_ID_ENEMY_BLUE_LEFT,	"../Resource/Graph/Enemy/Blue/BlueLeft.png" );
+	drawer->loadGraph( GRAPH_ID_ENEMY_BLUE_RIGHT,	"../Resource/Graph/Enemy/Blue/BlueRight.png" );
+	drawer->loadGraph( GRAPH_ID_ENEMY_BLUE_UP,		"../Resource/Graph/Enemy/Blue/BlueUp.png" );
 	drawer->loadGraph( GRAPH_ID_TARGET,				"../Resource/Graph/Target.png" );
 	drawer->loadGraph( GRAPH_ID_BACK_GROUND,		"../Resource/Graph/BackGround.png" );
 	drawer->loadGraph( GRAPH_ID_TITLE,				"../Resource/Graph/Title.png" );
@@ -245,6 +249,44 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
 		sprite.ty = OFFSET_Y;
 	}
+
+	//左向き
+	if ( CHIP_ID_ENEMY_BLUE_LEFT_0 <= id && id <= CHIP_ID_ENEMY_BLUE_LEFT_2 ) {
+		int index = id - CHIP_ID_ENEMY_BLUE_LEFT_0;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_ENEMY_BLUE_LEFT;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+	//右向き
+	if ( CHIP_ID_ENEMY_BLUE_RIGHT_0 <= id && id <= CHIP_ID_ENEMY_BLUE_RIGHT_2 ) {
+		int index = id - CHIP_ID_ENEMY_BLUE_RIGHT_0;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_ENEMY_BLUE_RIGHT;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+	//下向き
+	if ( CHIP_ID_ENEMY_BLUE_DOWN_0 <= id && id <= CHIP_ID_ENEMY_BLUE_DOWN_2 ) {
+		int index = id - CHIP_ID_ENEMY_BLUE_DOWN_0;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_ENEMY_BLUE_DOWN;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+	//上向き
+	if ( CHIP_ID_ENEMY_BLUE_UP_0 <= id && id <= CHIP_ID_ENEMY_BLUE_UP_2 ) {
+		int index = id - CHIP_ID_ENEMY_BLUE_UP_0;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_ENEMY_BLUE_UP;
+		sprite.tx = OFFSET_X + ( CHIP_SIZE + OFFSET_X ) * index;
+		sprite.ty = OFFSET_Y;
+	}
+
 	//バッドアニメーション
 	if ( CHIP_ID_ENEMY_BAD_B_0 <= id && id <= CHIP_ID_ENEMY_BAD_B_2 ) {
 		int index = id - CHIP_ID_ENEMY_BAD_B_0;
