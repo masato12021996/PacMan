@@ -5,7 +5,7 @@
 PTR( Game );
 PTR( Title );
 PTR( PlayGame );
-PTR( Result );
+PTR( Ranking );
 
 class Game : public Task {
 public:
@@ -31,5 +31,8 @@ private:
 	GAME_STATE _game_state;
 	PlayGamePtr _play_game;
 	TitlePtr _title;
+	RankingPtr _ranking;
 	bool _reset_flag;
+
+	int _result_timer;
 };

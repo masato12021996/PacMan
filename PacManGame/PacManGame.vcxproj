@@ -94,6 +94,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayGame.cpp" />
     <ClCompile Include="PlayStage.cpp" />
+    <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Viewer.cpp" />
     <ClCompile Include="ViewerPlay.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayGame.h" />
     <ClInclude Include="PlayStage.h" />
+    <ClInclude Include="Ranking.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="Viewer.h" />
     <ClInclude Include="ViewerPlay.h" />

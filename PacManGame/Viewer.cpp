@@ -35,6 +35,9 @@ void Viewer::update( ) {
 		case Game::GAME_STATE_PLAY:
 			_play->update( );
 			break;
+		case Game::GAME_STATE_RESULT:
+			_graph_manager->drawChip( 0, 0, GraphManager::CHIP_ID_RANKIG );
+			break;
 		default:
 			assert( "NoneGameState" );
 			break;

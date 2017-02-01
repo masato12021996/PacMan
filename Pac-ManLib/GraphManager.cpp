@@ -34,6 +34,7 @@ GraphManager::GraphManager( ) {
 	drawer->loadGraph( GRAPH_ID_TARGET,				"../Resource/Graph/Target.png" );
 	drawer->loadGraph( GRAPH_ID_BACK_GROUND,		"../Resource/Graph/BackGround.png" );
 	drawer->loadGraph( GRAPH_ID_TITLE,				"../Resource/Graph/Title.png" );
+	drawer->loadGraph( GRAPH_ID_RANKING,			"../Resource/Graph/Ranking.png" );
 	drawer->loadGraph( GRAPH_ID_TREMS_EAT,			"../Resource/Graph/AllEat.png" );
 	drawer->loadGraph( GRAPH_ID_TREMS_KILL,			"../Resource/Graph/AllEnemy.png" );
 	drawer->loadGraph( GRAPH_ID_TREMS_RUN,			"../Resource/Graph/OutRun.png" );
@@ -321,6 +322,14 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 		const int OFFSET_X = 0;
 		const int OFFSET_Y = 0;
 		sprite.image = GRAPH_ID_TITLE;
+		sprite.height = 0;
+		sprite.width = 0;
+	}
+	if ( id == CHIP_ID_RANKIG ) {
+		int index = id - CHIP_ID_RANKIG;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_RANKING;
 		sprite.height = 0;
 		sprite.width = 0;
 	}

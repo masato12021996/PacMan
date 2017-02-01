@@ -3,7 +3,10 @@
 #include "PlayGame.h"
 #include "Title.h"
 #include "Sound.h"
+#include "Ranking.h"
 #include <assert.h>
+
+const int RESULT_TIME = 60 * 5;
 
 GamePtr Game::getTask( ) {
 	ApplicationPtr application = Application::getInstance( );
@@ -13,6 +16,7 @@ GamePtr Game::getTask( ) {
 Game::Game( ) {
 	_title = TitlePtr( new Title( ) );
 	_play_game = PlayGamePtr( new PlayGame( ) );
+	_ranking = RankingPtr( new Ranking( ) );
 	_reset_flag = true;
 }
 
@@ -21,6 +25,7 @@ Game::~Game( ) {
 
 void Game::initialize( ) {
 	_game_state = GAME_STATE_TITLE;
+	_result_timer = 0;
 }
 
 void Game::update( ) {
@@ -44,15 +49,17 @@ void Game::update( ) {
 			_play_game->update( );
 			if ( _play_game->isEndGame( ) ) {
 				_game_state = GAME_STATE_RESULT;
+				_result_timer = 0;
+				_ranking->setClearNum( _play_game->getClearStageNum( ) );
 			}
 			break;
 		case GAME_STATE_RESULT:
 			//ƒ‰ƒ“ƒLƒ“ƒO
-			_play_game->getClearStageNum( );
-			_reset_flag = true;
-			if ( true ) {
+			if ( RESULT_TIME < _result_timer ) {
 				_game_state = GAME_STATE_TITLE;
+				_reset_flag = true;
 			}
+			_result_timer++;
 			break;
 		default:
 			assert( "NoneGameState" );
