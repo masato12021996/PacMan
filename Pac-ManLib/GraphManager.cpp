@@ -30,6 +30,9 @@ GraphManager::GraphManager( ) {
 	drawer->loadGraph( GRAPH_ID_TARGET,				"../Resource/Graph/Target.png" );
 	drawer->loadGraph( GRAPH_ID_BACK_GROUND,		"../Resource/Graph/BackGround.png" );
 	drawer->loadGraph( GRAPH_ID_TITLE,				"../Resource/Graph/Title.png" );
+	drawer->loadGraph( GRAPH_ID_TREMS_EAT,			"../Resource/Graph/AllEat.png" );
+	drawer->loadGraph( GRAPH_ID_TREMS_KILL,			"../Resource/Graph/AllEnemy.png" );
+	drawer->loadGraph( GRAPH_ID_TREMS_RUN,			"../Resource/Graph/OutRun.png" );
 }
 
 GraphManager::~GraphManager( ) {
@@ -278,6 +281,40 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 		sprite.image = GRAPH_ID_TITLE;
 		sprite.height = 0;
 		sprite.width = 0;
+	}
+	if ( id == CHIP_ID_TREMS_EAT ) {
+		int index = id - CHIP_ID_TREMS_EAT;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_TREMS_EAT;
+		sprite.height = 0;
+		sprite.width = 0;
+	}
+	if ( id == CHIP_ID_TREMS_KILL ) {
+		int index = id - CHIP_ID_TREMS_KILL;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_TREMS_KILL;
+		sprite.height = 0;
+		sprite.width = 0;
+	}
+	if ( id == CHIP_ID_TREMS_RUN ) {
+		int index = id - CHIP_ID_TREMS_RUN;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_TREMS_RUN;
+		sprite.height = 0;
+		sprite.width = 0;
+	}
+
+	//•Ç
+	if ( CHIP_ID_BACK_GROUND_0000 <= id && id <= CHIP_ID_BACK_GROUND_1111 ) {
+		int index = id - CHIP_ID_BACK_GROUND_0000;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_BACK_GROUND;
+		sprite.tx = ( CHIP_SIZE + OFFSET_X ) * ( index % 8 );
+		sprite.ty = ( CHIP_SIZE + OFFSET_Y ) * ( index / 8 );
 	}
 	return sprite;
 }

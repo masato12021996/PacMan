@@ -17,7 +17,7 @@ const GraphManager::CHIP_ID OBJECT_LIST[ 8 ] = {
 	GraphManager::CHIP_ID_ENEMY_ORANGE_LEFT_0,
 	GraphManager::CHIP_ID_TARGET_BATE,
 	GraphManager::CHIP_ID_TARGET_POWER_BATE,
-	GraphManager::CHIP_ID_BACK_GROUND_000010000,
+	GraphManager::CHIP_ID_BACK_GROUND_0001,
 };
 
 ViewerPtr Viewer::getTask( ) {

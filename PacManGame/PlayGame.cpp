@@ -1,8 +1,10 @@
 #include "PlayGame.h"
 #include "Stage.h"
 #include "PlayStage.h"
+#include "Sound.h"
 
 const int RESULT_TIME = 60 * 2;
+const int READY_TIME = 60 * 4;
 
 const std::string STAGE_PASS[ PlayGame::STAGE_NUM ] {
 	"../Resource/StageData/Stage_01.stg",
@@ -45,16 +47,23 @@ PlayGame::~PlayGame( ) {
 }
 
 void PlayGame::update( ) {
+	SoundPtr sound = Sound::getTask( );
 	switch ( _state ) {
 		case PLAY_STATE_READY:
 		//入った時
-			//初期化
-			_play_stage->create( _stage_list[ _stage_index ] );
+			if ( _redy_time == 0 ) {
 			//音楽再生開始
+			sound->playSE( "game_start.wav" );
+			}
 		//音楽再生中
-			//クリア条件表示
+			_redy_time++;
 		//再生終了
-			_state = PLAY_STATE_PLAY;//ステート切り替え
+			if ( _redy_time > READY_TIME ) {
+				//初期化
+				_play_stage->create( _stage_list[ _stage_index ] );
+				_state = PLAY_STATE_PLAY;//ステート切り替え
+				_redy_time = 0;
+			}
 		break;
 		case PLAY_STATE_PLAY:
 		//ゲーム処理更新
@@ -134,4 +143,5 @@ void PlayGame::reset( ) {
 		}
 	}
 	_result_time = 0;
+	_redy_time = 0;
 }

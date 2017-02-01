@@ -17,9 +17,11 @@ private:
 	void drawPlay( );
 	void drawResult( );
 	void drawField( PlayStagePtr stage );
+	void drawWall( PlayStagePtr stage );
 	void drawPlayer( PlayStagePtr stage );
 	void drawEnemy( PlayStagePtr stage );
 	void drawTime( double time );
+	void drawClearState( );
 	void drawClearStageNum( );
 private:
 	PlayGamePtr _play_game;

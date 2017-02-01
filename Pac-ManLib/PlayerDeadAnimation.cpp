@@ -2,7 +2,7 @@
 #include "GraphManager.h"
 
 const int ANIMATION_FREAM = 11;
-const double ANIMATION_MAX_TIME = 1;
+const double ANIMATION_MAX_TIME = 1.1;
 
 PlayerDeadAnimation::PlayerDeadAnimation( ) :
 Animation( ANIMATION_FREAM, ANIMATION_MAX_TIME ) {

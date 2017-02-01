@@ -13,8 +13,13 @@ EnemyPinc::~EnemyPinc( ) {
 void EnemyPinc::actor( ) {
 	FieldPtr field = getField( );
 	Vector target = getPlayerPos( );
+	int counter = 0;
 	while ( field->getFieldTarget( target.x / MapParameter::CHIP_SIZE, target.y / MapParameter::CHIP_SIZE ) != Field::OBJECT_WALL ) {
 		target += getPlayerDir( ) * MapParameter::CHIP_SIZE;
+		counter++;
+		if ( counter > 3 ) {
+			break;
+		}
 	}
 	target -= getPlayerDir( ) * MapParameter::CHIP_SIZE;;
 	const Vector DIR[ 4 ] = {

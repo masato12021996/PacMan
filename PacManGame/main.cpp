@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Viewer.h"
 #include "MapDefine.h"
+#include "Sound.h"
 
 void main( ) {
 	ApplicationPtr application = Application::getInstance( );
@@ -10,9 +11,11 @@ void main( ) {
 	KeyboardPtr keyboad = KeyboardPtr( new Keyboard( ) );
 	GamePtr game = GamePtr( new Game );
 	ViewerPtr viewer = ViewerPtr( new Viewer );
+	SoundPtr sound = SoundPtr( new Sound( "../Resource/Sound" ) );
 
 
 	application->addTask( Keyboard::getTag( ), keyboad );
 	application->addTask( Game::getTag( ), game );
 	application->addTask( Viewer::getTag( ), viewer );
+	application->addTask( Sound::getTag( ), sound );
 }

@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "PlayGame.h"
 #include "Title.h"
+#include "Sound.h"
 #include <assert.h>
 
 GamePtr Game::getTask( ) {
@@ -12,7 +13,7 @@ GamePtr Game::getTask( ) {
 Game::Game( ) {
 	_title = TitlePtr( new Title( ) );
 	_play_game = PlayGamePtr( new PlayGame( ) );
-	_reset_flag = false;
+	_reset_flag = true;
 }
 
 Game::~Game( ) {
@@ -23,15 +24,18 @@ void Game::initialize( ) {
 }
 
 void Game::update( ) {
+	SoundPtr sound = Sound::getTask( );
 	switch ( _game_state ) {
 		case GAME_STATE_TITLE:
 			if ( _reset_flag ) {
 				_play_game->reset( );
+				sound->playBGM( "coffeebreak.wav" );
 				_reset_flag = false;
 			}
 			//ƒ^ƒCƒgƒ‹
 			_title->update( );
 			if ( _title->isEndTitle( ) ) {
+				sound->stopBGM( );
 				_game_state = GAME_STATE_PLAY;
 			}
 			break;

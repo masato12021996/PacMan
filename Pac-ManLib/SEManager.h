@@ -1,8 +1,8 @@
 #pragma once
-class SEManager
-{
+class SEManager {
+
 public:
-	SEManager();
-	virtual ~SEManager();
+	SEManager( );
+	virtual ~SEManager( );
 };
 

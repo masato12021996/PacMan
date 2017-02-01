@@ -33,6 +33,7 @@ private:
 	int _clear_stage_num;	//クリアしたステージ数の管理
 	std::array< StagePtr, STAGE_NUM > _stage_list;//保存してるステージ
 	bool _is_end_game;
+	int _redy_time;
 	int _result_time;
 
 	PlayStagePtr _play_stage;

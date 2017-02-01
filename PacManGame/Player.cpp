@@ -8,6 +8,7 @@
 #include "PlayGame.h"
 #include "PlayStage.h"
 #include "Enemy.h"
+#include "Sound.h"
 
 const int MAP_TOP_BORDER = 0;
 const int MAP_BOTTOM_BORDER = MAP_TOP_BORDER + MapParameter::MAP_SIZE_Y * MapParameter::CHIP_SIZE;
@@ -93,12 +94,15 @@ void Player::move( ) {
 	int x = ( int )_pos.x / MapParameter::CHIP_SIZE;
 	int y = ( int )_pos.y / MapParameter::CHIP_SIZE;
 	int on_object = _field->getFieldTarget( x, y );
+	SoundPtr sound = Sound::getTask( );
 	if ( on_object == Field::OBJECT_BATE ) {
 		_field->setFieldTarget( x, y, Field::OBJECT_NULL );
+		sound->playSE( "eating_cokkie.wav" );
 	}
 	if ( on_object == Field::OBJECT_POWER_BATE ) {
 		_field->setFieldTarget( x, y, Field::OBJECT_NULL );
 		_get_power_bate = true;
+		sound->playSE( "eating_cokkie.wav" );
 	}
 	//ìGÇÃÇ†ÇΩÇËîªíË
 	GamePtr game = Game::getTask( );
@@ -111,10 +115,13 @@ void Player::move( ) {
 			//ìGÇ™Ç‚ÇÁÇÍÇ∂Ç·Ç»Ç©Ç¡ÇΩÇÁéÄÇ 
 			if ( !enemy->isBad( ) ) {
 				_is_expired = false;
+				sound->stopBGM( );
+				sound->playSE( "miss.wav" );
 			}
 			//ìGÇ™Ç‚ÇÁÇÍÇæÇ¡ÇΩÇÁì|Ç∑
-			if ( enemy->isBad( ) ) {
+			if ( enemy->isBad( ) && enemy->isExpired( ) ) {
 				enemy->Dead( );
+				sound->playSE( "eating_ghost.wav" );
 			}
 		}
 	}
@@ -187,13 +194,10 @@ void Player::stateUpdate( ) {
 	if ( movement ) {
 		_state = STATE_WALK;
 	}
-	if ( _befor_dir != _dir || ( _befor_state == STATE_CHANGE_DIR && _animation->getAnimTime( ) < 5 ) ) {
-		_state = STATE_CHANGE_DIR;
-	}
 	if ( !_is_expired ) {
 		_state = STATE_DEAD;
 	}
-	if ( _befor_state == STATE_DEAD && _animation->getAnimTime( ) > 58 ) {
+	if ( _befor_state == STATE_DEAD && _animation->getAnimTime( ) > 60 ) {
 		_is_dead = true;
 	}
 }
@@ -215,24 +219,6 @@ void Player::animator( ) {
 					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_DOWN );
 				}
 				if ( _dir == DIR_UP ) {
-					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_UP );
-				}
-				break;
-			case STATE_CHANGE_DIR:
-				//ç∂è„
-				if ( ( _dir == DIR_LEFT && _befor_dir == DIR_UP ) || ( _befor_dir == DIR_LEFT && _dir == DIR_UP ) ) {
-					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_LEFT );
-				}
-				//ç∂â∫
-				if ( ( _dir == DIR_LEFT && _befor_dir == DIR_DOWN ) || ( _befor_dir == DIR_LEFT && _dir == DIR_DOWN ) ) {
-					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_RIGHT );
-				}
-				//âEè„
-				if ( ( _dir == DIR_RIGHT && _befor_dir == DIR_UP ) || ( _befor_dir == DIR_RIGHT && _dir == DIR_UP ) ) {
-					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_DOWN );
-				}
-				//âEâ∫
-				if ( ( _dir == DIR_RIGHT && _befor_dir == DIR_DOWN ) || ( _befor_dir == DIR_RIGHT && _dir == DIR_DOWN ) ) {
 					_animation = PlayerAnimationFactory::createAnimation( PlayerAnimationFactory::STATE_WALK_UP );
 				}
 				break;

@@ -8,6 +8,7 @@
 #include "EnemyOrange.h"
 #include "MapDefine.h"
 #include <time.h>
+#include "Sound.h"
 
 const int CLEAR_TIME = 10;
 const int GAMEOVER_TIME = 180;
@@ -23,21 +24,37 @@ PlayStage::~PlayStage( ) {
 void PlayStage::update( ) {
 	//クリアしてなかったら更新
 	_player->update( );
+	bool bad = false;
 	if ( !_enemies.empty( ) && _player->isExpired( ) ) {
 		for ( int i = 0; i < ( int )_enemies.size( ); i++ ) {
 			if ( _enemies[ i ]->isExpired( ) ) {
-				if ( _player->isGetPowerBate( ) ) {
+				if ( _player->isGetPowerBate( ) && !_enemies[ i ]->isBad( ) ) {
 					_enemies[ i ]->setBad( );
+				}
+				if ( _enemies[ i ]->isBad( ) ) {
+					bad = true;
 				}
 				_enemies[ i ]->update( );
 			}
 		}
 	}
+	SoundPtr sound = Sound::getTask( );
+	if ( _enemy_blue != bad  ) {
+		if ( bad ) {
+			sound->playBGM( "ghost_blue.wav" );
+		}
+		if ( !bad ) {
+			sound->playBGM( "ghost_move.wav" );
+		}
+	}
+	_enemy_blue = bad;
 	_stage_time = ( clock( ) - _start_time );
 }
 
 //ステージの制作,初期化
 void PlayStage::create( StagePtr stage ) {
+	SoundPtr sound = Sound::getTask( );
+	sound->playBGM( "ghost_move.wav" );
 	_trems = stage->getTrems( );
 	_start_time = clock( );
 	_stage_time = 0;
@@ -81,6 +98,7 @@ void PlayStage::create( StagePtr stage ) {
 			}
 		}
 	}
+	_enemy_blue = false;
 }
 
 bool PlayStage::isClearStage( ) const {

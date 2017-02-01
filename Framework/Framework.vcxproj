@@ -17,6 +17,7 @@
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="MessageBoxMaker.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -29,6 +30,7 @@
     <ClInclude Include="MessageBoxMaker.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="smart_ptr.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Task.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

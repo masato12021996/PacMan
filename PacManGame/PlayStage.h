@@ -30,4 +30,5 @@ private:
 	int _trems;
 	int _start_time;
 	int _stage_time;
+	bool _enemy_blue;
 };
