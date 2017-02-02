@@ -76,6 +76,7 @@ void PlayGame::update( ) {
 		break;
 		case PLAY_STATE_RESULT:
 		//リザルト表示
+			sound->stopBGM( );
 			//ゲーム画面表示
 			//リザルト文字表示
 		//リザルト終了時

@@ -21,7 +21,7 @@ const Vector DIR_RIGHT	= Vector(  1,  0, 0 );
 const Vector DIR_UP		= Vector(  0, -1, 0 );
 const Vector DIR_DOWN	= Vector(  0,  1, 0 );
 const double SPEED = 2;
-const int PLAYER_RANGE = 8;
+const int PLAYER_RANGE = 16;
 
 Player::Player( FieldPtr field ) {
 	_field = field;
@@ -137,6 +137,12 @@ void Player::posNormalize( ) {
 	if ( x > MAP_RIGHT_BORDER + MAP_OUT_BORDER ) {
 		x = MAP_LEFT_BORDER - MAP_OUT_BORDER;
 	}
+	if ( x % MapParameter::CHIP_SIZE != MapParameter::CHIP_SIZE / 2 && _dir.y != 0 ) {
+		x = x / MapParameter::CHIP_SIZE * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
+	}
+	if ( y % MapParameter::CHIP_SIZE != MapParameter::CHIP_SIZE / 2 && _dir.x != 0 ) {
+		y = y / MapParameter::CHIP_SIZE * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
+	}
 	_pos = Vector( x, y );
 }
 
@@ -154,33 +160,26 @@ bool Player::onMap( Vector pos ) {
 
 bool Player::canMove( Vector pos ) {
 	bool result = true;
-	//まず自分のいるマスを取得する
-	int px = ( int )pos.x / MapParameter::CHIP_SIZE + ( int )_dir.x;
-	int py = ( int )pos.y / MapParameter::CHIP_SIZE + ( int )_dir.y;
-	//そのあと進行方向のマスとそのうえ側のマスと下側のマスを取得する
-	for ( int i = 0; i < 3; i++ ) {
-		int x = px;
-		int y = py;
-		if ( _dir.x > 0 ) {
-			y += i - 1;
-		} else {
-			x += i - 1;
+	//まず自分のいる1こさきマスを取得する
+	int x = ( int )pos.x / MapParameter::CHIP_SIZE + _dir.normalize( ).x;
+	int y = ( int )pos.y / MapParameter::CHIP_SIZE + _dir.normalize( ).y;
+	if ( onMap( Vector( x * MapParameter::CHIP_SIZE, y * MapParameter::CHIP_SIZE ) ) ) {
+		//各マスが壁か判断する。
+		if ( y == 12 && x == 30 ) {
+			return result;
 		}
-		if ( onMap( Vector( x * MapParameter::CHIP_SIZE, y * MapParameter::CHIP_SIZE ) ) ) {
-			//各マスが壁か判断する。
-			int object_id = _field->getFieldTarget( x, y );
-			if ( object_id == Field::OBJECT_WALL ){
-				double bsx = x * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
-				double bsy = y * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
-				Vector bsp = Vector( bsx, bsy );
-				Vector diff = bsp - pos;
-				//その後正方形と円のあたり判定をする
-				double box_length = MapParameter::CHIP_SIZE / 2;
-				//方法としては正方形と円のベクトルを取りその角度を利用して当たりそうな正方形の辺の長さを求め判定する。
-				double length = diff.getLength( );
-				if ( length < box_length + PLAYER_RANGE ) {
-					result = false;
-				}
+		int object_id = _field->getFieldTarget( x, y );
+		if ( object_id == Field::OBJECT_WALL ){
+			double bsx = x * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
+			double bsy = y * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
+			Vector bsp = Vector( bsx, bsy );
+			Vector diff = bsp - pos;
+			//その後正方形と円のあたり判定をする
+			double box_length = MapParameter::CHIP_SIZE / 2;
+			//方法としては正方形と円のベクトルを取りその角度を利用して当たりそうな正方形の辺の長さを求め判定する。
+			double length = diff.getLength( );
+			if ( length < box_length + PLAYER_RANGE ) {
+				result = false;
 			}
 		}
 	}

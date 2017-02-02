@@ -72,6 +72,15 @@ void Enemy::update( ) {
 	move( );
 	stateUpdate( );
 	animator( );
+	int x = ( int )_pos.x;
+	int y = ( int )_pos.y;
+	if ( x % MapParameter::CHIP_SIZE != MapParameter::CHIP_SIZE / 2 && _dir.y != 0 ) {
+		x = x / MapParameter::CHIP_SIZE * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
+	}
+	if ( y % MapParameter::CHIP_SIZE != MapParameter::CHIP_SIZE / 2 && _dir.x != 0 ) {
+		y = y / MapParameter::CHIP_SIZE * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
+	}
+	_pos = Vector( x, y );
 	_before_dir = _dir;
 }
 

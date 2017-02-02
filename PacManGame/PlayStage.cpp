@@ -106,6 +106,20 @@ void PlayStage::create( StagePtr stage ) {
 			}
 		}
 	}
+	if ( _enemies.empty( ) ) {
+		for ( int i = 0; i < MapParameter::MAP_SIZE_X; i++ ) {
+			for ( int j = 0; j < MapParameter::MAP_SIZE_Y; j++ ) {
+				if ( _field->getFieldTarget( i, j ) == Field::OBJECT_BATE ) {
+					_enemies.push_back( EnemyRedPtr( new EnemyRed( Vector( i * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2, j * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2 ) ) ) );
+					_field->setFieldTarget( i, j, Field::OBJECT_POWER_BATE );
+					break;
+				}
+			}
+			if ( !_enemies.empty( ) ) {
+				break;
+			}
+		}
+	}
 	_enemy_blue = false;
 }
 

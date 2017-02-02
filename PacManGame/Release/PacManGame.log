@@ -1,0 +1,25 @@
+﻿  Enemy.cpp
+Enemy.cpp(190): warning C4244: '引数' : 'double' から 'const int' への変換です。データが失われる可能性があります。
+  EnemyAnimationFoctory.cpp
+  EnemyBlue.cpp
+  EnemyOrange.cpp
+  EnemyPinc.cpp
+EnemyPinc.cpp(17): warning C4244: '引数' : 'double' から 'int' への変換です。データが失われる可能性があります。
+EnemyPinc.cpp(35): warning C4244: '引数' : 'double' から 'const int' への変換です。データが失われる可能性があります。
+  EnemyRed.cpp
+EnemyRed.cpp(25): warning C4244: '引数' : 'double' から 'const int' への変換です。データが失われる可能性があります。
+  Game.cpp
+  main.cpp
+  Player.cpp
+Player.cpp(164): warning C4244: '初期化中' : 'double' から 'int' への変換です。データが失われる可能性があります。
+Player.cpp(165): warning C4244: '初期化中' : 'double' から 'int' への変換です。データが失われる可能性があります。
+  PlayGame.cpp
+  PlayStage.cpp
+PlayStage.cpp(131): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
+  Ranking.cpp
+  Title.cpp
+  Viewer.cpp
+  ViewerPlay.cpp
+  ViewerRanking.cpp
+  ViewerTitle.cpp
+LINK : fatal error LNK1104: ファイル 'DxDrawFunc_vs2012_x86.lib' を開くことができません。
