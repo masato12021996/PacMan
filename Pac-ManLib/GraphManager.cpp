@@ -38,6 +38,10 @@ GraphManager::GraphManager( ) {
 	drawer->loadGraph( GRAPH_ID_TREMS_EAT,			"../Resource/Graph/AllEat.png" );
 	drawer->loadGraph( GRAPH_ID_TREMS_KILL,			"../Resource/Graph/AllEnemy.png" );
 	drawer->loadGraph( GRAPH_ID_TREMS_RUN,			"../Resource/Graph/OutRun.png" );
+	drawer->loadGraph( GRAPH_ID_NUMBER,				"../Resource/Graph/NUMBER.png" );
+	drawer->loadGraph( GRAPH_ID_NUMBER_RED,			"../Resource/Graph/NUMBER_RED.png" );
+	drawer->loadGraph( GRAPH_ID_CLEAR,				"../Resource/Graph/Clear.png" );
+	drawer->loadGraph( GRAPH_ID_GAMEOVER,			"../Resource/Graph/GameOver.png" );
 }
 
 GraphManager::~GraphManager( ) {
@@ -325,6 +329,22 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 		sprite.height = 0;
 		sprite.width = 0;
 	}
+	if ( id == CHIP_ID_CLEAR ) {
+		int index = id - CHIP_ID_CLEAR;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_CLEAR;
+		sprite.height = 0;
+		sprite.width = 0;
+	}
+	if ( id == CHIP_ID_GAMEOVER ) {
+		int index = id - CHIP_ID_GAMEOVER;
+		const int OFFSET_X = 0;
+		const int OFFSET_Y = 0;
+		sprite.image = GRAPH_ID_GAMEOVER;
+		sprite.height = 0;
+		sprite.width = 0;
+	}
 	if ( id == CHIP_ID_RANKIG ) {
 		int index = id - CHIP_ID_RANKIG;
 		const int OFFSET_X = 0;
@@ -366,6 +386,24 @@ Drawer::Sprite GraphManager::getSprite( int x, int y, CHIP_ID id ) {
 		sprite.image = GRAPH_ID_BACK_GROUND;
 		sprite.tx = ( CHIP_SIZE + OFFSET_X ) * ( index % 8 );
 		sprite.ty = ( CHIP_SIZE + OFFSET_Y ) * ( index / 8 );
+	}
+
+	if ( CHIP_ID_NUMBER_0 <= id && id <= CHIP_ID_NUMBER_9 ) {
+		int index = id - CHIP_ID_NUMBER_0;
+		sprite.image = GRAPH_ID_NUMBER;
+		sprite.tx = 64 * index;
+		sprite.ty = 0;
+		sprite.width = 64;
+		sprite.height = 96;
+	}
+
+	if ( CHIP_ID_NUMBER_RED_0 <= id && id <= CHIP_ID_NUMBER_RED_9 ) {
+		int index = id - CHIP_ID_NUMBER_RED_0;
+		sprite.image = GRAPH_ID_NUMBER_RED;
+		sprite.tx = 64 * index;
+		sprite.ty = 0;
+		sprite.width = 64;
+		sprite.height = 96;
 	}
 	return sprite;
 }

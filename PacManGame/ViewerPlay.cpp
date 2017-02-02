@@ -78,8 +78,15 @@ void ViewerPlay::drawPlay( ) {
 }
 
 void ViewerPlay::drawResult( ) {
+	PlayStagePtr stage = _play_game->getPlayStage( );
 	drawPlay( );
 	//ƒŠƒUƒ‹ƒg‚ð•`‰æ‚·‚é
+	if ( stage->isDeadStage( ) ) {
+		_graph_manager->drawChip( 0, 0, GraphManager::CHIP_ID_GAMEOVER );
+	}
+	if ( stage->isClearStage( ) ) {
+		_graph_manager->drawChip( 0, 0, GraphManager::CHIP_ID_CLEAR );
+	}
 }
 
 void ViewerPlay::drawField( PlayStagePtr stage ) {

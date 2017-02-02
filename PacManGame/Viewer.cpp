@@ -2,6 +2,7 @@
 #include "Viewer.h"
 #include "ViewerTitle.h"
 #include "ViewerPlay.h"
+#include "ViewerRanking.h"
 #include "GraphManager.h"
 #include "Game.h"
 #include "MapDefine.h"
@@ -23,6 +24,7 @@ Viewer::~Viewer( ) {
 void Viewer::initialize( ) {
 	_titile = ViewerTitlePtr( new ViewerTitle( _graph_manager ) );
 	_play = ViewerPlayPtr( new ViewerPlay( _graph_manager ) );
+	_ranking = ViewerRankingPtr( new ViewerRanking( _graph_manager ) );
 }
 
 void Viewer::update( ) {
@@ -36,7 +38,7 @@ void Viewer::update( ) {
 			_play->update( );
 			break;
 		case Game::GAME_STATE_RESULT:
-			_graph_manager->drawChip( 0, 0, GraphManager::CHIP_ID_RANKIG );
+			_ranking->update( );
 			break;
 		default:
 			assert( "NoneGameState" );

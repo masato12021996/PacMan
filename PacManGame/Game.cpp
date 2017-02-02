@@ -74,3 +74,7 @@ Game::GAME_STATE Game::getGameState( ) const {
 PlayGamePtr Game::getPlayGame( ) const {
 	return _play_game;
 }
+
+RankingPtr Game::getRanking( ) const {
+	return _ranking;
+}

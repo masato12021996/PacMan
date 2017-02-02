@@ -8,6 +8,7 @@ public:
 public:
 	void setClearNum( int clear_num );
 	int getClearNum( int id ) const;
+	int getNewClearNum( ) const;
 private:
 	std::vector< int > _ranking;
 	int _new_clear_num;

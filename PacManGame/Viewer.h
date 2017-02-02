@@ -5,6 +5,7 @@
 PTR( Viewer );
 PTR( ViewerTitle );
 PTR( ViewerPlay );
+PTR( ViewerRanking );
 PTR( GraphManager );
 PTR( Stage );
 
@@ -22,4 +23,5 @@ private:
 	GraphManagerPtr _graph_manager;
 	ViewerTitlePtr _titile;
 	ViewerPlayPtr _play;
+	ViewerRankingPtr _ranking;
 };

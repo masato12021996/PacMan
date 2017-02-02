@@ -26,3 +26,7 @@ void Ranking::setClearNum( int clear_num ) {
 int Ranking::getClearNum( int id ) const {
 	return _ranking[ id ];
 }
+
+int Ranking::getNewClearNum( ) const {
+	return _new_clear_num;
+}

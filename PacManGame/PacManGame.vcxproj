@@ -98,6 +98,7 @@
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Viewer.cpp" />
     <ClCompile Include="ViewerPlay.cpp" />
+    <ClCompile Include="ViewerRanking.cpp" />
     <ClCompile Include="ViewerTitle.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +116,7 @@
     <ClInclude Include="Title.h" />
     <ClInclude Include="Viewer.h" />
     <ClInclude Include="ViewerPlay.h" />
+    <ClInclude Include="ViewerRanking.h" />
     <ClInclude Include="ViewerTitle.h" />
   </ItemGroup>
   <ItemGroup>

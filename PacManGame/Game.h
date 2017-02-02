@@ -26,6 +26,7 @@ public:
 	void update( );
 	GAME_STATE getGameState( ) const;
 	TitlePtr getTitle( ) const;
+	RankingPtr getRanking( ) const;
 	PlayGamePtr getPlayGame( ) const;
 private:
 	GAME_STATE _game_state;
