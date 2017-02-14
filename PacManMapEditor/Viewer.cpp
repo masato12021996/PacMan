@@ -9,15 +9,14 @@
 
 const int CHIP_SIZE = 32;
 
-const GraphManager::CHIP_ID OBJECT_LIST[ 8 ] = {
+const GraphManager::CHIP_ID OBJECT_LIST[ 7 ] = {
 	GraphManager::CHIP_ID_PACMAN_1_LEFT,
 	GraphManager::CHIP_ID_ENEMY_RED_LEFT_0,
 	GraphManager::CHIP_ID_ENEMY_PINC_LEFT_0,
 	GraphManager::CHIP_ID_ENEMY_BLUE_LEFT_0,
 	GraphManager::CHIP_ID_ENEMY_ORANGE_LEFT_0,
 	GraphManager::CHIP_ID_TARGET_BATE,
-	GraphManager::CHIP_ID_TARGET_POWER_BATE,
-	GraphManager::CHIP_ID_BACK_GROUND_0001,
+	GraphManager::CHIP_ID_TARGET_POWER_BATE
 };
 
 ViewerPtr Viewer::getTask( ) {
