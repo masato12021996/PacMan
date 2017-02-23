@@ -14,7 +14,7 @@ void EnemyPinc::actor( ) {
 	FieldPtr field = getField( );
 	Vector target = getPlayerPos( );
 	int counter = 0;
-	while ( field->getFieldTarget( target.x / MapParameter::CHIP_SIZE, target.y / MapParameter::CHIP_SIZE ) != Field::OBJECT_WALL ) {
+	while ( field->getFieldTarget( ( int )( target.x / MapParameter::CHIP_SIZE ), ( int )( target.y / MapParameter::CHIP_SIZE ) ) != Field::OBJECT_WALL ) {
 		target += getPlayerDir( ) * MapParameter::CHIP_SIZE;
 		counter++;
 		if ( counter > 3 ) {
@@ -32,7 +32,7 @@ void EnemyPinc::actor( ) {
 	int key = -1;
 	for ( int i = 0; i < 4; i++ ) {
 		Vector next_pos = getPos( ) + DIR[ i ] * MapParameter::CHIP_SIZE;
-		int root_num = field->getRootNum( target.x / MapParameter::CHIP_SIZE, target.y / MapParameter::CHIP_SIZE, next_pos.x / MapParameter::CHIP_SIZE, next_pos.y  / MapParameter::CHIP_SIZE );
+		int root_num = field->getRootNum( ( int )( target.x / MapParameter::CHIP_SIZE ), ( int )( target.y / MapParameter::CHIP_SIZE ), ( int )( next_pos.x / MapParameter::CHIP_SIZE ) , ( int )( next_pos.y  / MapParameter::CHIP_SIZE ) );
 		if ( min_root > root_num && root_num >= 0 ) {
 			key = i;
 			min_root = root_num;

@@ -173,6 +173,23 @@ void Enemy::move( ) {
 		speed = speed / 2;
 	}
 	_pos += _dir * speed;
+
+	int x = ( int )_pos.x;
+	int y = ( int )_pos.y;
+
+	if ( x < MAP_LEFT_BORDER - MAP_OUT_BORDER ) {
+		x = MAP_RIGHT_BORDER + MAP_OUT_BORDER;
+	}
+	if ( x > MAP_RIGHT_BORDER + MAP_OUT_BORDER ) {
+		x = MAP_LEFT_BORDER - MAP_OUT_BORDER;
+	}
+	if ( x % MapParameter::CHIP_SIZE != MapParameter::CHIP_SIZE / 2 && _dir.y != 0 ) {
+		x = x / MapParameter::CHIP_SIZE * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
+	}
+	if ( y % MapParameter::CHIP_SIZE != MapParameter::CHIP_SIZE / 2 && _dir.x != 0 ) {
+		y = y / MapParameter::CHIP_SIZE * MapParameter::CHIP_SIZE + MapParameter::CHIP_SIZE / 2;
+	}
+	_pos = Vector( x, y );
 }
 
 void Enemy::badRun( ) {
@@ -187,7 +204,7 @@ void Enemy::badRun( ) {
 	int key = -1;
 	for ( int i = 0; i < 4; i++ ) {
 		Vector next_pos = getPos( ) + DIR[ i ] * MapParameter::CHIP_SIZE;
-		int root_num = _field->getRootNum( target.x / MapParameter::CHIP_SIZE, target.y / MapParameter::CHIP_SIZE, next_pos.x / MapParameter::CHIP_SIZE, next_pos.y  / MapParameter::CHIP_SIZE );
+		int root_num = _field->getRootNum( ( int )( target.x / MapParameter::CHIP_SIZE ), ( int )( target.y / MapParameter::CHIP_SIZE ), ( int )( next_pos.x / MapParameter::CHIP_SIZE ), ( int )( next_pos.y  / MapParameter::CHIP_SIZE ) );
 		if ( max_root < root_num && root_num >= 0 ) {
 			key = i;
 			max_root = root_num;

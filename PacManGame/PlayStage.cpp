@@ -128,7 +128,7 @@ bool PlayStage::isClearStage( ) const {
 	switch( _trems ) {
 	case Stage::CLEAR_TREMS_ENEMY_EAT:
 		is_end = true;
-		for ( int i = 0; i < _enemies.size( ); i++ ) {
+		for ( int i = 0; i < ( int )_enemies.size( ); i++ ) {
 			if ( _enemies[ i ]->isExpired( ) ) {
 				is_end = false;
 			}

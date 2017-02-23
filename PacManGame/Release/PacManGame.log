@@ -1,25 +1,47 @@
-﻿  Enemy.cpp
-Enemy.cpp(190): warning C4244: '引数' : 'double' から 'const int' への変換です。データが失われる可能性があります。
-  EnemyAnimationFoctory.cpp
-  EnemyBlue.cpp
-  EnemyOrange.cpp
-  EnemyPinc.cpp
-EnemyPinc.cpp(17): warning C4244: '引数' : 'double' から 'int' への変換です。データが失われる可能性があります。
-EnemyPinc.cpp(35): warning C4244: '引数' : 'double' から 'const int' への変換です。データが失われる可能性があります。
-  EnemyRed.cpp
-EnemyRed.cpp(25): warning C4244: '引数' : 'double' から 'const int' への変換です。データが失われる可能性があります。
-  Game.cpp
-  main.cpp
-  Player.cpp
-Player.cpp(164): warning C4244: '初期化中' : 'double' から 'int' への変換です。データが失われる可能性があります。
-Player.cpp(165): warning C4244: '初期化中' : 'double' から 'int' への変換です。データが失われる可能性があります。
-  PlayGame.cpp
-  PlayStage.cpp
-PlayStage.cpp(131): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
-  Ranking.cpp
-  Title.cpp
-  Viewer.cpp
-  ViewerPlay.cpp
-  ViewerRanking.cpp
-  ViewerTitle.cpp
-LINK : fatal error LNK1104: ファイル 'DxDrawFunc_vs2012_x86.lib' を開くことができません。
+﻿2017/02/23 10:51:21 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\student\Desktop\PacMan\PacManGame\PacManGame.vcxproj" (Build ターゲット)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /IC:\Users\student\Desktop\PacMan\Framework /I"C:\Users\student\Desktop\PacMan\Pac-ManLib" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Enemy.cpp EnemyAnimationFoctory.cpp EnemyBlue.cpp EnemyOrange.cpp EnemyPinc.cpp EnemyRed.cpp Game.cpp main.cpp Player.cpp PlayGame.cpp PlayStage.cpp Ranking.cpp Title.cpp Viewer.cpp ViewerPlay.cpp ViewerRanking.cpp ViewerTitle.cpp
+         Enemy.cpp
+         EnemyAnimationFoctory.cpp
+         EnemyBlue.cpp
+         EnemyOrange.cpp
+         EnemyPinc.cpp
+         EnemyRed.cpp
+         Game.cpp
+         main.cpp
+         Player.cpp
+         PlayGame.cpp
+         PlayStage.cpp
+         Ranking.cpp
+         Title.cpp
+         Viewer.cpp
+         ViewerPlay.cpp
+         ViewerRanking.cpp
+         ViewerTitle.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\student\Desktop\PacMan\Release\PacManGame.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\student\Desktop\PacMan\Release\PacManGame.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\student\Desktop\PacMan\Release\PacManGame.lib" /MACHINE:X86 /SAFESEH Release\Enemy.obj
+         Release\EnemyAnimationFoctory.obj
+         Release\EnemyBlue.obj
+         Release\EnemyOrange.obj
+         Release\EnemyPinc.obj
+         Release\EnemyRed.obj
+         Release\Game.obj
+         Release\main.obj
+         Release\Player.obj
+         Release\PlayGame.obj
+         Release\PlayStage.obj
+         Release\Ranking.obj
+         Release\Title.obj
+         Release\Viewer.obj
+         Release\ViewerPlay.obj
+         Release\ViewerRanking.obj
+         Release\ViewerTitle.obj
+         C:\Users\student\Desktop\PacMan\Release\Framework.lib
+         "C:\Users\student\Desktop\PacMan\Release\Pac-ManLib.lib"
+     1>LINK : fatal error LNK1104: ファイル 'DxDrawFunc_vs2012_x86.lib' を開くことができません。
+     1>プロジェクト "C:\Users\student\Desktop\PacMan\PacManGame\PacManGame.vcxproj" (Build ターゲット) のビルドが終了しました -- 失敗。
+
+ビルドに失敗しました。
+
+経過時間 00:00:05.02

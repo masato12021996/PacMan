@@ -161,8 +161,8 @@ bool Player::onMap( Vector pos ) {
 bool Player::canMove( Vector pos ) {
 	bool result = true;
 	//まず自分のいる1こさきマスを取得する
-	int x = ( int )pos.x / MapParameter::CHIP_SIZE + _dir.normalize( ).x;
-	int y = ( int )pos.y / MapParameter::CHIP_SIZE + _dir.normalize( ).y;
+	int x = ( int )( pos.x / MapParameter::CHIP_SIZE + _dir.normalize( ).x );
+	int y = ( int )( pos.y / MapParameter::CHIP_SIZE + _dir.normalize( ).y );
 	if ( onMap( Vector( x * MapParameter::CHIP_SIZE, y * MapParameter::CHIP_SIZE ) ) ) {
 		//各マスが壁か判断する。
 		if ( y == 12 && x == 30 ) {

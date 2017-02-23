@@ -1,3 +1,37 @@
-﻿  SEManager.cpp
-  Stage.cpp
-  Pac-ManLib.vcxproj -> D:\Desktop\PacMan\Release\Pac-ManLib.lib
+﻿2017/02/23 10:51:18 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\student\Desktop\PacMan\Pac-ManLib\Pac-ManLib.vcxproj" (Build ターゲット)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /IC:\Users\student\Desktop\PacMan\Framework /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Animation.cpp BGMManager.cpp EnemyBadAnimation.cpp EnemyBadEndAnimation.cpp EnemyWalkAnimation.cpp Field.cpp GraphManager.cpp PlayerAnimationFactory.cpp PlayerChangeDirAnimation.cpp PlayerDeadAnimation.cpp PlayerWalkAnimation.cpp SEManager.cpp Stage.cpp
+         Animation.cpp
+         BGMManager.cpp
+         EnemyBadAnimation.cpp
+         EnemyBadEndAnimation.cpp
+         EnemyWalkAnimation.cpp
+         Field.cpp
+         GraphManager.cpp
+         PlayerAnimationFactory.cpp
+         PlayerChangeDirAnimation.cpp
+         PlayerDeadAnimation.cpp
+         PlayerWalkAnimation.cpp
+         SEManager.cpp
+         Stage.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\student\Desktop\PacMan\Release\Pac-ManLib.lib" /NOLOGO /LTCG Release\Animation.obj
+         Release\BGMManager.obj
+         Release\EnemyBadAnimation.obj
+         Release\EnemyBadEndAnimation.obj
+         Release\EnemyWalkAnimation.obj
+         Release\Field.obj
+         Release\GraphManager.obj
+         Release\PlayerAnimationFactory.obj
+         Release\PlayerChangeDirAnimation.obj
+         Release\PlayerDeadAnimation.obj
+         Release\PlayerWalkAnimation.obj
+         Release\SEManager.obj
+         Release\Stage.obj
+         Pac-ManLib.vcxproj -> C:\Users\student\Desktop\PacMan\Release\Pac-ManLib.lib
+     1>プロジェクト "C:\Users\student\Desktop\PacMan\Pac-ManLib\Pac-ManLib.vcxproj" (Build ターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+
+経過時間 00:00:02.96

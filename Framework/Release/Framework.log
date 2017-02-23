@@ -1,10 +1,29 @@
-﻿  Application.cpp
-  Drawer.cpp
-  Encorder.cpp
-  Keyboard.cpp
-  MessageBoxMaker.cpp
-  Mouse.cpp
-  Sound.cpp
-  Task.cpp
-  WinMain.cpp
-  Framework.vcxproj -> D:\Desktop\PacMan\Release\Framework.lib
+﻿2017/02/23 10:51:13 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\student\Desktop\PacMan\Framework\Framework.vcxproj" (Build ターゲット)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Application.cpp Drawer.cpp Encorder.cpp Keyboard.cpp MessageBoxMaker.cpp Mouse.cpp Sound.cpp Task.cpp WinMain.cpp
+         Application.cpp
+         Drawer.cpp
+         Encorder.cpp
+         Keyboard.cpp
+         MessageBoxMaker.cpp
+         Mouse.cpp
+         Sound.cpp
+         Task.cpp
+         WinMain.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\student\Desktop\PacMan\Release\Framework.lib" /LIBPATH:"C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /NOLOGO /LTCG Release\Application.obj
+         Release\Drawer.obj
+         Release\Encorder.obj
+         Release\Keyboard.obj
+         Release\MessageBoxMaker.obj
+         Release\Mouse.obj
+         Release\Sound.obj
+         Release\Task.obj
+         Release\WinMain.obj
+         Framework.vcxproj -> C:\Users\student\Desktop\PacMan\Release\Framework.lib
+     1>プロジェクト "C:\Users\student\Desktop\PacMan\Framework\Framework.vcxproj" (Build ターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+
+経過時間 00:00:04.97
